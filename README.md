@@ -7,7 +7,16 @@ This is a web application CRUD using Nextjs, Typescript and Pg (npm module) driv
 In order to execute this project you must have:
 
 * Nodejs installed
-* Postgresql
+* **Postgresql**, You need postgresql running, you can see the sql table, in `/database/db.sql`
+
+### Installation
+
+```
+git clone https://github.com/FaztWeb/nextjs-postgres-crud-typescript
+cd nextjs-postgres-crud-typescript
+npm install
+npm run dev
+```
 
 ### PostgreSQL with Docker
 
