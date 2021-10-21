@@ -1,35 +1,34 @@
-import { NextApiRequest, NextApiResponse } from 'next';
-import { conn } from 'src/utils/database'
+import { NextApiRequest, NextApiResponse } from "next";
+import { conn } from "src/utils/database";
 
-export default async (req: NextApiRequest, res: NextApiResponse) => {
-    const { method, body } = req;
+// eslint-disable-next-line import/no-anonymous-default-export
+export default async function (req: NextApiRequest, res: NextApiResponse) {
+  const { method, body } = req;
 
-    switch (method) {
-        case "GET":
-            try {
-                const query = 'SELECT * FROM tasks';
-                const response = await conn.query(query);
-                res.json(response.rows)
-            } catch (error) {
-                res.status(400).json({ message: error.message });
-            }
-            break;
-        case 'POST':
-            try {
-                const { title, description } = body;
+  switch (method) {
+    case "GET":
+      try {
+        const query = "SELECT * FROM tasks";
+        const response = await conn.query(query);
+        return res.json(response.rows);
+      } catch (error) {
+        return res.status(400).json({ message: error.message });
+      }
+    case "POST":
+      try {
+        const { title, description } = body;
 
-                const query = 'INSERT INTO tasks(title, description) VALUES ($1, $2) RETURNING *';
-                const values = [title, description];
+        const query =
+          "INSERT INTO tasks(title, description) VALUES ($1, $2) RETURNING *";
+        const values = [title, description];
 
-                const response = await conn.query(query, values)
+        const response = await conn.query(query, values);
 
-                res.json({ task: response.rows[0] });
-            } catch (error) {
-                res.status(400).json({ message: error.message });
-            }
-            break;
-        default:
-            return res.status(400).json({message: 'Method are not supported'});
-    }
-
+        return res.json(response.rows[0]);
+      } catch (error) {
+        return res.status(400).json({ message: error.message });
+      }
+    default:
+      return res.status(400).json({ message: "Method are not supported" });
+  }
 }

@@ -1,6 +1,6 @@
 {
   "name": "next-postgres-crud-typescript",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -13,14 +13,15 @@
     "pg": "^8.7.1",
     "react": "17.0.2",
     "react-dom": "17.0.2",
+    "react-icons": "^4.3.1",
     "semantic-ui-css": "^2.4.1",
-    "semantic-ui-react": "^2.0.3"
+    "semantic-ui-react": "^2.0.4"
   },
   "devDependencies": {
     "@types/pg": "^8.6.1",
-    "@types/react": "17.0.20",
-    "eslint": "7.32.0",
+    "@types/react": "17.0.31",
+    "eslint": "^8.0.1",
     "eslint-config-next": "11.1.2",
-    "typescript": "4.4.3"
+    "typescript": "4.4.4"
   }
 }

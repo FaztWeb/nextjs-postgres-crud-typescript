@@ -1,3 +1,7 @@
+CREATE DATABASE tasksdb;
+
+-- \c tasksdb;
+
 CREATE TABLE IF NOT EXISTS tasks(
     id SERIAL PRIMARY KEY,
     title VARCHAR(100) UNIQUE NOT NULL,
