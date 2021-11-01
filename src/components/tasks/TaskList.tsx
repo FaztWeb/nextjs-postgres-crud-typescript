@@ -1,4 +1,4 @@
-import {useRouter} from "next/router";
+import { useRouter } from "next/router";
 import { Card } from "semantic-ui-react";
 import { Task } from "src/interfaces/Tasks";
 
@@ -6,10 +6,12 @@ interface Props {
   tasks: Task[];
 }
 
-export const TaskList = ({ tasks }: Props) => {
-  
+export const TaskList = ({ tasks = [] }: Props) => {
+
   const router = useRouter();
-  
+
+  console.log(tasks) 
+
   return (
     <Card.Group itemsPerRow={4}>
       {tasks.map((task) => (

@@ -1,11 +1,11 @@
 import { Pool, Connection } from "pg";
 
-let conn: Connection;
+let conn;
 
 if (!conn) {
   conn = new Pool({
-    user: "root",
-    password: "root",
+    user: "postgres",
+    password: "mysecretpassword",
     host: "localhost",
     port: 5432,
     database: "tasksdb",
