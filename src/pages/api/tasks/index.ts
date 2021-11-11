@@ -11,7 +11,7 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
         const query = "SELECT * FROM tasks";
         const response = await conn.query(query);
         return res.json(response.rows);
-      } catch (error) {
+      } catch (error: any) {
         return res.status(400).json({ message: error.message });
       }
     case "POST":
@@ -25,7 +25,7 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
         const response = await conn.query(query, values);
 
         return res.json(response.rows[0]);
-      } catch (error) {
+      } catch (error: any) {
         return res.status(400).json({ message: error.message });
       }
     default:

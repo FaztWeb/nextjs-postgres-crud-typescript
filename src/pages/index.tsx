@@ -1,15 +1,16 @@
-import type { NextPage } from "next";
 import { GetServerSideProps } from "next";
-import Head from "next/head";
-import Image from "next/image";
-import styles from "../styles/Home.module.css";
 import { Button, Grid } from "semantic-ui-react";
 import { Layout } from "src/components/Layout";
 import { BiTaskX } from "react-icons/bi";
 import { TaskList } from "src/components/tasks/TaskList";
 import { useRouter } from "next/router";
+import { Task } from "src/interfaces/Tasks";
 
-const Home: NextPage = ({ tasks }) => {
+interface Props {
+  tasks: Task[];
+}
+
+const Home = ({ tasks }: Props) => {
   const { push } = useRouter();
 
   return (

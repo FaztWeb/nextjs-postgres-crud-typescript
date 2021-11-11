@@ -7,20 +7,22 @@ interface Props {
 }
 
 export const TaskList = ({ tasks = [] }: Props) => {
-
   const router = useRouter();
-
-  console.log(tasks) 
 
   return (
     <Card.Group itemsPerRow={4}>
       {tasks.map((task) => (
-        <Card onClick={() => router.push(`/tasks/edit/${task.id}`)}>
+        <Card
+          onClick={() => router.push(`/tasks/edit/${task.id}`)}
+          key={task.id}
+        >
           <Card.Content>
             <Card.Header>{task.title}</Card.Header>
-            <Card.Meta>
-              {new Date(task.created_on).toLocaleDateString()}
-            </Card.Meta>
+            {task.created_on && (
+              <Card.Meta>
+                {new Date(task.created_on).toLocaleDateString()}
+              </Card.Meta>
+            )}
             <Card.Description>{task.description}</Card.Description>
           </Card.Content>
         </Card>

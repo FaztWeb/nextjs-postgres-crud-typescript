@@ -1,6 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { conn } from "src/utils/database";
 
+// eslint-disable-next-line import/no-anonymous-default-export
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   const {
     method,
@@ -18,11 +19,10 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         if (result.rowCount === 0)
           return res.status(404).json({ message: "Task Not Found" });
 
-        res.json(result.rows[0]);
-      } catch (error) {
-        res.status(400).json({ message: error.message });
+        return res.json(result.rows[0]);
+      } catch (error: any) {
+        return res.status(400).json({ message: error.message });
       }
-      break;
     case "PUT":
       try {
         const { title, description } = body;
@@ -30,11 +30,10 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
           "UPDATE tasks SET title = $1, description = $2 WHERE id = $3 RETURNING *";
         const values = [title, description, id];
         const result = await conn.query(text, values);
-        return res.json(result.rows);
-      } catch (error) {
+        return res.json(result.rows[0]);
+      } catch (error: any) {
         return res.status(400).json({ message: error.message });
       }
-      break;
     case "DELETE":
       try {
         const text = "DELETE FROM tasks WHERE id = $1 RETURNING *";
@@ -45,7 +44,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
           return res.status(404).json({ message: "Task Not Found" });
 
         return res.json(result.rows[0]);
-      } catch (error) {
+      } catch (error: any) {
         return res.status(400).json({ message: error.message });
       }
     default:

@@ -1,11 +1,11 @@
-import { Pool, Connection } from "pg";
+import { Pool } from "pg";
 
-let conn;
+let conn: any;
 
 if (!conn) {
   conn = new Pool({
-    user: "postgres",
-    password: "mysecretpassword",
+    user: "root",
+    password: "root",
     host: "localhost",
     port: 5432,
     database: "tasksdb",
