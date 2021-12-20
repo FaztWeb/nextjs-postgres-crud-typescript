@@ -1,8 +1,8 @@
-import { Layout } from "src/components/Layout";
+import { Layout } from "client/src/components/Layout";
 import { Card, Form, Grid, Button, Icon, Confirm } from "semantic-ui-react";
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import { Task } from "src/interfaces/Tasks";
+import { Task } from "client/src/interfaces/Tasks";
 
 type ChangeInputHandler = ChangeEvent<HTMLInputElement | HTMLTextAreaElement>;
 

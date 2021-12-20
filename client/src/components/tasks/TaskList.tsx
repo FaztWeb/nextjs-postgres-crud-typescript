@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import { Card } from "semantic-ui-react";
-import { Task } from "src/interfaces/Tasks";
+import { Task } from "client/src/interfaces/Tasks";
 
 interface Props {
   tasks: Task[];

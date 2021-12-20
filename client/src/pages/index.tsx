@@ -1,10 +1,10 @@
 import { GetServerSideProps } from "next";
 import { Button, Grid } from "semantic-ui-react";
-import { Layout } from "src/components/Layout";
+import { Layout } from "client/src/components/Layout";
 import { BiTaskX } from "react-icons/bi";
-import { TaskList } from "src/components/tasks/TaskList";
+import { TaskList } from "client/src/components/tasks/TaskList";
 import { useRouter } from "next/router";
-import { Task } from "src/interfaces/Tasks";
+import { Task } from "client/src/interfaces/Tasks";
 
 interface Props {
   tasks: Task[];

@@ -1,24 +1,31 @@
 version: "3.8"
 
 services:
-  postgres:
-    container_name: next_postgres
-    image: postgres
-    restart: always
-    environment:
-      - DATABASE_HOST=127.0.0.1
-      - POSTGRES_USER=root
-      - POSTGRES_PASSWORD=root
-      - POSTGRES_DB=root
-    ports:
-      - 5432:5432
-
-  # pgadmin:
-  #   image: dpage/pgadmin4
+  # postgres:
+  #   container_name: next_postgres
+  #   image: postgres
+  #   restart: always
   #   environment:
-  #     PGADMIN_DEFAULT_EMAIL: "admin@admin.com"
-  #     PGADMIN_DEFAULT_PASSWORD: "admin"
+  #     - DATABASE_HOST=127.0.0.1
+  #     - POSTGRES_USER=root
+  #     - POSTGRES_PASSWORD=root
+  #     - POSTGRES_DB=root
   #   ports:
-  #     - "80:80"
+  #     - 5432:5432
+  #   volumes:
+  #     - ./database/data/postgres:/var/lib/postgresql/data
+  app:
+    build: ./client
+    working_dir: /app/client
+    restart: always
+    volumes:
+      - ./client:/app/client
+    ports:
+      - 3000:3000
+  # api:
+  #   build: ./api
+  #   working_dir: /app/api
+  #   volumes:
+  #     - ./api:/app/api
   #   depends_on:
   #     - postgres
