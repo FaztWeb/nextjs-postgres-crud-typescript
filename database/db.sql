@@ -1,4 +1,5 @@
-CREATE DATABASE tasksdb;
+CREATE DATABASE usersdb;
+GRANT ALL PRIVILEGES ON DATABASE usersdb TO postgres;
 
 -- \c tasksdb;
 

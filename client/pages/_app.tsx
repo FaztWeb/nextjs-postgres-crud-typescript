@@ -1,7 +1,7 @@
-import "semantic-ui-css/semantic.min.css";
-import type { AppProps } from "next/app";
+import { AppProps } from 'next/app';
 
 function MyApp({ Component, pageProps }: AppProps) {
+  const x = 0;
   return <Component {...pageProps} />;
 }
 
