@@ -1,7 +1,7 @@
 import bcrypt from 'bcrypt';
 import { artistsData } from './data';
-import { PrismaClient } from '@prisma/client';
-const prisma = new PrismaClient();
+import prisma from 'utils/prisma';
+
 const run = async () => {
   await Promise.all(
     artistsData.map(async (artist) => {

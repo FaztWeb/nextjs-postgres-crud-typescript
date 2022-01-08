@@ -7,7 +7,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "migrate": "npx prisma migrate dev && next dev"
+    "migrate": "npx prisma migrate dev",
+    "data-push": "npx prisma push",
+    "execute": "wait-for.sh"
   },
   "dependencies": {
     "@prisma/client": "^3.7.0",

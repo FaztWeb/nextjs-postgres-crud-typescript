@@ -1,11 +1,8 @@
 #!/bin/sh
-# wait-for-postgres.sh
 
-set -e
-  
-shift
+echo "HELLO WORLD"
 
-until PGPASSWORD="developer" psql -h "postgres" -U "developer" -c '\q'; do
+until PGPASSWORD="developer" psql -h "postgres" -U "developer" -d "user_db" -c '\q'; do
   >&2 echo "Postgres is unavailable - sleeping"
   sleep 10
 done

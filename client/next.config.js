@@ -9,6 +9,6 @@ module.exports = {
   },
   reactStrictMode: true,
   images: {
-    domains: ["react.semantic-ui.com"],
+    domains: ['react.semantic-ui.com'],
   },
 };
