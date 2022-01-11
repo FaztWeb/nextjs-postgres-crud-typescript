@@ -12,18 +12,28 @@
     "execute": "wait-for.sh"
   },
   "dependencies": {
+    "@arcgis/core": "^4.22.2",
+    "@googlemaps/react-wrapper": "^1.1.19",
+    "@googlemaps/three": "^1.0.13",
     "@prisma/client": "^3.7.0",
+    "@types/three": "^0.136.1",
     "bcrypt": "^5.0.1",
+    "google-map-react": "^2.1.10",
+    "google-maps": "^4.3.3",
     "next": "12.0.3",
     "pg": "^8.7.1",
     "prisma": "^3.7.0",
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "react-icons": "^4.3.1",
+    "sass": "^1.47.0",
+    "three": "^0.136.0",
     "ts-node": "^10.4.0"
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.0",
+    "@types/google-map-react": "^2.1.3",
+    "@types/google.maps": "^3.47.2",
     "@types/node": "16.11.12",
     "@types/pg": "^8.6.1",
     "@types/react": "17.0.37",

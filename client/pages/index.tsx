@@ -1,18 +1,7 @@
-import prisma from '../utils/prisma';
-import { InferGetServerSidePropsType } from 'next';
+import Map from 'components/Map';
 
-const Index = ({
-  oldUser,
-}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
-  return <div> {oldUser} </div>;
+const Main = () => {
+  return <Map />;
 };
 
-export async function getServerSideProps() {
-  const oldUser = await prisma.user.findMany({});
-
-  return {
-    props: { oldUser },
-  };
-}
-
-export default Index;
+export default Main;

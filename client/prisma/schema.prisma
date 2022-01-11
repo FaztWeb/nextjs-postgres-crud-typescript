@@ -12,12 +12,13 @@ datasource db {
 }
 
 model User {
-  id        Int        @id @default(autoincrement())
-  createdAt DateTime   @default(now())
-  updatedAt DateTime   @updatedAt
-  email     String     @unique
-  password  String
-  playlists Playlist[]
+  id                Int        @id @default(autoincrement())
+  createdAt         String
+  email             String     @unique
+  password          String
+  playlists         Playlist[]
+  MangekyoSharingan Boolean
+
 }
 
 model Song {
@@ -33,11 +34,12 @@ model Song {
 }
 
 model Artist {
-  id        Int      @id @default(autoincrement())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  songs     Song[]
-  name      String   @unique
+  id                Int      @id @default(autoincrement())
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+  songs             Song[]
+  name              String   @unique
+  MangekyoSharingan Boolean
 }
 
 model Playlist {
