@@ -14,6 +14,7 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "baseUrl": ".",
+    "experimentalDecorators": true,
     "incremental": true
   },
   "include": ["client/next-env.d.tsd.ts", "**/*.ts", "**/*.tsx"],
