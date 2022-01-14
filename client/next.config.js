@@ -1,4 +1,5 @@
 /** @type {import('next').NextConfig} */
+
 module.exports = {
   webpackDevMiddleware: (config) => {
     config.watchOptions = {

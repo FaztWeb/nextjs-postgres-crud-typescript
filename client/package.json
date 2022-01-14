@@ -16,6 +16,7 @@
     "@googlemaps/react-wrapper": "^1.1.19",
     "@googlemaps/three": "^1.0.13",
     "@prisma/client": "^3.7.0",
+    "@types/react-slick": "^0.23.8",
     "@types/three": "^0.136.1",
     "bcrypt": "^5.0.1",
     "google-map-react": "^2.1.10",
@@ -26,6 +27,8 @@
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "react-icons": "^4.3.1",
+    "react-slick": "^0.28.1",
+    "rxjs": "^7.5.2",
     "sass": "^1.47.0",
     "three": "^0.136.0",
     "ts-node": "^10.4.0"

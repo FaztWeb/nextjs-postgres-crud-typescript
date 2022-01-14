@@ -16,9 +16,9 @@ export default (mapContainer: HTMLDivElement) =>
     container: mapContainer,
     camera: {
       position: {
-        x: 21.225468,
-        y: 45.741524,
-        z: 500,
+        x: 21.226451243275225,
+        y: 45.74,
+        z: 100,
       },
       heading: 0,
       tilt: 65,

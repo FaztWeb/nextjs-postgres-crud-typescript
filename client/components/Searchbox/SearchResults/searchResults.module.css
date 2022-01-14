@@ -1,0 +1,18 @@
+.container {
+  width: 100%;
+  height: var(--pannel_height);
+  margin-top: var(--gap_x);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cards__container {
+  background-color: #dfdfdf;
+  width: calc(100% - 2 * var(--gap_x));
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow-y: scroll;
+}

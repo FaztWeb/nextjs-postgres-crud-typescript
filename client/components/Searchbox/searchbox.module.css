@@ -1,0 +1,12 @@
+.container {
+  width: var(--width);
+  height: var(--height);
+  background-color: rgb(255, 255, 255);
+  position: relative;
+  z-index: 10;
+  top: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}

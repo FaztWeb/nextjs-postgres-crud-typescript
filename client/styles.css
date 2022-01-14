@@ -8,6 +8,19 @@
  * 2. Prevent adjustments of font size after orientation changes in iOS.
  */
 
+* {
+  --width: 350px;
+  --height: 600px;
+  --gap_x: 30px;
+  --gap_y: 30px;
+  --width_ratio: 1.2;
+  --button_height: 50px;
+  --pannel_height: calc(
+    var(--height) - 3 * var(--gap_y) - var(--button_height)
+  );
+  --icon_width: 50px;
+}
+
 html {
   line-height: 1.15; /* 1 */
   -webkit-text-size-adjust: 100%; /* 2 */
@@ -166,6 +179,9 @@ textarea {
   font-size: 100%; /* 1 */
   line-height: 1.15; /* 1 */
   margin: 0; /* 2 */
+}
+input {
+  all: unset;
 }
 
 /**
@@ -349,10 +365,3 @@ template {
 [hidden] {
   display: none;
 }
-
-/* .esri-popup__main-container {
-  display: none !important;
-}
-.esri-popup__pointer-direction {
-  display: none !important;
-} */
