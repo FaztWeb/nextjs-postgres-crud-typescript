@@ -13,6 +13,8 @@
   --height: 600px;
   --gap_x: 30px;
   --gap_y: 30px;
+  --margin_x: calc(var(--gap_x) / 2);
+  --margin_y: calc(var(--gap_y) / 2);
   --width_ratio: 1.2;
   --button_height: 50px;
   --pannel_height: calc(
