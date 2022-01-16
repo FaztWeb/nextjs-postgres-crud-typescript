@@ -28,6 +28,7 @@
     "react-dom": "17.0.2",
     "react-icons": "^4.3.1",
     "react-slick": "^0.28.1",
+    "react-tooltip": "^4.2.21",
     "rxjs": "^7.5.2",
     "sass": "^1.47.0",
     "three": "^0.136.0",

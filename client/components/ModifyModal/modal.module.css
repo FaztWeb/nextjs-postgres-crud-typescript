@@ -38,6 +38,18 @@
   animation: animate 0.8s alternate-reverse infinite;
 }
 
+.tooltip {
+  background-color: rgba(0, 0, 0, 0.623);
+  color: rgb(255, 255, 255);
+}
+.finishedToolTip {
+  background-color: rgba(46, 129, 67, 0.63);
+}
+
+.pending {
+  background-color: rgba(151, 86, 33, 0.658);
+}
+
 @keyframes animate {
   from {
     opacity: 0;
