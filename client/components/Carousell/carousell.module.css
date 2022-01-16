@@ -20,7 +20,7 @@
 }
 
 .image__container img {
-  max-width: 200px;
+  max-width: var(--carousel__image_width);
   max-height: 100%;
 }
 

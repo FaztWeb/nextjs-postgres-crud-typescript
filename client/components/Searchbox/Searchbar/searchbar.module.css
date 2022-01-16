@@ -1,25 +1,26 @@
+/* the container of the button */
 .container {
   width: calc(100% - 2 * var(--gap_x));
   height: var(--button_height);
   margin-top: var(--gap_x);
   display: flex;
   align-items: center;
+  font-size: calc(3 / 5 * var(--button_height));
 }
 
 .searchBar {
   height: 100%;
-  width: calc(100% - var(--icon_width));
+  width: calc(100% - var(--search__text_width));
   border-top-left-radius: 100px;
   border-bottom-left-radius: 100px;
   background-color: #f3f2f2;
-  padding-left: 30px;
+  padding-left: var(--gap_x);
   box-shadow: 6px 7px 0px rgba(0, 0, 0, 0.438);
   color: rgb(0, 0, 0);
-  font-size: 30px;
 }
 .icon {
   height: 100%;
-  width: var(--icon_width);
+  width: var(--search__text_width);
   border-top-right-radius: 100px;
   border-bottom-right-radius: 100px;
   background-color: #f3f2f2;

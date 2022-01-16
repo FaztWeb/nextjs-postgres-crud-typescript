@@ -1,0 +1,11 @@
+.container {
+  position: absolute;
+  z-index: 1000;
+  height: auto;
+  width: auto;
+  padding: 10px;
+  background-color: rgba(0, 0, 0, 0.527);
+  color: white;
+  font-size: 14px;
+  visibility: hidden;
+}

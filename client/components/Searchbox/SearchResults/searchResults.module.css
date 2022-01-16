@@ -1,4 +1,4 @@
-.container {
+.pannel {
   width: 100%;
   height: var(--pannel_height);
   margin-top: var(--gap_x);
@@ -15,4 +15,20 @@
   flex-direction: column;
   align-items: center;
   overflow-y: scroll;
+}
+
+/* scrollbar customizations */
+.cards__container::-webkit-scrollba r {
+  width: 15px;
+}
+
+.cards__container::-webkit-scrollbar-track {
+  background-color: #aaaaaa;
+}
+
+.cards__container::-webkit-scrollbar-thumb {
+  border: 6px solid rgba(0, 0, 0, 0.18);
+  border-left: 0;
+  border-right: 0;
+  background-color: #2b2d44;
 }

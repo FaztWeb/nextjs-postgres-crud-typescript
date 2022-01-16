@@ -31,7 +31,8 @@
     "rxjs": "^7.5.2",
     "sass": "^1.47.0",
     "three": "^0.136.0",
-    "ts-node": "^10.4.0"
+    "ts-node": "^10.4.0",
+    "typewriter-effect": "^2.18.2"
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.0",

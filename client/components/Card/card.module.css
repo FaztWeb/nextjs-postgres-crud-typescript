@@ -15,13 +15,15 @@
   flex-direction: column;
 }
 
+/* the headerTitle contains styles for the church's display name container (box) */
 .headerTitle {
   position: relative;
-  font-size: 18px;
+  font-size: var(--card__header__text_size);
   margin-top: var(--margin_y);
   cursor: pointer;
 }
 
+/* the after styles are used to create an overlayed hover animation */
 .headerTitle::after {
   content: '';
   position: absolute;
@@ -42,29 +44,30 @@
   background-color: rgba(0, 0, 0, 0.048);
 }
 
+/* the subtitle contains the coordinates, text and info section */
 .headerSubtitle {
   width: auto;
   height: auto;
   overflow: hidden;
 }
+
 .coordinates {
   margin: calc(var(--gap_x)) 0;
   display: flex;
   flex-direction: row;
-  align-items: center;
+  align-items: flex-end;
+  font-size: var(--card__coordinates_text_size);
+  height: auto;
 }
 
 .latLong {
-  font-size: 12px;
-  height: 18px;
   display: flex;
   align-items: flex-end;
   margin-left: 5px;
-  cursor: auto;
 }
 
 .icon {
-  font-size: 18px;
+  font-size: var(--card__coordinates_icon_size);
   color: red;
 }
 
@@ -77,16 +80,17 @@
   position: relative;
   width: calc(100% - var(--gap_x));
   height: auto;
+  margin: var(--gap_y) 0px;
+  padding: 0 10px;
   display: flex;
   flex-direction: column;
-  padding: 0 10px;
-  margin: var(--gap_y) 0px;
+  font-size: var(--card__info_text_size);
 }
 .info__container::after {
   content: '';
   position: absolute;
   top: 0;
-  left: -5px;
+  left: -2px;
   width: 3px;
   height: calc(100%);
   background-color: rgb(73, 78, 124);
