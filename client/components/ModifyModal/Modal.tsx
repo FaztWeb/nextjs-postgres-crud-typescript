@@ -4,7 +4,8 @@ import finishType from 'lib/finishType';
 import { useState, useEffect, useRef } from 'react';
 import { FaCheckCircle } from 'react-icons/fa';
 import { debounceTime, tap } from 'rxjs';
-import popupPosition from 'lib/popupPosition';
+import ReactTooltip from 'react-tooltip';
+
 const Modal = () => {
   const [hasFinished, setHasFinished] = useState<boolean>(false);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -48,25 +49,19 @@ const Modal = () => {
           />
         </div>
         <div
+          data-tip="Schimbarea a fost inregistrata"
           className={hasFinished ? `${modal.icon} ${modal.finish}` : modal.icon}
-          onMouseOver={(event) => {
-            console.log(
-              event.currentTarget.offsetTop,
-              event.currentTarget.offsetLeft
-            );
-            popupPosition.next([
-              event.currentTarget.offsetLeft,
-              event.currentTarget.offsetTop,
-              'Schimbarea ta a fost salvata !',
-              'visible',
-            ]);
-          }}
-          onMouseLeave={() => {
-            popupPosition.next([0, 0, '', 'hidden']);
-          }}
         >
           <FaCheckCircle className={modal.iconDiv} />
         </div>
+        <ReactTooltip
+          effect="solid"
+          className={
+            hasFinished
+              ? `${modal.tooltip} ${modal.finishedToolTip}`
+              : `${modal.tooltip} ${modal.pending}`
+          }
+        />
       </div>
     </div>
   );

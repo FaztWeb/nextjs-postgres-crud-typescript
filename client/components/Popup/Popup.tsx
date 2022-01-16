@@ -10,22 +10,32 @@ const Popup = () => {
   const [[height, width], setWidthHeight] = useState<[number, number]>([0, 0]);
 
   useEffect(() => {
-    popupProps.subscribe(setPopup);
-    popupRef.current
-      ? setWidthHeight([
-          popupRef?.current?.offsetHeight,
-          popupRef?.current?.offsetWidth,
-        ])
-      : 0;
-  }, [popupRef?.current?.offsetHeight, popupRef?.current?.offsetWidth]);
+    console.log('RERENDER');
+    if (popupRef.current)
+      popupProps
+        .pipe(
+          tap((payload) => {
+            setPopup(payload);
+          }),
+          tap(() =>
+            setWidthHeight([
+              popupRef?.current?.offsetHeight as number,
+              popupRef?.current?.offsetWidth as number,
+            ])
+          )
+        )
+        .subscribe();
+  }, [popupRef]);
+
   return (
     <div
       ref={popupRef}
       className={popupStyle.container}
       style={{
-        top: `${y - height - 10}px`,
-        left: `${x - 10}px`,
-        visibility: `${visibility}`,
+        padding: width && height ? '10px' : '0px',
+        top: width && height ? `${y - height - 10}px` : '0px',
+        left: width && height ? `${x - 10}px` : '0px',
+        visibility: width && height ? `${visibility}` : 'hidden',
       }}
     >
       {message}
