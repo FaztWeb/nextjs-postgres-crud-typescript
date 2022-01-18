@@ -21,6 +21,14 @@
   justify-content: space-between;
 }
 
+.subcontainer {
+  margin: 10px 0;
+  font-size: 12px;
+  color: #acacac;
+  letter-spacing: 1px;
+  font-weight: 400;
+}
+
 .finish {
   color: rgb(103, 209, 89);
 }
@@ -32,12 +40,90 @@
 }
 
 .main__content {
+  position: relative;
   width: 100%;
-  height: calc(100% - 2 * var(--gap_x) - 100px);
+  height: calc(100% - 4 * var(--gap_x) - 100px - 50px);
   overflow-y: scroll;
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.main__content::-webkit-scrollbar {
+  width: var(--scrollbar_width);
+}
+
+.main__content::-webkit-scrollbar-track {
+  background-color: #8b8b8b;
+  border-radius: 100px;
+}
+
+.main__content::-webkit-scrollbar-thumb {
+  border-radius: 100px;
+  border-left: 0;
+  border-right: 0;
+  background-color: #cacaca;
+}
+
+.button__container {
+  position: relative;
+  margin-top: calc(2 * var(--gap_x));
+  width: calc(100% - 2 * var(--gap_x));
+  height: auto;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.button__content {
+  width: calc(100% - var(--gap_x) + var(--scrollbar_width) / 4);
+  height: auto;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.button {
+  position: relative;
+  z-index: 1;
+  border: none;
+  font-family: Ubuntu;
+  font-weight: 700;
+  height: 50px;
+  cursor: pointer;
+  padding: 0 30px;
+  color: rgb(0, 0, 0);
+  background-color: transparent;
+  transition: all 0.3s ease;
+}
+.button:hover {
+  color: rgb(0, 0, 0);
+}
+.button::after {
+  content: '';
+  z-index: -1;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 100%;
+  background-color: rgba(197, 197, 197, 0.37);
+  transition: all 0.3s ease;
+}
+
+.button:hover::after {
+  content: '';
+  z-index: -1;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(189, 189, 189, 0.37);
+  transition: all 0.3s ease;
+}
+
+.button:focus {
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(158, 158, 158, 0.4);
 }
 
 @keyframes animate {

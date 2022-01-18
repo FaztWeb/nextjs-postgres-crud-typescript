@@ -6,6 +6,10 @@
   margin-bottom: calc(2 * var(--gap_x));
 }
 
+.container:last-child {
+  margin-bottom: 0;
+}
+
 .terminal {
   width: 100%;
   height: auto;

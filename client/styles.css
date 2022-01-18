@@ -52,6 +52,8 @@
   --card__info_text_size: clamp(16px, calc(16 / 350 * var(--width)), 18px);
 
   --carousel__image_width: clamp(200px, calc(200 / 350 * var(--width)), 350px);
+
+  --scrollbar_width: 12px;
 }
 
 html {

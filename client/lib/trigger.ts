@@ -1,5 +1,7 @@
 import { Subject } from 'rxjs';
 
+const ids = ['info', 'name', 'descriptions'];
+
 export type iconStatus = {
   field: string;
   payload: string;
@@ -8,6 +10,12 @@ export type iconStatus = {
   backgroundColor: string;
 };
 
-const trigger = new Subject<iconStatus>();
+const triggers = ids.reduce<Record<string, Subject<iconStatus>>>(
+  (previousValue: Record<string, Subject<iconStatus>>, currentValue) => {
+    previousValue[currentValue] = new Subject<iconStatus>();
+    return previousValue;
+  },
+  {} as Record<string, Subject<iconStatus>>
+);
 
-export default trigger;
+export default triggers;

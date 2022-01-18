@@ -11,7 +11,7 @@ const StatusIcon = ({ id }: { id: string }) => {
   const [status, setStatus] = useState<iconStatus>();
   useEffect(() => {
     providedInfo.subscribe();
-    const obj = trigger
+    const obj = trigger[id]
       .pipe(
         map((event) => {
           setVisible(event.field === id);

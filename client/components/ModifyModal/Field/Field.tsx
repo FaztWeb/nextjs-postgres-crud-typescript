@@ -20,19 +20,19 @@ const Field = ({ children, id }: { children: ReactElement; id: string }) => {
               className={fieldStyle.textarea}
               placeholder="Sugerati o descriere aici"
               onFocus={() => {
-                trigger.next({
+                trigger[id].next({
                   field: id,
                   payload: 'Procesam schimbarile',
-                  showFor: 1500,
+                  showFor: 1000,
                   backgroundColor: 'gray',
                   color: 'gray',
                 });
               }}
               onKeyDown={() => {
-                trigger.next({
+                trigger[id].next({
                   field: id,
                   payload: 'Procesam schimbarile',
-                  showFor: 1500,
+                  showFor: 1000,
                   backgroundColor: 'gray',
                   color: 'gray',
                 });
