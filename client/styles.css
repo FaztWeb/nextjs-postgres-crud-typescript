@@ -398,3 +398,21 @@ template {
 [hidden] {
   display: none;
 }
+
+.rc-tooltip-inner {
+  background-color: rgba(0, 0, 0, 0) !important;
+  min-height: 0px !important;
+  box-shadow: none !important;
+  line-height: 0 !important;
+  padding: 0 0 0 0 !important;
+}
+
+.rc-tooltip-arrow {
+  display: none !important;
+}
+
+.rc-tooltip-placement-top,
+.rc-tooltip-placement-topLeft,
+.rc-tooltip-placement-topRight {
+  padding: 0 0 0 0 !important;
+}

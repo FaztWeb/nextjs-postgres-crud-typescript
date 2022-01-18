@@ -3,29 +3,22 @@
 .container {
   width: 650px;
   height: 800px;
-  background-color: blanchedalmond;
+  background-color: rgb(255, 255, 255);
   font-family: Ubuntu;
+  flex-direction: column;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .header {
-  width: 100%;
+  width: calc(100% - 2 * var(--gap_x));
   font-size: 36px;
+  margin-bottom: var(--gap_x);
   display: flex;
   flex-direction: row;
-  align-items: flex-end;
+  align-items: center;
   justify-content: space-between;
-}
-.title {
-  margin-left: var(--gap_x);
-}
-.icon {
-  margin-right: var(--gap_x);
-  color: rgb(104, 104, 104);
-  display: flex;
-  align-items: flex-end;
 }
 
 .finish {
@@ -38,16 +31,13 @@
   animation: animate 0.8s alternate-reverse infinite;
 }
 
-.tooltip {
-  background-color: rgba(0, 0, 0, 0.623);
-  color: rgb(255, 255, 255);
-}
-.finishedToolTip {
-  background-color: rgba(46, 129, 67, 0.63);
-}
-
-.pending {
-  background-color: rgba(151, 86, 33, 0.658);
+.main__content {
+  width: 100%;
+  height: calc(100% - 2 * var(--gap_x) - 100px);
+  overflow-y: scroll;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 @keyframes animate {

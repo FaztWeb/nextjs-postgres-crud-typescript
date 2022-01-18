@@ -1,0 +1,76 @@
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
+
+.container {
+  width: calc(100% - 2 * var(--gap_x));
+  height: auto;
+  margin-bottom: calc(2 * var(--gap_x));
+}
+
+.terminal {
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  font-family: Ubuntu;
+  font-weight: 700;
+}
+
+.name {
+  background-color: #c6c7d2;
+  height: auto;
+  width: fit-content;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px 20px;
+}
+
+.nameAndStatus {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.input {
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  background-color: #282a34;
+  padding: 5px 20px;
+}
+
+.fieldName {
+  color: white;
+  padding-top: 20px;
+  padding-bottom: 5px;
+}
+
+.fieldInput {
+  width: 100%;
+  color: white;
+  padding-top: 5px;
+  padding-bottom: 20px;
+}
+
+.textarea {
+  color: white;
+  background: transparent;
+  font-family: Ubuntu;
+  font-weight: 700;
+  font-size: 18px;
+  width: calc(100% - 40px);
+  height: 50px;
+  resize: none;
+  border: none;
+  padding: 0 20px;
+  overflow-y: hidden;
+  transition: height 0.5s ease-in-out;
+}
+
+.textarea::placeholder {
+  color: 797979;
+}
+.textarea:focus {
+  outline: none;
+  border-left: 1px solid white;
+}
