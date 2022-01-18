@@ -1,7 +1,7 @@
 import trigger from 'lib/trigger';
 import { ReactElement, useRef } from 'react';
 import fieldStyle from './field.module.css';
-import providedInfo from 'lib/providedInfo';
+
 const Field = ({ children, id }: { children: ReactElement; id: string }) => {
   const placeholderRef = useRef<HTMLTextAreaElement>(null);
   return (
@@ -24,7 +24,7 @@ const Field = ({ children, id }: { children: ReactElement; id: string }) => {
                   field: id,
                   payload: 'Procesam schimbarile',
                   showFor: 1500,
-                  backgroundColor: 'rgb(158, 158, 158) !important',
+                  backgroundColor: 'gray',
                   color: 'gray',
                 });
               }}
@@ -33,15 +33,11 @@ const Field = ({ children, id }: { children: ReactElement; id: string }) => {
                   field: id,
                   payload: 'Procesam schimbarile',
                   showFor: 1500,
-                  backgroundColor: 'rgb(129, 129, 129) !important',
+                  backgroundColor: 'gray',
                   color: 'gray',
                 });
               }}
               onKeyUp={(event) => {
-                providedInfo.next({
-                  field: id,
-                  hasProvided: event.currentTarget.value !== '',
-                });
                 const placeholder =
                   placeholderRef.current as HTMLTextAreaElement;
                 event.code === 'Backspace'

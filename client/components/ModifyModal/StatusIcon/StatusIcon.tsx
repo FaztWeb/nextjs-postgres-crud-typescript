@@ -1,6 +1,6 @@
 import iconStyle from './statusicon.module.css';
 import { FaCheckCircle } from 'react-icons/fa';
-import { CSSProperties, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Tooltip from 'rc-tooltip';
 import 'rc-tooltip/assets/bootstrap.css';
 import trigger, { iconStatus } from 'lib/trigger';

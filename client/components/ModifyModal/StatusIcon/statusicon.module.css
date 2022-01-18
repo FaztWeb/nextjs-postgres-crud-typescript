@@ -8,10 +8,6 @@
   color: rgb(158, 158, 158);
 }
 
-.provided {
-  color: rgb(77, 206, 83);
-}
-
 .tooltip {
   display: flex;
   align-items: stretch;
