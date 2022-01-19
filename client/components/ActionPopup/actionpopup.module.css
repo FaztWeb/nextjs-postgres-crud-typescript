@@ -1,0 +1,22 @@
+.container{
+    width: fit-content;
+    background-color: whitesmoke;
+    padding: 20px;
+    border: 2px solid black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 900;
+}
+
+.text {
+    width: fit-content;
+    height: auto;
+    display: inline-block;
+    white-space: nowrap;
+    margin: 0 10px;
+}
+.icon {
+    font-size: 24px;
+    color: rgb(79, 77, 255);
+}

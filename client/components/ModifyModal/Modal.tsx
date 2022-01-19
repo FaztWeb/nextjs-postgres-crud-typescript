@@ -7,6 +7,8 @@ import Field from './Field/Field';
 import StatusIcon from './StatusIcon/StatusIcon';
 import showPopup from 'lib/action';
 import ActionPopup from 'components/ActionPopup/ActionPopup';
+import { IoIosClose } from 'react-icons/io';
+import modal$ from 'lib/modal'
 export const ids = ['info', 'name', 'descriptions'];
 
 const Modal = () => {
@@ -43,32 +45,39 @@ const Modal = () => {
   return (
     <>
       <div ref={containerRef} className={modal.container}>
-        <div className={modal.close}></div>
+
         <div className={modal.header}>
           <div className={modal.title}>
-            <TypewriterComponent
-              onInit={(typewriter) => {
-                typewriter
-                  .typeString('Sugerati o modificare . . .')
-                  .callFunction(() => {
-                    finishType.next(true);
-                  })
-                  .pauseFor(400)
-                  .callFunction(() => {
-                    finishType.next(false);
-                  })
-                  .deleteChars(16)
-                  .typeString('schimbare . . . ')
-                  .callFunction(() => {
-                    finishType.next(true);
-                  })
-                  .start();
-              }}
-              options={{
-                autoStart: true,
-                cursorClassName: `${modal.cursor}`,
-              }}
-            />
+            <div className={modal.typewtitter}>
+              <div className={modal.close} onClick={() => {
+                modal$.next(false);
+              }} >
+                <IoIosClose className={modal.closeIcon} />
+              </div>
+              <TypewriterComponent
+                onInit={(typewriter) => {
+                  typewriter
+                    .typeString('Sugerati o modificare . . .')
+                    .callFunction(() => {
+                      finishType.next(true);
+                    })
+                    .pauseFor(400)
+                    .callFunction(() => {
+                      finishType.next(false);
+                    })
+                    .deleteChars(16)
+                    .typeString('schimbare . . . ')
+                    .callFunction(() => {
+                      finishType.next(true);
+                    })
+                    .start();
+                }}
+                options={{
+                  autoStart: true,
+                  cursorClassName: `${modal.cursor}`,
+                }}
+              />
+            </div>
             <div className={modal.subcontainer}>
               Pentru a imbunatatii calitatea informatiilor si a datelor
               prezentate

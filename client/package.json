@@ -19,6 +19,7 @@
     "@types/react-slick": "^0.23.8",
     "@types/three": "^0.136.1",
     "bcrypt": "^5.0.1",
+    "framer-motion": "^6.0.0",
     "google-map-react": "^2.1.10",
     "google-maps": "^4.3.3",
     "next": "12.0.3",

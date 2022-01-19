@@ -11,8 +11,12 @@ class MainDocument extends Document {
           <div
             id="modal-root"
             style={{
-              position: 'relative',
+              position: 'absolute',
               zIndex: 100,
+              width: 0,
+              backgroundColor: 'red',
+              bottom: 20,
+              left: 20,
             }}
           ></div>
         </body>

@@ -4,6 +4,7 @@ import type { Church } from 'components/Searchbox/SearchResults/SearchResults';
 import coordinates from 'lib/coordinates';
 import Carousell from 'components/Carousell/Carousell';
 import { FaPen } from 'react-icons/fa';
+import modal from 'lib/modal';
 const Card = ({ church }: { church: Church }) => {
   return (
     <div className={cardStyle.container}>
@@ -36,7 +37,9 @@ const Card = ({ church }: { church: Church }) => {
         quaerat. Vitae nisi ratione ad, consequatur illum commodi!
       </div>
       <div className={cardStyle.suggest__container}>
-        <div className={cardStyle.text}>Sugereaza o modificare</div>
+        <div className={cardStyle.text} onClick={() => {
+          modal.next(true);
+        }}>Sugereaza o modificare</div>
         <FaPen className={cardStyle.pen} />
       </div>
     </div>
