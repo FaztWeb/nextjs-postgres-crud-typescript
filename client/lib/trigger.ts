@@ -1,6 +1,6 @@
 import { Subject } from 'rxjs';
 
-const ids = ['info', 'name', 'descriptions'];
+const ids = ['info', 'name', 'descriptions', 'button'];
 
 export type iconStatus = {
   field: string;

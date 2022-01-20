@@ -5,10 +5,10 @@ import { useState, useEffect, useRef } from 'react';
 import { debounceTime, tap } from 'rxjs';
 import Field from './Field/Field';
 import StatusIcon from './StatusIcon/StatusIcon';
-import showPopup from 'lib/action';
-import ActionPopup from 'components/ActionPopup/ActionPopup';
 import { IoIosClose } from 'react-icons/io';
-import modal$ from 'lib/modal'
+import modal$ from 'lib/modal';
+import Button from './Button/Button';
+
 export const ids = ['info', 'name', 'descriptions'];
 
 const Modal = () => {
@@ -45,15 +45,9 @@ const Modal = () => {
   return (
     <>
       <div ref={containerRef} className={modal.container}>
-
         <div className={modal.header}>
           <div className={modal.title}>
             <div className={modal.typewtitter}>
-              <div className={modal.close} onClick={() => {
-                modal$.next(false);
-              }} >
-                <IoIosClose className={modal.closeIcon} />
-              </div>
               <TypewriterComponent
                 onInit={(typewriter) => {
                   typewriter
@@ -77,6 +71,14 @@ const Modal = () => {
                   cursorClassName: `${modal.cursor}`,
                 }}
               />
+              <div
+                className={modal.close}
+                onClick={() => {
+                  modal$.next(false);
+                }}
+              >
+                <IoIosClose className={modal.closeIcon} />
+              </div>
             </div>
             <div className={modal.subcontainer}>
               Pentru a imbunatatii calitatea informatiilor si a datelor
@@ -95,15 +97,7 @@ const Modal = () => {
         </div>
         <div className={modal.button__container}>
           <div className={modal.button__content}>
-            <button
-              className={modal.button}
-              onClick={() => {
-                showPopup.next(true);
-              }}
-            >
-              Salvati Modificarile
-            </button>
-            <ActionPopup />
+            <Button></Button>
           </div>
         </div>
       </div>

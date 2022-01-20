@@ -9,15 +9,15 @@ function MyApp({ Component, pageProps }: AppProps) {
   const [showModal, setShowModal] = useState<boolean>(false);
 
   useEffect(() => {
-    modal.subscribe(setShowModal)
-  }, [])
+    modal.subscribe(setShowModal);
+  }, []);
   return (
     <div className={modalStyle.conatiner}>
-      {
+      {showModal ? (
         <div className={modalStyle.modal__container}>
           <Modal />
         </div>
-      }
+      ) : null}
       <div className={modalStyle.app}>
         <Component {...pageProps} />;
       </div>

@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
 
 .icon {
-  height: 36px;
+  height: var(--icon__font_size);
   width: auto;
   display: flex;
   align-items: flex-end;
@@ -9,13 +9,12 @@
 }
 
 .tooltip {
-  display: flex;
-  align-items: stretch;
   background-color: rgba(48, 48, 48, 0.733);
-  font-size: 12px;
+  font-size: clamp(14px, calc(16 / 550 * var(--modal__width), 24px));
   font-family: Ubuntu;
   height: fit-content !important;
   width: auto;
   padding: 5px 10px;
   border-radius: 5px;
+  white-space: nowrap !important;
 }

@@ -113,7 +113,7 @@
   height: 2px;
   width: 0px;
   background-color: black;
-  transition: width 1s;
+  transition: width 0.3s ease-in-out;
 }
 .suggest__container:hover::after {
   content: '';
@@ -124,7 +124,7 @@
   height: 2px;
   width: 100%;
   background-color: black;
-  transition: width 1s;
+  transition: width 0.3s ease-in-out;
 }
 
 .text {

@@ -18,7 +18,7 @@
 }
 
 /* scrollbar customizations */
-.cards__container::-webkit-scrollba r {
+.cards__container::-webkit-scrollbar {
   width: 15px;
 }
 

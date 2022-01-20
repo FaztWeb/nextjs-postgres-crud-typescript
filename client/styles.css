@@ -17,7 +17,7 @@
   );
 
   /* The width and height of the main search container */
-  --width: 450px;
+  --width: 350px;
   --height: 600px;
 
   /* The gap between elements */
@@ -53,6 +53,8 @@
 
   --carousel__image_width: clamp(200px, calc(200 / 350 * var(--width)), 350px);
 
+  --modal__width: 650px;
+  --modal__height: 850px;
   --scrollbar_width: 12px;
 }
 

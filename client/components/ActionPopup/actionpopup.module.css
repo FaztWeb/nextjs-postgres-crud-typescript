@@ -1,22 +1,25 @@
-.container{
-    width: fit-content;
-    background-color: whitesmoke;
-    padding: 20px;
-    border: 2px solid black;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 900;
+.container {
+  font-size: clamp(14px, calc(14 / 350 * var(--modal__width)), 16px);
+  width: fit-content;
+  background-color: whitesmoke;
+  padding: 10px;
+  border: 2px solid black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  color: black;
+  margin-left: 20px;
 }
 
 .text {
-    width: fit-content;
-    height: auto;
-    display: inline-block;
-    white-space: nowrap;
-    margin: 0 10px;
+  width: fit-content;
+  height: auto;
+  display: inline-block;
+  white-space: nowrap;
+  margin: 0 10px;
 }
 .icon {
-    font-size: 24px;
-    color: rgb(79, 77, 255);
+  font-size: clamp(22px, calc(22 / 350 * var(--modal__width)), 24px);
+  color: rgb(79, 77, 255);
 }
