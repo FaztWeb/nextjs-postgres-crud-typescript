@@ -3,11 +3,8 @@ import { Subject } from 'rxjs';
 const ids = ['info', 'name', 'descriptions', 'button'];
 
 export type iconStatus = {
-  field: string;
   payload: string;
   showFor: number;
-  color: string;
-  backgroundColor: string;
 };
 
 const triggers = ids.reduce<Record<string, Subject<iconStatus>>>(

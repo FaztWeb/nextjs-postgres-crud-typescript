@@ -53,8 +53,8 @@
 
   --carousel__image_width: clamp(200px, calc(200 / 350 * var(--width)), 350px);
 
-  --modal__width: 650px;
-  --modal__height: 850px;
+  --modal__width: 450px;
+  --modal__height: 650px;
   --scrollbar_width: 12px;
 }
 

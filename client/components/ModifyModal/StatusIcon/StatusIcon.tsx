@@ -3,29 +3,43 @@ import { FaCheckCircle } from 'react-icons/fa';
 import { useEffect, useState } from 'react';
 import Tooltip from 'rc-tooltip';
 import 'rc-tooltip/assets/bootstrap.css';
-import trigger, { iconStatus } from 'lib/trigger';
+import trigger from 'lib/trigger';
 import { debounce, tap, map, timer } from 'rxjs';
 import providedInfo from 'lib/providedInfo';
+
+type styles = {
+  backgroundColor: string,
+  color: string,
+  text: string
+}
+
+const pendingStyles = {
+  backgroundColor: "grey",
+  color: "grey",
+  text: "Procesam schimbarile ..."
+}
+
+const processedChanges = {
+  backgroundColor: "green",
+  color: "green",
+  text: "Schimbarile au fost salvate !"
+}
 const StatusIcon = ({ id }: { id: string }) => {
   const [visible, setVisible] = useState<boolean>(false);
-  const [status, setStatus] = useState<iconStatus>();
+  const [status, setStatus] = useState<styles>();
   useEffect(() => {
     providedInfo.subscribe();
     const obj = trigger[id]
       .pipe(
         map((event) => {
-          setVisible(event.field === id);
-          setStatus(event);
+          setVisible(true);
+          setStatus(pendingStyles);
           return event;
         }),
         debounce((event) => timer(event.showFor as number)),
         tap((event) => {
-          setStatus({
-            ...event,
-            backgroundColor: 'rgba(43, 165, 27, 0.76)',
-            color: 'rgb(77, 206, 83)',
-            payload: 'Schimbarile au fost salvate',
-          });
+
+          setStatus(processedChanges)
           return event;
         }),
         debounce((event) => timer(event.showFor)),

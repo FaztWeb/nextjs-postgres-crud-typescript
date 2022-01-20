@@ -21,20 +21,8 @@ const Field = ({ children, id }: { children: ReactElement; id: string }) => {
               placeholder="Sugerati o descriere aici"
               onFocus={() => {
                 trigger[id].next({
-                  field: id,
-                  payload: 'Procesam schimbarile',
+                  payload: '',
                   showFor: 1000,
-                  backgroundColor: 'gray',
-                  color: 'gray',
-                });
-              }}
-              onKeyDown={() => {
-                trigger[id].next({
-                  field: id,
-                  payload: 'Procesam schimbarile',
-                  showFor: 1000,
-                  backgroundColor: 'gray',
-                  color: 'gray',
                 });
               }}
               onKeyUp={(event) => {
@@ -44,6 +32,10 @@ const Field = ({ children, id }: { children: ReactElement; id: string }) => {
                   ? ((placeholder.style.height = 'auto'),
                     (placeholder.style.height = `${event.currentTarget.scrollHeight}px`))
                   : (placeholder.style.height = `${event.currentTarget.scrollHeight}px`);
+                trigger[id].next({
+                  payload: event.currentTarget.value,
+                  showFor: 1000,
+                });
               }}
             />
           </div>

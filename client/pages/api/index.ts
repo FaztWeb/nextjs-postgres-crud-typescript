@@ -1,9 +1,10 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 
 type Data = {
-  name: string;
+  result: string;
 };
 
 export default (req: NextApiRequest, res: NextApiResponse<Data>) => {
-  res.status(200).json({ name: 'John Doe' });
+  console.log(req.body);
+  res.status(200).json({ result: "BESERK" })
 };
