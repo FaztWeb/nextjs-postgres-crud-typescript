@@ -38,7 +38,6 @@ const StatusIcon = ({ id }: { id: string }) => {
         }),
         debounce((event) => timer(event.showFor as number)),
         tap((event) => {
-
           setStatus(processedChanges)
           return event;
         }),
@@ -61,13 +60,11 @@ const StatusIcon = ({ id }: { id: string }) => {
       overlay={
         <div
           className={iconStyle.tooltip}
-          style={
-            status?.field === id
-              ? { backgroundColor: status.backgroundColor }
-              : {}
-          }
+          style={{
+            backgroundColor: status?.backgroundColor
+          }}
         >
-          <p>{status?.payload}</p>
+          <p>{status?.text}</p>
         </div>
       }
     >
@@ -78,10 +75,10 @@ const StatusIcon = ({ id }: { id: string }) => {
               ? `${iconStyle.icon} ${iconStyle.provided}`
               : iconStyle.icon
           }
-          style={status?.field === id ? { color: status.color } : {}}
+          style={{ color: status?.color }}
         />
       </div>
-    </Tooltip>
+    </Tooltip >
   );
 };
 
