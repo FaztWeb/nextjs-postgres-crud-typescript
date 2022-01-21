@@ -11,21 +11,19 @@ datasource db {
   shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
 }
 
-model Users {
+model User {
   id              Int          @id @default(autoincrement())
   email           String       @unique
-  name            String
-  forename        String
-  username        String
+  firstName       String?
+  lastName        String?
+  username        String       @unique
   ProvidedInfoFor ChurchInfo[]
-
-  @@unique([name, forename, username], name: "userNameForename")
 }
 
 model ChurchInfo {
   chrchName         String  @unique
   churchType        String?
   churchDescription String?
-  editedBy          Users?  @relation(fields: [userId], references: [id])
-  userId            Int?
+  editedBy          User?   @relation(fields: [userId], references: [id])
+  userId            Int
 }
