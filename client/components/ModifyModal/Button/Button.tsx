@@ -14,6 +14,7 @@ import {
   concat,
   race,
   tap,
+  from,
 } from 'rxjs';
 import { fromFetch } from 'rxjs/fetch';
 
@@ -48,11 +49,14 @@ const Button = () => {
              * flashes of UI occur (this is the second possible subscriber to **data$** which **SHOULD NOT** recieve
              * a different payload when subscribing).
              */
-            const data$ = fromFetch('/api', {
-              selector: async (r) =>
-                r.ok ? ({ data: await r.json() } as const) : except(r),
-            }).pipe(
-              shareReplay(1),
+            const data$ = from(
+              fetch('/api', {
+                body: JSON.stringify(data),
+                method: 'POST',
+              }).then((res) => {
+                return res;
+              })
+            ).pipe(
               tap(() => {
                 setLoading(false);
               })
@@ -118,10 +122,11 @@ const Button = () => {
             of({ error: true, message: err.toString() } as const)
           )
         )
-        .subscribe();
+        .subscribe(console.log);
     const value$ = ids.map((id) =>
       triggers[id].subscribe((event) => {
         data[id] = event.payload;
+        console.log(data);
       })
     );
     () => {
