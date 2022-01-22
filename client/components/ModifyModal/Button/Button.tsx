@@ -16,16 +16,11 @@ import {
   tap,
   from,
 } from 'rxjs';
-import { fromFetch } from 'rxjs/fetch';
 
 const ids = ['info', 'name', 'descriptions'];
 const data = ids.reduce<Record<string, string>>((obj, field) => {
   return { ...obj, [field]: '' };
 }, {} as Record<string, string>);
-
-const except = (v: unknown) => {
-  throw v;
-};
 
 const Button = () => {
   const [visible, setIsVisible] = useState(false);
@@ -57,6 +52,7 @@ const Button = () => {
                 return res;
               })
             ).pipe(
+              shareReplay(1),
               tap(() => {
                 setLoading(false);
               })
