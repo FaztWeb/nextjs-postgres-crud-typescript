@@ -1,4 +1,3 @@
-import bcrypt from 'bcrypt';
 import prisma from '../utils/prisma';
 
 const run = async () => {
