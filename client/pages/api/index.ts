@@ -8,5 +8,5 @@ interface Church {
 
 export default (req: NextApiRequest, res: NextApiResponse) => {
   console.log(req.body);
-  res.status(200).send("SUCCESS");
+  res.status(200).send('SUCCESS');
 };

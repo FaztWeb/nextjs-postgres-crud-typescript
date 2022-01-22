@@ -2,16 +2,16 @@ import bcrypt from 'bcrypt';
 import prisma from '../utils/prisma';
 
 const run = async () => {
-  const user = await prisma.users.create({
+  const user = await prisma.user.create({
     data: {
-      forename: "Sorin",
-      name: "Rata",
-      username: "sorinACHO",
-      email: "ratasorin0@gmail.com",
+      firstName: 'Sorin',
+      lastName: 'Rata',
+      username: 'sorinACHO',
+      email: 'ratasorin0@gmail.com',
       ProvidedInfoFor: {
-        create: []
-      }
-    }
+        create: [],
+      },
+    },
   });
 };
 
