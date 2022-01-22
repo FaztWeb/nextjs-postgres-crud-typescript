@@ -6,9 +6,9 @@ import { debounceTime, tap } from 'rxjs';
 import Field from './Field/Field';
 import StatusIcon from './StatusIcon/StatusIcon';
 import { IoIosClose } from 'react-icons/io';
-import modal$ from 'lib/modal';
+import modal$, { showLoading } from 'lib/modal';
 import Button from './Button/Button';
-
+import Loading from 'components/Loading/Loading';
 export const ids = ['info', 'name', 'descriptions'];
 
 const Modal = () => {
@@ -25,6 +25,7 @@ const Modal = () => {
     nameField: false,
     pictures: false,
   });
+  const [loading, setLoading] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
     const obs = finishType
@@ -38,13 +39,16 @@ const Modal = () => {
         )
       )
       .subscribe();
+    const show$ = showLoading.subscribe(setLoading);
     return () => {
       obs.unsubscribe();
+      show$.unsubscribe();
     };
   }, []);
   return (
     <>
       <div ref={containerRef} className={modal.container}>
+        {loading ? <Loading></Loading> : null}
         <div className={modal.header}>
           <div className={modal.title}>
             <div className={modal.typewtitter}>

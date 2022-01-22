@@ -10,9 +10,9 @@ const ActionPopup = () => {
         x: -200,
       }}
       animate={{ opacity: 1, x: 0 }}
-      transition={{
-        delay: 0.5,
-        type: 'tween',
+      exit={{
+        opacity: 0,
+        x: 200,
       }}
       className={actionStyle.container}
     >

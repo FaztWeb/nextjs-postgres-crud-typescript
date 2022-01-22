@@ -5,7 +5,6 @@ const ids = ['info', 'name', 'descriptions'];
 export type iconStatus = {
   payload: string;
   showFor: number;
-
 };
 
 const triggers = ids.reduce<Record<string, Subject<iconStatus>>>(

@@ -8,6 +8,7 @@
   --button__size: calc(22 / 850 * var(--modal__height));
   --button_padding: calc(20 / 750 * var(--modal__width));
   --icon__font_size: calc(36 / 550 * var(--modal__width));
+  position: relative;
   width: var(--modal__width);
   height: var(--modal__height);
   background-color: rgb(255, 255, 255);

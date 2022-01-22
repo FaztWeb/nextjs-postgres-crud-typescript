@@ -16,6 +16,7 @@ import {
   tap,
   from,
 } from 'rxjs';
+import { showLoading } from 'lib/modal';
 
 const ids = ['info', 'name', 'descriptions'];
 const data = ids.reduce<Record<string, string>>((obj, field) => {
@@ -24,7 +25,6 @@ const data = ids.reduce<Record<string, string>>((obj, field) => {
 
 const Button = () => {
   const [visible, setIsVisible] = useState(false);
-  const [loading, setLoading] = useState(false);
   const buttonRef = useRef<HTMLButtonElement>(null);
   useEffect(() => {
     let click$: Subscription;
@@ -48,14 +48,21 @@ const Button = () => {
               fetch('/api', {
                 body: JSON.stringify(data),
                 method: 'POST',
-              }).then((res) => {
+              }).then(async (res) => {
+                await new Promise((resolve) => {
+                  setTimeout(resolve, 1000);
+                });
                 return res;
               })
             ).pipe(
               shareReplay(1),
               tap(() => {
-                setLoading(false);
-              })
+                showLoading.next(false);
+              }),
+              tap(() => setIsVisible(true)),
+              delay(2000),
+              from(animate()),
+              tap(() => setIsVisible(false))
             );
 
             /**
@@ -71,7 +78,7 @@ const Button = () => {
              */
             const showAfter$ = of(1).pipe(
               delay(500),
-              tap(() => setLoading(true))
+              tap(() => showLoading.next(true))
             );
 
             /**
@@ -87,10 +94,7 @@ const Button = () => {
              * timer indicates. In the **_concat_** context, it will block the removal of the
              * Loading for that much time, by not subscribing to another observer until the delay completes.
              */
-            const showFor$ = of(1).pipe(
-              delay(1500),
-              tap(() => setLoading(false))
-            );
+            const showFor$ = of(1).pipe(delay(1500));
 
             /**
              * **loading$** chains the observers to prevent UI inconsistencies.
@@ -113,7 +117,6 @@ const Button = () => {
              */
             return race(loading$, data$);
           }),
-
           catchError((err) =>
             of({ error: true, message: err.toString() } as const)
           )
@@ -131,7 +134,12 @@ const Button = () => {
     };
   }, []);
   return (
-    <Tooltip visible={visible} overlay={<ActionPopup />} placement="bottom">
+    <Tooltip
+      destroyTooltipOnHide={true}
+      visible={visible}
+      overlay={<ActionPopup />}
+      placement="bottom"
+    >
       <button className={buttonStyle.button} ref={buttonRef}>
         Salvati Modificarile
       </button>
