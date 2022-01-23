@@ -8,22 +8,22 @@ import { debounce, tap, map, timer } from 'rxjs';
 import providedInfo from 'lib/providedInfo';
 
 type styles = {
-  backgroundColor: string,
-  color: string,
-  text: string
-}
+  backgroundColor: string;
+  color: string;
+  text: string;
+};
 
 const pendingStyles = {
-  backgroundColor: "grey",
-  color: "grey",
-  text: "Procesam schimbarile ..."
-}
+  backgroundColor: 'grey',
+  color: 'grey',
+  text: 'Procesam schimbarile ...',
+};
 
 const processedChanges = {
-  backgroundColor: "green",
-  color: "green",
-  text: "Schimbarile au fost salvate !"
-}
+  backgroundColor: 'green',
+  color: 'green',
+  text: 'Schimbarile au fost salvate !',
+};
 const StatusIcon = ({ id }: { id: string }) => {
   const [visible, setVisible] = useState<boolean>(false);
   const [status, setStatus] = useState<styles>();
@@ -38,7 +38,7 @@ const StatusIcon = ({ id }: { id: string }) => {
         }),
         debounce((event) => timer(event.showFor as number)),
         tap((event) => {
-          setStatus(processedChanges)
+          setStatus(processedChanges);
           return event;
         }),
         debounce((event) => timer(event.showFor)),
@@ -61,7 +61,7 @@ const StatusIcon = ({ id }: { id: string }) => {
         <div
           className={iconStyle.tooltip}
           style={{
-            backgroundColor: status?.backgroundColor
+            backgroundColor: status?.backgroundColor,
           }}
         >
           <p>{status?.text}</p>
@@ -78,7 +78,7 @@ const StatusIcon = ({ id }: { id: string }) => {
           style={{ color: status?.color }}
         />
       </div>
-    </Tooltip >
+    </Tooltip>
   );
 };
 
