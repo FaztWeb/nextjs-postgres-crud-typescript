@@ -26,9 +26,10 @@ const data = ids.reduce<Record<string, string>>((obj, field) => {
 const Button = () => {
   const [visible, setIsVisible] = useState(false);
   const buttonRef = useRef<HTMLButtonElement>(null);
+  const tooltipRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
     let click$: Subscription;
-    if (buttonRef.current)
+    if (tooltipRef.current && buttonRef.current)
       click$ = fromEvent(buttonRef.current, 'click')
         .pipe(
           exhaustMap(() => {
@@ -61,7 +62,6 @@ const Button = () => {
               }),
               tap(() => setIsVisible(true)),
               delay(2000),
-              from(animate()),
               tap(() => setIsVisible(false))
             );
 
@@ -133,11 +133,12 @@ const Button = () => {
       value$.forEach((value) => value.unsubscribe());
     };
   }, []);
+
   return (
     <Tooltip
-      destroyTooltipOnHide={true}
-      visible={visible}
-      overlay={<ActionPopup />}
+      visible={true}
+      ref={tooltipRef}
+      overlay={<ActionPopup visible={visible} />}
       placement="bottom"
     >
       <button className={buttonStyle.button} ref={buttonRef}>
