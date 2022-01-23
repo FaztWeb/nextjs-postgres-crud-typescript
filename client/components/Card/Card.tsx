@@ -9,14 +9,14 @@ const Card = ({ church }: { church: Church }) => {
   return (
     <div className={cardStyle.container}>
       <div className={cardStyle.header__container}>
-        <div
+        <button
           className={cardStyle.headerTitle}
           onClick={() => {
             coordinates.next([church.lat, church.long]);
           }}
         >
           {church.name}
-        </div>
+        </button>
         <div className={cardStyle.headerSubtitle}>
           <div className={cardStyle.coordinates}>
             <HiLocationMarker className={cardStyle.icon} />
@@ -37,10 +37,17 @@ const Card = ({ church }: { church: Church }) => {
         quaerat. Vitae nisi ratione ad, consequatur illum commodi!
       </div>
       <div className={cardStyle.suggest__container}>
-        <div className={cardStyle.text} onClick={() => {
-          modal.next(true);
-        }}>Sugereaza o modificare</div>
-        <FaPen className={cardStyle.pen} />
+        <button
+          className={cardStyle.button}
+          onClick={() => {
+            modal.next(true);
+          }}
+        >
+          <div className={cardStyle.text}>
+            Sugereaza o <span className={cardStyle.span}>modificare</span>
+          </div>
+          <FaPen className={cardStyle.pen} />
+        </button>
       </div>
     </div>
   );
