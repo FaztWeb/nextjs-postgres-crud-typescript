@@ -14,15 +14,21 @@ type styles = {
 };
 
 const pendingStyles = {
+  backgroundColor: 'rgb(214, 181, 71)',
+  color: 'rgb(214, 181, 71)',
+  text: 'Procesam schimbarile ...',
+};
+
+const errorStyle = {
   backgroundColor: 'grey',
   color: 'grey',
-  text: 'Procesam schimbarile ...',
+  text: 'Nicio schimbare nu a fost detectata',
 };
 
 const processedChanges = {
   backgroundColor: 'green',
   color: 'green',
-  text: 'Schimbarile au fost salvate !',
+  text: 'Schimbarile au fost inregistrate !',
 };
 const StatusIcon = ({ id }: { id: string }) => {
   const [visible, setVisible] = useState<boolean>(false);
@@ -38,7 +44,9 @@ const StatusIcon = ({ id }: { id: string }) => {
         }),
         debounce((event) => timer(event.showFor as number)),
         tap((event) => {
-          setStatus(processedChanges);
+          event.payload !== ''
+            ? setStatus(processedChanges)
+            : setStatus(errorStyle);
           return event;
         }),
         debounce((event) => timer(event.showFor)),
