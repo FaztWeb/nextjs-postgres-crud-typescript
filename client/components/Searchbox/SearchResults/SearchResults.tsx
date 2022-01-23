@@ -14,6 +14,7 @@ const Searchbar = () => {
   const [inputValue, setInputValue] = useState<Church[]>([]);
   useEffect(() => {
     const data$ = from(chruches);
+    chruches.then((allChurches) => setInputValue(allChurches));
     const obs = input
       .pipe(
         mergeMap((inputedValue: string) => {
