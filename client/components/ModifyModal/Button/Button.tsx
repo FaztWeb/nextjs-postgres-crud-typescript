@@ -1,12 +1,11 @@
 import { useEffect, useRef, useState } from 'react';
 import buttonStyle from './button.module.css';
 import Tooltip from 'rc-tooltip';
-import ActionPopup from 'components/ActionPopup/ActionPopup';
-import triggers from 'lib/trigger';
+import ActionPopup from '../../ActionPopup/ActionPopup';
+import triggers from '../../../lib/trigger';
 import {
   exhaustMap,
   of,
-  fromEvent,
   Subscription,
   catchError,
   shareReplay,
@@ -15,8 +14,9 @@ import {
   race,
   tap,
   from,
+  fromEvent,
 } from 'rxjs';
-import { showLoading } from 'lib/modal';
+import { showLoading } from '../../../lib/modal';
 
 const ids = ['info', 'name', 'descriptions'];
 const data = ids.reduce<Record<string, string>>((obj, field) => {
@@ -28,15 +28,15 @@ const Button = () => {
   const buttonRef = useRef<HTMLButtonElement>(null);
   const tooltipRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
-    let click$: Subscription;
+    let clickSub: Subscription;
     if (tooltipRef.current && buttonRef.current)
-      click$ = fromEvent(buttonRef.current, 'click')
+      clickSub = fromEvent(buttonRef.current, 'click')
         .pipe(
           exhaustMap(() => {
             /**
-             * **data$** will contain the staus of the POST request.
+             * **data$** will contain the status of the POST request.
              *
-             * In addition it will also unmount the Loding component on completion.
+             * In addition it will also unmount the Loading component on completion.
              *
              * It also gives multiple subscribers the same payload via shareReplay (e.g. we are going to
              * set a subscription in *_race_* to see if it's worth displaying a loading component while fetching, or
@@ -50,9 +50,7 @@ const Button = () => {
                 body: JSON.stringify(data),
                 method: 'POST',
               }).then(async (res) => {
-                await new Promise((resolve) => {
-                  setTimeout(resolve, 1000);
-                });
+                await new Promise((resolve) => setTimeout(resolve, 1000));
                 return res;
               })
             ).pipe(
@@ -60,9 +58,13 @@ const Button = () => {
               tap(() => {
                 showLoading.next(false);
               }),
-              tap(() => setIsVisible(true)),
+              tap(() => {
+                setIsVisible(true);
+              }),
               delay(2000),
-              tap(() => setIsVisible(false))
+              tap(() => {
+                setIsVisible(false);
+              })
             );
 
             /**
@@ -86,11 +88,11 @@ const Button = () => {
              * guaranteeing a consistent UI.
              *
              * If **showFor** has been triggered, fetch takes longer to complete the request.
-             * In this case, we want to show the user that their action is beeing proccesed by using a
-             * Loading component which will appear on screen. When the request has been setteled,
+             * In this case, we want to show the user that their action is being processed by using a
+             * Loading component which will appear on screen. When the request has been settled,
              * the Loading component must be unmounted from the DOM. We want to prevent inconsistencies
              * in showing the Loading component (such as flashes of UI) by forcing it to stay a bare minimum
-             * on the screen. Thus the **showFor$** will keep the loaing state to true for as much as the
+             * on the screen. Thus the **showFor$** will keep the loading state to true for as much as the
              * timer indicates. In the **_concat_** context, it will block the removal of the
              * Loading for that much time, by not subscribing to another observer until the delay completes.
              */
@@ -99,7 +101,7 @@ const Button = () => {
             /**
              * **loading$** chains the observers to prevent UI inconsistencies.
              *
-             *  As the specs define the behavior of **_concat_**, **loading$** will start emmiting only
+             *  As the specs define the behavior of **_concat_**, **loading$** will start to emit only
              *  when the first observer there completes and (if not unsubscribed) will sequentially subscribe to the other observables,
              *  in the order they were defined (and after they complete).
              *
@@ -112,11 +114,12 @@ const Button = () => {
 
             /**
              * as the specs provide race will subscribe to both observables, consecutively unsubscribing to the one emmiting slower.
-             * Looking into the behaviour of **loading$**, what **race** really does is seeing if it's worth displaying the Loaing component
+             * Looking into the behavior of **loading$**, what **race** really does is seeing if it's worth displaying the Loading component
              * as it actually races **showAfter$** and **data$** and following of the two scenarios mentioned above.
              */
             return race(loading$, data$);
           }),
+
           catchError((err) =>
             of({ error: true, message: err.toString() } as const)
           )
@@ -129,7 +132,7 @@ const Button = () => {
       })
     );
     () => {
-      click$.unsubscribe();
+      clickSub.unsubscribe();
       value$.forEach((value) => value.unsubscribe());
     };
   }, []);
