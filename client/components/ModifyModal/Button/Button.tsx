@@ -17,6 +17,7 @@ import {
   fromEvent,
 } from 'rxjs';
 import { showLoading } from '../../../lib/modal';
+import { useSession, signIn } from 'next-auth/react';
 
 const ids = ['info', 'name', 'descriptions'];
 const data = ids.reduce<Record<string, string>>((obj, field) => {
@@ -27,11 +28,19 @@ const Button = () => {
   const [visible, setIsVisible] = useState(false);
   const buttonRef = useRef<HTMLButtonElement>(null);
   const tooltipRef = useRef<HTMLDivElement>(null);
+  const { data: session } = useSession();
   useEffect(() => {
     let clickSub: Subscription;
     if (tooltipRef.current && buttonRef.current)
       clickSub = fromEvent(buttonRef.current, 'click')
         .pipe(
+          tap(() => {
+            console.log(session?.user);
+            if (!session?.user) {
+              signIn();
+              clickSub.unsubscribe();
+            }
+          }),
           exhaustMap(() => {
             /**
              * **data$** will contain the status of the POST request.
@@ -47,7 +56,7 @@ const Button = () => {
              */
             const data$ = from(
               fetch('/api', {
-                body: JSON.stringify(data),
+                body: JSON.stringify({ user: session?.user?.name, ...data }),
                 method: 'POST',
               }).then(async (res) => {
                 await new Promise((resolve) => setTimeout(resolve, 1000));

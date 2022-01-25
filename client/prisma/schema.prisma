@@ -62,9 +62,9 @@ model VerificationToken {
 }
 
 model ChurchInfo {
-  chrchName         String  @unique
+  churchName         String  @unique
   churchType        String?
   churchDescription String?
-  editedBy          User?   @relation(fields: [userId], references: [id])
+  editedBy          User   @relation(fields: [userId], references: [id])
   userId            String
 }

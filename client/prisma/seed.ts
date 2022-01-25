@@ -1,17 +1,7 @@
 import prisma from '../utils/prisma';
 
 const run = async () => {
-  const user = await prisma.user.create({
-    data: {
-      firstName: 'Sorin',
-      lastName: 'Rata',
-      username: 'sorinACHO',
-      email: 'ratasorin0@gmail.com',
-      ProvidedInfoFor: {
-        create: [],
-      },
-    },
-  });
+  await prisma.user.deleteMany({});
 };
 
 run()
