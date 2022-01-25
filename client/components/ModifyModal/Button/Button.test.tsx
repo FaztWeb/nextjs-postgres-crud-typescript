@@ -1,8 +1,13 @@
-import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import Button from './Button';
-import { enableFetchMocks } from 'jest-fetch-mock';
-import fetchMock from 'jest-fetch-mock';
-import { act } from 'react-dom/test-utils';
+
+import {
+  fireEvent,
+  render,
+  screen,
+  waitFor,
+  act,
+} from '@testing-library/react';
+import fetchMock, { enableFetchMocks } from 'jest-fetch-mock';
 
 // as the specs suggest we have to enable fetch mocking
 enableFetchMocks();
@@ -21,14 +26,12 @@ afterEach(() => {
 
 test('open popup on submit and close it after sometime', async () => {
   jest.useFakeTimers();
-  fetchMock.mockResponse(async () =>
-    new Promise((resolve) => resolve(true)).then(() => ({ body: 'ok' }))
-  );
+  fetchMock.mockResponse(() => Promise.resolve({ body: 'ok' }));
+
   const { container } = render(<Button />);
   const button = container.children[0] as HTMLButtonElement;
-  act(() => {
-    fireEvent.click(button);
-  });
+
+  fireEvent.click(button);
 
   await waitFor(() => {
     expect(
@@ -36,27 +39,22 @@ test('open popup on submit and close it after sometime', async () => {
     ).toBeInTheDocument();
   });
 
-  await act(async () => {
+  act(() => {
     jest.runOnlyPendingTimers();
-    return new Promise((resolve) => resolve());
   });
+
+  const tooltipElement = screen.getByRole('tooltip').children[0] as HTMLElement;
 
   await waitFor(() => {
-    expect(Number(screen.getByRole('tooltip').children[0].style.opacity)).toBe(
-      1
-    );
-    expect(screen.getByRole('tooltip').children[0].style.transform).toBe(
-      'none'
-    );
+    expect(tooltipElement.style.opacity).toBe('1');
+    expect(tooltipElement.style.transform).toBe('none');
   });
 
-  await act(async () => {
+  act(() => {
     jest.runAllTimers();
   });
 
-  expect(screen.getByRole('tooltip').children[0].style.opacity).toBe('0');
-  expect(screen.getByRole('tooltip').children[0].style.transform).toMatch(
-    /translateX\(([0-9]|[1-9][0-9]|[1-9][0-9][0-9])px\)/g
-  );
+  expect(tooltipElement.style.opacity).toBe('0');
+  expect(tooltipElement.style.transform).toMatch(/translateX\(\d{1,3}px\)/g);
   screen.debug(container);
 });

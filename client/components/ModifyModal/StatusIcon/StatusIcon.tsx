@@ -3,9 +3,9 @@ import { FaCheckCircle } from 'react-icons/fa';
 import { useEffect, useState } from 'react';
 import Tooltip from 'rc-tooltip';
 import 'rc-tooltip/assets/bootstrap.css';
-import trigger from 'lib/trigger';
 import { debounce, tap, map, timer } from 'rxjs';
 import providedInfo from 'lib/providedInfo';
+import triggers from 'lib/trigger';
 
 type styles = {
   backgroundColor: string;
@@ -34,8 +34,9 @@ const StatusIcon = ({ id }: { id: string }) => {
   const [visible, setVisible] = useState<boolean>(false);
   const [status, setStatus] = useState<styles>();
   useEffect(() => {
+    console.log(id, triggers);
     providedInfo.subscribe();
-    const obj = trigger[id]
+    const obj = triggers[id]
       .pipe(
         map((event) => {
           setVisible(true);

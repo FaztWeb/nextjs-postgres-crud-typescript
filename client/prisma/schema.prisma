@@ -29,7 +29,7 @@ model Account {
   oauth_token_secret String?
   oauth_token        String?
 
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user               User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([provider, providerAccountId])
 }
@@ -50,7 +50,6 @@ model User {
   image         String?
   accounts      Account[]
   sessions      Session[]
-  edits         ChurchInfo[]
 }
 
 model VerificationToken {
@@ -62,9 +61,8 @@ model VerificationToken {
 }
 
 model ChurchInfo {
-  churchName         String  @unique
-  churchType        String?
-  churchDescription String?
-  editedBy          User   @relation(fields: [userId], references: [id])
-  userId            String
+  churchName          String    @unique
+  churchType          String
+  churchDescription   String
+  editedBy            String
 }

@@ -9,7 +9,8 @@ import { IoIosClose } from 'react-icons/io';
 import modal$, { showLoading } from 'lib/modal';
 import Button from './Button/Button';
 import Loading from 'components/Loading/Loading';
-export const ids = ['info', 'name', 'descriptions'];
+
+export const ids = ['info', 'name', 'description'];
 
 const Modal = () => {
   const [status, setStatus] = useState<{

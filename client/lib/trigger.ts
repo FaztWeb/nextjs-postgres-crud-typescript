@@ -1,6 +1,6 @@
 import { Subject } from 'rxjs';
 
-const ids = ['info', 'name', 'descriptions'];
+const ids = ['info', 'name', 'description'];
 
 export type iconStatus = {
   payload: string;

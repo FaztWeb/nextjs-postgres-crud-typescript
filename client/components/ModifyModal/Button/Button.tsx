@@ -19,7 +19,8 @@ import {
 import { showLoading } from '../../../lib/modal';
 import { useSession, signIn } from 'next-auth/react';
 
-const ids = ['info', 'name', 'descriptions'];
+export const ids = ['info', 'name', 'description'];
+
 const data = ids.reduce<Record<string, string>>((obj, field) => {
   return { ...obj, [field]: '' };
 }, {} as Record<string, string>);

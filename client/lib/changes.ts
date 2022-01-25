@@ -1,13 +1,13 @@
 import { Subject } from 'rxjs';
 
-const ids = ['info', 'name', 'descriptions'];
+export const ids = ['info', 'name', 'description'];
 
 export type iconStatus = {
   payload: string;
   showFor: number;
 };
 
-const triggers = ids.reduce<Record<string, Subject<iconStatus>>>(
+const changes = ids.reduce<Record<string, Subject<iconStatus>>>(
   (previousValue: Record<string, Subject<iconStatus>>, currentValue) => {
     previousValue[currentValue] = new Subject<iconStatus>();
     return previousValue;
@@ -15,4 +15,4 @@ const triggers = ids.reduce<Record<string, Subject<iconStatus>>>(
   {} as Record<string, Subject<iconStatus>>
 );
 
-export default triggers;
+export default changes;
