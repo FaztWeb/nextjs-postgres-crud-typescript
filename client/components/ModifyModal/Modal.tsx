@@ -11,37 +11,12 @@ import Loading from 'components/Loading/Loading';
 import ImageSupplier from './ImageSupplier/ImageSupplier';
 
 const Modal = () => {
-  const [status, setStatus] = useState<{
-    demo: boolean;
-    descriptionField: boolean;
-    infoField: boolean;
-    nameField: boolean;
-    pictures: boolean;
-  }>({
-    demo: false,
-    descriptionField: false,
-    infoField: false,
-    nameField: false,
-    pictures: false,
-  });
   const [loading, setLoading] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
-    const obs = finishType
-      .pipe(
-        debounceTime(700),
-        tap((value) =>
-          setStatus({
-            ...status,
-            demo: value,
-          })
-        )
-      )
-      .subscribe();
-    const show$ = showLoading.subscribe(setLoading);
+    const show = showLoading$.subscribe(setLoading);
     return () => {
-      obs.unsubscribe();
-      show$.unsubscribe();
+      show.unsubscribe();
     };
   }, []);
   return (
@@ -55,18 +30,9 @@ const Modal = () => {
                 onInit={(typewriter) => {
                   typewriter
                     .typeString('Sugerati o modificare . . .')
-                    .callFunction(() => {
-                      finishType.next(true);
-                    })
                     .pauseFor(400)
-                    .callFunction(() => {
-                      finishType.next(false);
-                    })
                     .deleteChars(16)
                     .typeString('schimbare . . . ')
-                    .callFunction(() => {
-                      finishType.next(true);
-                    })
                     .start();
                 }}
                 options={{
@@ -97,6 +63,7 @@ const Modal = () => {
               </Field>
             );
           })}
+          <ImageSupplier />
         </div>
         <div className={modal.button__container}>
           <div className={modal.button__content}>
