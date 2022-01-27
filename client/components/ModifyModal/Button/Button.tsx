@@ -1,8 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import buttonStyle from './button.module.css';
-import Tooltip from 'rc-tooltip';
-import ActionPopup from '../../ActionPopup/ActionPopup';
-import triggers from '../../../lib/trigger';
+import { trigger$, showLoading$, ids } from 'lib/modal';
 import {
   exhaustMap,
   of,
@@ -16,10 +13,11 @@ import {
   from,
   fromEvent,
 } from 'rxjs';
-import { showLoading } from '../../../lib/modal';
 import { useSession, signIn } from 'next-auth/react';
 
-export const ids = ['info', 'name', 'description'];
+import Tooltip from 'rc-tooltip';
+import buttonStyle from './button.module.css';
+import ActionPopup from '../../ActionPopup/ActionPopup';
 
 const data = ids.reduce<Record<string, string>>((obj, field) => {
   return { ...obj, [field]: '' };
@@ -66,7 +64,7 @@ const Button = () => {
             ).pipe(
               shareReplay(1),
               tap(() => {
-                showLoading.next(false);
+                showLoading$.next(false);
               }),
               tap(() => {
                 setIsVisible(true);
@@ -90,7 +88,7 @@ const Button = () => {
              */
             const showAfter$ = of(1).pipe(
               delay(500),
-              tap(() => showLoading.next(true))
+              tap(() => showLoading$.next(true))
             );
 
             /**
@@ -136,7 +134,7 @@ const Button = () => {
         )
         .subscribe(console.log);
     const value$ = ids.map((id) =>
-      triggers[id].subscribe((event) => {
+      trigger$[id].subscribe((event) => {
         data[id] = event.payload;
         console.log(data);
       })

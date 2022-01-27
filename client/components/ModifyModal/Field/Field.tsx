@@ -1,4 +1,4 @@
-import trigger from 'lib/trigger';
+import { trigger$ } from 'lib/modal';
 import { ReactElement, useRef } from 'react';
 import fieldStyle from './field.module.css';
 
@@ -20,7 +20,7 @@ const Field = ({ children, id }: { children: ReactElement; id: string }) => {
               className={fieldStyle.textarea}
               placeholder="Sugerati o descriere aici"
               onFocus={() => {
-                trigger[id].next({
+                trigger$[id].next({
                   payload: '',
                   showFor: 1000,
                 });
@@ -32,7 +32,7 @@ const Field = ({ children, id }: { children: ReactElement; id: string }) => {
                   ? ((placeholder.style.height = 'auto'),
                     (placeholder.style.height = `${event.currentTarget.scrollHeight}px`))
                   : (placeholder.style.height = `${event.currentTarget.scrollHeight}px`);
-                trigger[id].next({
+                trigger$[id].next({
                   payload: event.currentTarget.value,
                   showFor: 1000,
                 });

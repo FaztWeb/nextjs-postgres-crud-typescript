@@ -1,8 +1,9 @@
 import { forwardRef } from 'react';
+
 import searchboxStyle from './searchbox.module.css';
-// import { chruches } from 'components/Map/featureLayer';
 import Searchbar from './Searchbar/Searchbar';
 import SearchResults from './SearchResults/SearchResults';
+
 const Searchbox = forwardRef<HTMLDivElement>((_, ref) => {
   return (
     <div ref={ref} className={searchboxStyle.container}>
@@ -11,5 +12,6 @@ const Searchbox = forwardRef<HTMLDivElement>((_, ref) => {
     </div>
   );
 });
+
 Searchbox.displayName = 'Searchbar';
 export default Searchbox;

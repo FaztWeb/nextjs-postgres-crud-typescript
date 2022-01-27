@@ -5,7 +5,7 @@ import SceneView from '@arcgis/core/views/SceneView';
 import '@arcgis/core/assets/esri/css/main.css';
 import getView from './view';
 import Searchbox from 'components/Searchbox/Searchbox';
-import coordinates from 'lib/coordinates';
+import coordinates from 'lib/moveTo';
 
 import { tap } from 'rxjs';
 const MapP: NextPage = () => {

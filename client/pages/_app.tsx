@@ -1,15 +1,17 @@
+import { modal$ } from 'lib/modal';
 import { AppProps } from 'next/app';
+import { useEffect, useState } from 'react';
+import { SessionProvider } from 'next-auth/react';
+
 import '../styles.css';
 import modalStyle from './modal.module.css';
 import Modal from '../components/ModifyModal/Modal';
-import { useEffect, useState } from 'react';
-import modal from 'lib/modal';
-import { SessionProvider } from 'next-auth/react';
+
 function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
   const [showModal, setShowModal] = useState<boolean>(false);
 
   useEffect(() => {
-    modal.subscribe(setShowModal);
+    modal$.subscribe(setShowModal);
   }, []);
   return (
     <SessionProvider session={session}>

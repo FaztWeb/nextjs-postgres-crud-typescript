@@ -1,4 +1,4 @@
-import input from 'lib/inputValue';
+import { input$ } from 'lib/modal';
 import { useEffect, useState } from 'react';
 import { debounceTime, from, mergeMap, tap, map } from 'rxjs';
 import searchResults from './searchResults.module.css';
@@ -15,7 +15,7 @@ const Searchbar = () => {
   useEffect(() => {
     const data$ = from(chruches);
     chruches.then((allChurches) => setInputValue(allChurches));
-    const obs = input
+    const obs = input$
       .pipe(
         mergeMap((inputedValue: string) => {
           return data$.pipe(

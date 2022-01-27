@@ -1,16 +1,14 @@
+import { modal$, showLoading$, ids } from 'lib/modal';
+import { useState, useEffect, useRef } from 'react';
+
 import modal from './modal.module.css';
 import TypewriterComponent from 'typewriter-effect';
-import finishType from 'lib/finishType';
-import { useState, useEffect, useRef } from 'react';
-import { debounceTime, tap } from 'rxjs';
 import Field from './Field/Field';
 import StatusIcon from './StatusIcon/StatusIcon';
 import { IoIosClose } from 'react-icons/io';
-import modal$, { showLoading } from 'lib/modal';
 import Button from './Button/Button';
 import Loading from 'components/Loading/Loading';
-
-export const ids = ['info', 'name', 'description'];
+import ImageSupplier from './ImageSupplier/ImageSupplier';
 
 const Modal = () => {
   const [status, setStatus] = useState<{

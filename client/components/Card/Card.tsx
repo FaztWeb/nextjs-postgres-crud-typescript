@@ -1,10 +1,12 @@
-import cardStyle from './card.module.css';
-import { HiLocationMarker } from 'react-icons/hi';
+import { churchToModify$, modal$ } from 'lib/modal';
+import coordinates from 'lib/moveTo';
 import type { Church } from 'components/Searchbox/SearchResults/SearchResults';
-import coordinates from 'lib/coordinates';
-import Carousell from 'components/Carousell/Carousell';
+
+import cardStyle from './card.module.css';
+import Carousel from 'components/Carousel/Carousel';
 import { FaPen } from 'react-icons/fa';
-import modal from 'lib/modal';
+import { HiLocationMarker } from 'react-icons/hi';
+
 const Card = ({ church }: { church: Church }) => {
   return (
     <div className={cardStyle.container}>
@@ -23,7 +25,7 @@ const Card = ({ church }: { church: Church }) => {
             <div className={cardStyle.latLong}>{church.lat}</div>
             <div className={cardStyle.latLong}>{church.long}</div>
           </div>
-          <Carousell></Carousell>
+          <Carousel></Carousel>
           <div className={cardStyle.short_description}>
             Biserica Catolica / Ortodoxa
           </div>
@@ -40,7 +42,8 @@ const Card = ({ church }: { church: Church }) => {
         <button
           className={cardStyle.button}
           onClick={() => {
-            modal.next(true);
+            churchToModify$.next(church.name);
+            modal$.next(true);
           }}
         >
           <div className={cardStyle.text}>

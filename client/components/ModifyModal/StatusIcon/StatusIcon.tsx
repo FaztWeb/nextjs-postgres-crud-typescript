@@ -1,11 +1,11 @@
+import { providedInfo$, trigger$ } from 'lib/modal';
+import { debounce, tap, map, timer } from 'rxjs';
+import { useEffect, useState } from 'react';
+
 import iconStyle from './statusicon.module.css';
 import { FaCheckCircle } from 'react-icons/fa';
-import { useEffect, useState } from 'react';
 import Tooltip from 'rc-tooltip';
 import 'rc-tooltip/assets/bootstrap.css';
-import { debounce, tap, map, timer } from 'rxjs';
-import providedInfo from 'lib/providedInfo';
-import triggers from 'lib/trigger';
 
 type styles = {
   backgroundColor: string;
@@ -25,7 +25,7 @@ const errorStyle = {
   text: 'Nicio schimbare nu a fost detectata',
 };
 
-const processedChanges = {
+const processStyles = {
   backgroundColor: 'green',
   color: 'green',
   text: 'Schimbarile au fost inregistrate !',
@@ -34,9 +34,8 @@ const StatusIcon = ({ id }: { id: string }) => {
   const [visible, setVisible] = useState<boolean>(false);
   const [status, setStatus] = useState<styles>();
   useEffect(() => {
-    console.log(id, triggers);
-    providedInfo.subscribe();
-    const obj = triggers[id]
+    providedInfo$.subscribe();
+    const subscriber = trigger$[id]
       .pipe(
         map((event) => {
           setVisible(true);
@@ -46,7 +45,7 @@ const StatusIcon = ({ id }: { id: string }) => {
         debounce((event) => timer(event.showFor as number)),
         tap((event) => {
           event.payload !== ''
-            ? setStatus(processedChanges)
+            ? setStatus(processStyles)
             : setStatus(errorStyle);
           return event;
         }),
@@ -57,7 +56,7 @@ const StatusIcon = ({ id }: { id: string }) => {
       )
       .subscribe();
     return () => {
-      obj.unsubscribe();
+      subscriber.unsubscribe();
     };
   }, []);
   return (
@@ -79,11 +78,7 @@ const StatusIcon = ({ id }: { id: string }) => {
     >
       <div>
         <FaCheckCircle
-          className={
-            providedInfo
-              ? `${iconStyle.icon} ${iconStyle.provided}`
-              : iconStyle.icon
-          }
+          className={iconStyle.icon}
           style={{ color: status?.color }}
         />
       </div>
