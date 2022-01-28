@@ -6,8 +6,8 @@ export type providedField = {
 };
 
 /**
- * **ids** will contain the fields that may need a status icon, for displaying
- * information about the state of the input
+ * **ids** will contain the input fields that may need a status icon, for displaying
+ * information about the state of the input (e.g. saved, processed, no changes, etc)
  */
 export const ids = ['info', 'name', 'description'];
 
@@ -43,9 +43,9 @@ export const input$ = new Subject<string>();
 export const churchToModify$ = new ReplaySubject<string>(1);
 
 /**
- * **providedInfo$** changes the style of the icon based on what the information the user has
+ * **providedInfo$** changes the style of the icon based on the information that the user has
  * provided. For example if no changes are detected after clicking the input field, the icon's tooltip
- * will say : "No changes detected", informing the user that their action did not affect on the state of the input.
+ * will say : "No changes detected", informing the user that their action did not affect the state of the input.
  */
 export const providedInfo$ = new Subject<providedField>();
 
@@ -69,5 +69,16 @@ export const trigger$ = ids.reduce<Record<string, Subject<iconStatus>>>(
   },
   {} as Record<string, Subject<iconStatus>>
 );
+
+/**
+ * Push any set of files (that resulted from the user deleting or adding them) to the component that
+ * will eventually post them. Because processing the payload may not be done when the data is emitted,
+ * we will keep the latest set of data memoized inside **imageSupplier$**. This way, the data is only
+ * retrieved and processed before it is posted.
+ */
+export const imageSupplier$ = new ReplaySubject<{
+  church: string;
+  files: File[];
+}>(1);
 
 export const showPopup = new Subject<boolean>();
