@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
-import { trigger$, showLoading$, ids } from 'lib/modal';
+import { trigger$, showLoading$, ids, imageSupplier$ } from 'lib/modal';
 import {
+  mergeMap,
   exhaustMap,
   of,
   Subscription,
@@ -12,6 +13,7 @@ import {
   tap,
   from,
   fromEvent,
+  map,
 } from 'rxjs';
 import { useSession, signIn } from 'next-auth/react';
 
@@ -22,6 +24,8 @@ import ActionPopup from '../../ActionPopup/ActionPopup';
 const data = ids.reduce<Record<string, string>>((obj, field) => {
   return { ...obj, [field]: '' };
 }, {} as Record<string, string>);
+
+const form = new FormData();
 
 const Button = () => {
   const [visible, setIsVisible] = useState(false);
@@ -40,26 +44,49 @@ const Button = () => {
               clickSub.unsubscribe();
             }
           }),
-          exhaustMap(() => {
+          mergeMap(() => {
             /**
-             * **data$** will contain the status of the POST request.
+             * We process the images from the user (only when submitting).
+             */
+            return imageSupplier$.pipe(
+              map(({ church, files }) => {
+                /**
+                 * Before processing the current set of images we want to  remove all previous files
+                 */
+                form.delete(church);
+
+                files.forEach((file) =>
+                  /**
+                   * Since the backend expects a form like structure, we append the images to
+                   * the form object. For each file we also want to specify a name, that will mimic
+                   * a real input form's unique id. This will help us sorting and saving images in the filesystem
+                   */
+                  form.append(church, file)
+                );
+
+                return { form, church };
+              })
+            );
+          }),
+          exhaustMap(({ form }) => {
+            /**
+             * **data$** will control the loading state based on request made.
+             * It will mount the loading component when data processing and posting starts, and
+             * unmount it on completion.
              *
-             * In addition it will also unmount the Loading component on completion.
+             * It also gives multiple subscribers the same payload via shareReplay. It becomes useful when we consider the following scenario:
              *
-             * It also gives multiple subscribers the same payload via shareReplay (e.g. we are going to
-             * set a subscription in *_race_* to see if it's worth displaying a loading component while fetching, or
-             * if fetch is fast enough to POST (if the fetch is fast enough the subscription will emmit the payload).
-             * But if it isn't we want to set a subscription in *_concat_* to ensure that no
-             * flashes of UI occur (this is the second possible subscriber to **data$** which **SHOULD NOT** recieve
-             * a different payload when subscribing).
+             * 1.We are going to subscribe to **data$** in *_race_* to see if it's worth displaying a loading component while "fetching".
+             *
+             * 2.If the fetching isn't fast enough we want to subscribe to the **data$** again in *_concat_* (ensuring that no flashes of UI occur).
+             *
+             * Depending on the response time of the server, one of these scenarios will play out. Either way, we must ensure both instances will
+             * receive and pass down the same response.
              */
             const data$ = from(
-              fetch('/api', {
-                body: JSON.stringify({ user: session?.user?.name, ...data }),
+              fetch('/api/images/images', {
                 method: 'POST',
-              }).then(async (res) => {
-                await new Promise((resolve) => setTimeout(resolve, 1000));
-                return res;
+                body: form,
               })
             ).pipe(
               shareReplay(1),
@@ -76,15 +103,16 @@ const Button = () => {
             );
 
             /**
-             * **showAfter$** is used to prevent the Loading component from showing when requests
-             * last under 500ms.
+             * **showAfter$** is used to prevent the Loading component from showing if the response time of the server
+             * is under 500ms.
              *
              * To achieve this we will start a timer and play two scenarios:
-             * 1. If the observer isn't canceled by the completion of the fetch request, then we want to
-             * set the loading state to true.
-             * 2. If the fetch was completed before the timer,
+             * 1. If the fetch was completed before the timer,
              * the _race_ condition will make sure to unsubscribe from the showAfter$ observer, thus never
              * setting the loading state to true.
+             *
+             * 2. If the observer isn't canceled by the completion of the fetch request, then we want to
+             * set the loading state to true.
              */
             const showAfter$ = of(1).pipe(
               delay(500),
@@ -96,13 +124,11 @@ const Button = () => {
              * guaranteeing a consistent UI.
              *
              * If **showFor** has been triggered, fetch takes longer to complete the request.
-             * In this case, we want to show the user that their action is being processed by using a
-             * Loading component which will appear on screen. When the request has been settled,
+             * In this case, we want to show the user that their action is being processed. When the request has been settled,
              * the Loading component must be unmounted from the DOM. We want to prevent inconsistencies
              * in showing the Loading component (such as flashes of UI) by forcing it to stay a bare minimum
-             * on the screen. Thus the **showFor$** will keep the loading state to true for as much as the
-             * timer indicates. In the **_concat_** context, it will block the removal of the
-             * Loading for that much time, by not subscribing to another observer until the delay completes.
+             * on the screen. Using **_concat_**, it won't subscribe to **data$** -and possibly unmount loading- until the timer completes.
+             * Thus **showFor$** will keep the loading state to true for as much as the timer indicates.
              */
             const showFor$ = of(1).pipe(delay(1500));
 
@@ -114,16 +140,16 @@ const Button = () => {
              *  in the order they were defined (and after they complete).
              *
              * For the *race* condition this opens two scenarios:
-             *  1. If **data$** emmits faster, *race* will pick it and unsubscribe from **loading$**, thus,
+             *  1. If **data$** emits faster, *race* will pick it and unsubscribe from **loading$**, thus,
              *  never really reading into any other observables chained in **concat**.
-             * 2. If the first observable (i.e **showAfter$**) emmits first, *race* will pick **loading$** and unsubscribe to **data$** thus following the pattern described in **showFor$**
+             * 2. If the first observable (i.e **showAfter$**) emits first, *race* will pick **loading$** and unsubscribe to **data$** thus following the pattern described in **showFor$**
              */
             const loading$ = concat(showAfter$, showFor$, data$);
 
             /**
-             * as the specs provide race will subscribe to both observables, consecutively unsubscribing to the one emmiting slower.
-             * Looking into the behavior of **loading$**, what **race** really does is seeing if it's worth displaying the Loading component
-             * as it actually races **showAfter$** and **data$** and following of the two scenarios mentioned above.
+             * as the specs provide race will subscribe to both observables, consecutively unsubscribing to the one emitting slower.
+             * Looking into the behavior of **loading$**, what **race** really does is seeing if it's worth displaying the Loading component,
+             * as it only races **showAfter$** and **data$** and following one of the two scenarios mentioned above.
              */
             return race(loading$, data$);
           }),
@@ -133,6 +159,7 @@ const Button = () => {
           )
         )
         .subscribe(console.log);
+
     const value$ = ids.map((id) =>
       trigger$[id].subscribe((event) => {
         data[id] = event.payload;
