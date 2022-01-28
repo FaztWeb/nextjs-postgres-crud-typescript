@@ -32,7 +32,7 @@ const Searchbar = () => {
     () => obs.unsubscribe();
   }, []);
   return (
-    <div className={searchResults.pannel}>
+    <div className={searchResults.panel}>
       <div className={searchResults.cards__container}>
         {inputValue?.map((value) => {
           const { lat, long } = value;
