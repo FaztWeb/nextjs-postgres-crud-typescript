@@ -1,6 +1,6 @@
-.pannel {
+.panel {
   width: 100%;
-  height: var(--pannel_height);
+  height: var(--panel_height);
   margin-top: var(--gap_x);
   display: flex;
   align-items: center;
