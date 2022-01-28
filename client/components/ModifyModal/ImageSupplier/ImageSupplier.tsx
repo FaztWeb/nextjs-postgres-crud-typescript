@@ -1,5 +1,7 @@
 import { churchToModify$ } from 'lib/modal';
 import { useEffect, useReducer, useRef, useState } from 'react';
+import { motion } from 'framer-motion';
+import useToggle from 'hooks/useToggle';
 
 import { CgCloseO } from 'react-icons/cg';
 import { MdOutlinePhotoCamera } from 'react-icons/md';
@@ -20,6 +22,8 @@ interface photoData {
 
 export default function ImageSupplier() {
   const inputRef = useRef<HTMLInputElement>(null);
+  const { state: show, toggle } = useToggle();
+
   const [imagePrefix, setImagePrefix] = useState<string>('');
   const [photos, dispatchPhotos] = useReducer(
     (prev: photoData[], action: Action): photoData[] => {
@@ -88,6 +92,30 @@ export default function ImageSupplier() {
       <div className={imageSupplierStyle.subtitle}>
         Fotografiile pot ajuta utilizatorii sa recunoasca mai usor locatia
       </div>
+      <motion.button
+        layout
+        ref={buttonRef}
+        className={imageSupplierStyle.button}
+        onMouseEnter={toggle}
+        onMouseLeave={toggle}
+        onClick={() => {
+          inputRef.current?.click();
+        }}
+      >
+        <motion.div layoutId="Ceva" className={imageSupplierStyle.text}>
+          Adauga fotografii
+        </motion.div>
+        {show ? (
+          <motion.div
+            initial={{ opacity: 0, x: 200 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -200 }}
+            className={imageSupplierStyle.iconDiv}
+          >
+            <MdOutlinePhotoCamera className={imageSupplierStyle.icon} />
+          </motion.div>
+        ) : null}
+      </motion.button>
       <div className={imageSupplierStyle.preview}>
         {photos.map(({ src, file, url }) => (
           <button

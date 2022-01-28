@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
 .container {
   width: calc(100% - 40px);
   height: 100px;
@@ -18,10 +19,11 @@
   align-items: center;
   justify-content: space-between;
   background-color: transparent;
-  border: 2px solid black;
-  padding: 5px;
+  border: 2px solid rgb(60, 60, 60);
+  color: rgb(60, 60, 60);
+  padding: 10px;
   width: auto;
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 500;
   border-radius: 50px;
   cursor: pointer;
@@ -29,7 +31,14 @@
 
 .text {
   width: fit-content;
-  padding: 5px 10px;
+  padding: 0 20px;
+}
+
+.iconDiv {
+  width: auto;
+  height: 0;
+  display: flex;
+  align-items: center;
 }
 .icon {
   display: flex;
@@ -37,6 +46,7 @@
   justify-content: flex-end;
   margin-right: 10px;
   font-size: 24px;
+  transition: all 0.3s ease-in-out;
 }
 
 .invisibleInput {
@@ -44,14 +54,17 @@
 }
 
 .preview {
+  --scrollbar__bg_color: rgb(111, 111, 111);
+  --scrollbar__scroll_color: rgb(183, 183, 183);
   width: auto;
   height: auto;
   display: flex;
   flex-direction: row;
   flex-wrap: no-wrap;
-  overflow-x: scroll;
+  overflow-x: auto;
   padding: 10px;
   background: rgb(216, 216, 216);
+  min-height: 100px;
 }
 
 .closeIcon {
@@ -91,7 +104,7 @@
 
 .thumbnail {
   position: relative;
-  min-width: 150px;
+  width: 150px;
   max-height: auto;
 }
 
