@@ -9,13 +9,6 @@
  */
 
 * {
-  /* the height of the search pannel, based to the height of the main container,
-  button and some extra padding for evenly spreading components.
-  */
-  --pannel_height: calc(
-    var(--height) - 3 * var(--gap_y) - var(--button_height)
-  );
-
   /* The width and height of the main search container */
   --width: 350px;
   --height: 600px;
@@ -25,6 +18,7 @@
   */
   --panel_height: calc(var(--height) - 3 * var(--gap_y) - var(--button_height));
   --carousel_height: calc(150 / 600 * var(--height));
+
   /* The gap between elements */
   --gap_x: 25px;
   --gap_y: 25px;
@@ -61,6 +55,9 @@
   --modal__width: 450px;
   --modal__height: 650px;
   --scrollbar_width: 12px;
+  --scrollbar_height: 12px;
+  --scrollbar__bg_color: #8b8b8b;
+  --scrollbar__scroll_color: #cacaca;
 }
 
 html {
@@ -424,4 +421,21 @@ template {
 .rc-tooltip-placement-topLeft,
 .rc-tooltip-placement-topRight {
   padding: 0 0 0 0 !important;
+}
+
+*::-webkit-scrollbar {
+  width: var(--scrollbar_width);
+  height: var(--scrollbar_height);
+}
+
+*::-webkit-scrollbar-track {
+  background-color: var(--scrollbar__bg_color);
+  border-radius: 100px;
+}
+
+*::-webkit-scrollbar-thumb {
+  border-radius: 100px;
+  border-left: 0;
+  border-right: 0;
+  background-color: var(--scrollbar__scroll_color);
 }
