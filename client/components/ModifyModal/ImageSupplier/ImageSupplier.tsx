@@ -1,4 +1,4 @@
-import { churchToModify$ } from 'lib/modal';
+import { churchToModify$, imageSupplier$ } from 'lib/modal';
 import { useEffect, useReducer, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import useToggle from 'hooks/useToggle';
@@ -10,51 +10,60 @@ import imageSupplierStyle from './imageSupplier.module.css';
 interface Action {
   type: 'REMOVE' | 'ADD';
   src: string;
-  url: string;
+  name: string;
   file: File;
 }
 
 interface photoData {
   src: string;
-  url: string;
+  name: string;
   file: File;
 }
 
 export default function ImageSupplier() {
   const inputRef = useRef<HTMLInputElement>(null);
+  const buttonRef = useRef<HTMLButtonElement>(null);
   const { state: show, toggle } = useToggle();
 
+  /**
+   * To correctly retrieve the images for a church's card, we have to make sure the folder where
+   * we store the images resembles the church's name. Thus, when we post the images, the **imagePrefix**
+   * will communicate to the server which church made the request, and the server will create the
+   * according directory.
+   */
   const [imagePrefix, setImagePrefix] = useState<string>('');
+
+  /**
+   *  adding and deleting images from the preview section
+   */
   const [photos, dispatchPhotos] = useReducer(
     (prev: photoData[], action: Action): photoData[] => {
       switch (action.type) {
         case 'REMOVE':
           return prev.filter(({ src }) => src !== action.src);
         case 'ADD':
-          if (prev.find(({ url }) => url === action.url)) {
+          if (prev.find(({ name }) => name === action.name)) {
             return prev;
           } else
             return [
               ...prev,
-              { src: action.src, file: action.file, url: action.url },
+              { src: action.src, file: action.file, name: action.name },
             ];
       }
     },
     [] as photoData[]
   );
 
-  const deleteImage = (src: string, file: File, url: string) => {
-    dispatchPhotos({
-      type: 'REMOVE',
-      src,
-      url,
-      file,
-    });
-  };
+  useEffect(() => {
+    console.log(photos);
+  }, [photos]);
 
   useEffect(() => {
+    /**
+     * upon subscribing, we receive the church's name, which we can store
+     * inside the **imagePrefix**. Later we can send it to the server, along with the images
+     */
     const subscribe = churchToModify$.subscribe((value) => {
-      console.log(value);
       setImagePrefix(value);
     });
     () => {
@@ -64,27 +73,32 @@ export default function ImageSupplier() {
 
   return (
     <div className={imageSupplierStyle.container}>
-      <button
-        className={imageSupplierStyle.button}
-        onClick={() => {
-          inputRef.current?.click();
-        }}
-      >
-        <div className={imageSupplierStyle.text}>Adauga fotografii</div>
-        <MdOutlinePhotoCamera className={imageSupplierStyle.icon} />
-      </button>
       <input
         type="file"
         ref={inputRef}
         multiple
+        // the input will be invisible it's styling does not fit our preferred design
         className={imageSupplierStyle.invisibleInput}
         onChange={(event) => {
+          /**
+           * when the input receives images, it will store them (along with some details about the files)
+           * inside **photos**. The metadata, will help display the thumbnail (through the **src**), avoid
+           * duplicates (as the **name** will become the React key at display -keys must be unique so two images
+           * with the same name won't meet the criteria-) and post the images to the backend (through the **file**)
+           */
           if (event.target.files && event.target.files[0]) {
             dispatchPhotos({
               type: 'ADD',
               src: URL.createObjectURL(event.target.files[0]),
-              url: event.target.files[0].name,
+              name: event.target.files[0].name,
               file: event.target.files[0],
+            });
+            imageSupplier$.next({
+              files: [
+                ...photos.map((photo) => photo.file),
+                event.target.files[0],
+              ],
+              church: imagePrefix,
             });
           }
         }}
@@ -116,19 +130,38 @@ export default function ImageSupplier() {
           </motion.div>
         ) : null}
       </motion.button>
+
       <div className={imageSupplierStyle.preview}>
-        {photos.map(({ src, file, url }) => (
+        {photos.map(({ src, file, name }) => (
           <button
             onKeyDown={(event) => {
-              event.key === 'Enter' ? deleteImage(src, file, url) : 0;
+              // delete images upon focusing and pressing the enter key on any given image
+              event.key === 'Enter'
+                ? dispatchPhotos({
+                    type: 'REMOVE',
+                    src,
+                    name,
+                    file,
+                  })
+                : 0;
+              imageSupplier$.next({
+                files: photos.map((photo) => photo.file),
+                church: imagePrefix,
+              });
             }}
-            key={url}
+            key={name}
             className={imageSupplierStyle.hideButton}
           >
             <div className={imageSupplierStyle.thumbnail}>
               <CgCloseO
                 onClick={() => {
-                  deleteImage(src, file, url);
+                  // deleting image on clicking the close icon
+                  dispatchPhotos({
+                    type: 'REMOVE',
+                    src,
+                    name,
+                    file,
+                  });
                 }}
                 className={imageSupplierStyle.closeIcon}
               />
@@ -142,20 +175,6 @@ export default function ImageSupplier() {
           </button>
         ))}
       </div>
-      <button
-        className={imageSupplierStyle.submit}
-        onClick={async () => {
-          const data = new FormData();
-          photos.map((photo) => data.append(imagePrefix, photo.file));
-          const result = await fetch('api/images/images', {
-            body: data,
-            method: 'POST',
-          });
-          console.log(result);
-        }}
-      >
-        SEND
-      </button>
     </div>
   );
 }
