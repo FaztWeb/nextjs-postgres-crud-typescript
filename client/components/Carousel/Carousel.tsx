@@ -4,9 +4,22 @@ import carouselStyles from './carousel.module.css';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import { useEffect, useState } from 'react';
+import useLoading from 'hooks/useLoading';
+import Loading from 'components/Loading/Loading';
 
-const Carousel = () => {
-  const [photos, setPhotos] = useState([]);
+const Carousel = ({ church }: { church: string }) => {
+  const [photos, setPhotos] = useState<HTMLImageElement[]>([]);
+  const { doAction, loading } = useLoading<string, HTMLImageElement[]>(
+    async function () {
+      const response = await fetch(`/api/images/${church}`);
+      const base64Images = (await response.json()) as string[];
+      return base64Images.map((base64Image) => {
+        const image = new Image();
+        image.src = 'data:image/png;base64,' + base64Image;
+        return image;
+      });
+    }
+  );
   const NextArrow = ({ onClick }: { onClick?: React.MouseEventHandler }) => {
     return (
       <div
@@ -19,11 +32,10 @@ const Carousel = () => {
   };
 
   useEffect(() => {
-    (async () => {
-      const response = await fetch('/api/images/images');
-      const files = await response.json();
-      console.log(files);
-    })();
+    doAction(church).then((images) => {
+      console.log(images);
+      setPhotos(images);
+    });
   }, []);
 
   const PrevArrow = ({ onClick }: { onClick?: React.MouseEventHandler }) => {
@@ -42,7 +54,7 @@ const Carousel = () => {
     lazyLoad: 'ondemand' as LazyLoadTypes,
     speed: 300,
     slidesToShow: 1,
-    centerMode: true,
+    centerMode: false,
     centerPadding: '0',
     nextArrow: <NextArrow />,
     prevArrow: <PrevArrow />,
@@ -50,13 +62,17 @@ const Carousel = () => {
 
   return (
     <div className={carouselStyles.container}>
-      <Slider {...settings}>
-        {photos.map((img, index) => (
-          <div key={index} className={carouselStyles.slide}>
-            {/* <img src={img?.src} alt={'alt'} /> */}
-          </div>
-        ))}
-      </Slider>
+      {!loading ? (
+        <Slider {...settings}>
+          {photos.map((img, index) => (
+            <div key={index} className={carouselStyles.slide}>
+              <img src={img?.src} alt={'alt'} />
+            </div>
+          ))}
+        </Slider>
+      ) : (
+        <Loading />
+      )}
     </div>
   );
 };

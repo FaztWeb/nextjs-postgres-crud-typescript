@@ -25,7 +25,11 @@ const Card = ({ church }: { church: Church }) => {
             <div className={cardStyle.latLong}>{church.lat}</div>
             <div className={cardStyle.latLong}>{church.long}</div>
           </div>
-          <Carousel></Carousel>
+          {/* 
+              to only show the subset of photos uploaded for this specific church, we must 
+              provide the carousel with the name of that church
+          */}
+          <Carousel church={church.name}></Carousel>
           <div className={cardStyle.short_description}>
             Biserica Catolica / Ortodoxa
           </div>
