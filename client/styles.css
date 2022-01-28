@@ -20,6 +20,11 @@
   --width: 350px;
   --height: 600px;
 
+  /* the height of the search panel, based to the height of the main container,
+  button and some extra padding for evenly spreading components.
+  */
+  --panel_height: calc(var(--height) - 3 * var(--gap_y) - var(--button_height));
+  --carousel_height: calc(150 / 600 * var(--height));
   /* The gap between elements */
   --gap_x: 25px;
   --gap_y: 25px;
