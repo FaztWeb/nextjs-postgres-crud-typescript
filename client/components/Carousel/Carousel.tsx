@@ -13,11 +13,13 @@ const Carousel = ({ church }: { church: string }) => {
     async function () {
       const response = await fetch(`/api/images/${church}`);
       const base64Images = (await response.json()) as string[];
-      return base64Images.map((base64Image) => {
-        const image = new Image();
-        image.src = 'data:image/png;base64,' + base64Image;
-        return image;
-      });
+      if (!base64Images.error)
+        return base64Images.map((base64Image) => {
+          const image = new Image();
+          image.src = 'data:image/png;base64,' + base64Image;
+          return image;
+        });
+      else return [];
     }
   );
   const NextArrow = ({ onClick }: { onClick?: React.MouseEventHandler }) => {
@@ -33,7 +35,6 @@ const Carousel = ({ church }: { church: string }) => {
 
   useEffect(() => {
     doAction(church).then((images) => {
-      console.log(images);
       setPhotos(images);
     });
   }, []);
