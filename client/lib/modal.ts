@@ -1,4 +1,4 @@
-import { Subject, ReplaySubject } from 'rxjs';
+import { Subject, ReplaySubject, mergeMap, map, take, tap } from 'rxjs';
 
 export type providedField = {
   field: string;
@@ -29,18 +29,6 @@ export const showLoading$ = new Subject<boolean>();
  * to query the results (from the arcGIS external database)
  */
 export const input$ = new Subject<string>();
-
-/**
- * **churchToModify$** helps the modal be aware which church
- * the user intends to modify.
- *
- * We subscribe to this observer from the modal, through the useEffect hook.
- * But when the modify button is clicked (and churchToModify$ emits), the modal may NOT be mounted yet
- * (and the subscription not set up) resulting in the data being lost. Hence we
- * use the **ReplaySubject** to make sure that even late subscribers (such as the modal)
- * still receive the last value emitted from the observer
- */
-export const churchToModify$ = new ReplaySubject<string>(1);
 
 /**
  * **providedInfo$** changes the style of the icon based on the information that the user has
@@ -76,9 +64,43 @@ export const trigger$ = ids.reduce<Record<string, Subject<iconStatus>>>(
  * we will keep the latest set of data memoized inside **imageSupplier$**. This way, the data is only
  * retrieved and processed before it is posted.
  */
-export const imageSupplier$ = new ReplaySubject<{
-  church: string;
-  files: File[];
-}>(1);
+export const imageSupplier$ = new ReplaySubject<File[]>(1);
+
+/**
+ * To correctly retrieve the images for a church's card, we have to make sure the folder where
+ * we store the images resembles the church's name. Thus, when we post the images, the **imagePrefix**
+ * will communicate to the server which church made the request, and the server will create the
+ * according directory.
+ */
+/**
+ * **churchToModify$** helps the modal be aware which church
+ * the user intends to modify.
+ *
+ * We subscribe to this observer from the modal, through the useEffect hook.
+ * But when the modify button is clicked (and churchToModify$ emits), the modal may NOT be mounted yet
+ * (and the subscription not set up) resulting in the data being lost. Hence we
+ * use the **ReplaySubject** to make sure that even late subscribers (such as the modal)
+ * still receive the last value emitted from the observer
+ */
+export const churchToModify$ = new ReplaySubject<string>(1);
+
+export const imagesFrom = imageSupplier$.pipe(
+  mergeMap((files) => {
+    return churchToModify$.pipe(
+      map((church) => {
+        return {
+          files: files,
+          from: church,
+        };
+      })
+    );
+  }),
+  map(({ files, from }) => {
+    const form = new FormData();
+    files.forEach((file) => form.append(from, file));
+    return form;
+  }),
+  take(1)
+);
 
 export const showPopup = new Subject<boolean>();

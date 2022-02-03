@@ -16,6 +16,7 @@ const Modal = () => {
   useEffect(() => {
     const show = showLoading$.subscribe(setLoading);
     return () => {
+      console.log('UNMOUTED');
       show.unsubscribe();
     };
   }, []);

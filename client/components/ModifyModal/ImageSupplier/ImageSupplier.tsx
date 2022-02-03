@@ -26,14 +26,6 @@ export default function ImageSupplier() {
   const { state: show, toggle } = useToggle();
 
   /**
-   * To correctly retrieve the images for a church's card, we have to make sure the folder where
-   * we store the images resembles the church's name. Thus, when we post the images, the **imagePrefix**
-   * will communicate to the server which church made the request, and the server will create the
-   * according directory.
-   */
-  const [imagePrefix, setImagePrefix] = useState<string>('');
-
-  /**
    *  adding and deleting images from the preview section
    */
   const [photos, dispatchPhotos] = useReducer(
@@ -53,23 +45,6 @@ export default function ImageSupplier() {
     },
     [] as photoData[]
   );
-
-  useEffect(() => {
-    console.log(photos);
-  }, [photos]);
-
-  useEffect(() => {
-    /**
-     * upon subscribing, we receive the church's name, which we can store
-     * inside the **imagePrefix**. Later we can send it to the server, along with the images
-     */
-    const subscribe = churchToModify$.subscribe((value) => {
-      setImagePrefix(value);
-    });
-    () => {
-      subscribe.unsubscribe();
-    };
-  }, []);
 
   return (
     <div className={imageSupplierStyle.container}>
@@ -93,13 +68,10 @@ export default function ImageSupplier() {
               name: event.target.files[0].name,
               file: event.target.files[0],
             });
-            imageSupplier$.next({
-              files: [
-                ...photos.map((photo) => photo.file),
-                event.target.files[0],
-              ],
-              church: imagePrefix,
-            });
+            imageSupplier$.next([
+              ...photos.map((photo) => photo.file),
+              event.target.files[0],
+            ]);
           }
         }}
       />
@@ -144,10 +116,7 @@ export default function ImageSupplier() {
                     file,
                   })
                 : 0;
-              imageSupplier$.next({
-                files: photos.map((photo) => photo.file),
-                church: imagePrefix,
-              });
+              imageSupplier$.next(photos.map((photo) => photo.file));
             }}
             key={name}
             className={imageSupplierStyle.hideButton}

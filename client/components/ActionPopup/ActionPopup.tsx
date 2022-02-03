@@ -1,13 +1,10 @@
 import actionStyle from './actionpopup.module.css';
 import { FaInfoCircle } from 'react-icons/fa';
 import { AnimatePresence, motion } from 'framer-motion';
-import { useEffect } from 'react';
+import { useAppSelector } from 'hooks/redux-hooks';
 
-const ActionPopup = ({ visible }: { visible: boolean }) => {
-  useEffect(() => {
-    console.log(visible);
-  }, [visible]);
-
+const ActionPopup = () => {
+  const visible = useAppSelector((state) => state.button);
   return (
     <AnimatePresence>
       {visible ? (

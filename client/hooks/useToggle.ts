@@ -9,7 +9,6 @@ const useToggle = (initialState = false): Toggle => {
   const [state, setState] = useState<boolean>(initialState);
   const toggle = () => {
     setState(!state);
-    console.log(state);
   };
   return { state, toggle };
 };
