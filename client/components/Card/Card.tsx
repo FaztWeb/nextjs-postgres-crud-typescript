@@ -6,32 +6,41 @@ import cardStyle from './card.module.css';
 import Carousel from 'components/Carousel/Carousel';
 import { FaPen } from 'react-icons/fa';
 import { HiLocationMarker } from 'react-icons/hi';
-
+import { BiChurch } from 'react-icons/bi';
 const Card = ({ church }: { church: Church }) => {
   return (
     <div className={cardStyle.container}>
       <div className={cardStyle.header__container}>
         <button
-          className={cardStyle.headerTitle}
+          className={cardStyle.header__title}
           onClick={() => {
             coordinates.next([church.lat, church.long]);
           }}
         >
-          {church.name}
-        </button>
-        <div className={cardStyle.headerSubtitle}>
-          <div className={cardStyle.coordinates}>
-            <HiLocationMarker className={cardStyle.icon} />
-            <div className={cardStyle.latLong}>{church.lat}</div>
-            <div className={cardStyle.latLong}>{church.long}</div>
+          <div className={cardStyle.content}>
+            <div className={cardStyle.content__icon}>
+              <BiChurch />
+            </div>
+            <div className={cardStyle.main__content}>{church.name}</div>
           </div>
-          {/* 
-              to only show the subset of photos uploaded for this specific church, we must 
-              provide the carousel with the name of that church
-          */}
-          <Carousel church={church.name}></Carousel>
-          <div className={cardStyle.short_description}>
-            Biserica Catolica / Ortodoxa
+        </button>
+        <div className={cardStyle.content}>
+          <div className={`${cardStyle.content__icon} ${cardStyle.pin__icon}`}>
+            <HiLocationMarker />
+          </div>
+          <div className={cardStyle.main__content}>
+            <div className={cardStyle.coordinates}>
+              <div className={cardStyle.latLong}>{church.lat}</div>
+              <div className={cardStyle.latLong}>{church.long}</div>
+            </div>
+          </div>
+        </div>
+        <div className={cardStyle.content}>
+          <div className={`${cardStyle.content__icon} ${cardStyle.pin__icon}`}>
+            <HiLocationMarker />
+          </div>
+          <div className={cardStyle.main__content}>
+            <Carousel church={church.name} />
           </div>
         </div>
       </div>

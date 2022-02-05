@@ -1,64 +1,100 @@
 .container {
-  width: calc(100% - var(--gap_x));
+  width: 100%;
   height: auto;
-  background-color: rgb(255, 255, 255);
+  background-color: #f2f2f2;
   display: flex;
   align-items: center;
   flex-direction: column;
   margin: var(--margin_x) var(--margin_y);
+  border-radius: 20px;
 }
 
 .header__container {
-  width: calc(100% - var(--gap_x));
+  max-width: 100%;
   height: auto;
   display: flex;
   flex-direction: column;
 }
 
+.content {
+  max-width: calc(100% - 40px);
+  height: auto;
+  display: flex;
+  align-items: center;
+  background-color: brown;
+  margin: 0 20px;
+}
+
+.main__content {
+  width: calc(100% - 70px);
+  background-color: blueviolet;
+}
+
+.content__icon {
+  min-width: 70px;
+  height: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 48px;
+  padding: 0 10px;
+  transition: all 0.5s cubic-bezier(0.47, 0, 0.745, 0.715);
+  color: #5c95ae;
+}
+
+.pin__icon {
+  font-size: 30px;
+}
+
 /* the headerTitle contains styles for the church's display name container (box) */
-.headerTitle {
+.header__title {
+  padding: 20px 0px;
   position: relative;
-  font-size: var(--card__header__text_size);
-  margin-top: var(--margin_y);
   cursor: pointer;
-  background-color: transparent;
   text-align: left;
   border: none;
   transition: all 0.3s ease;
+  font-size: 22px;
+  font-weight: 700;
+  text-transform: uppercase;
+  overflow: hidden;
+  border-radius: 20px;
+}
+
+.header__title::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100vw;
+  height: 100vw;
+  background-color: rgba(0, 0, 0, 0.145);
+  border-color: transparent;
+  border-radius: 50%;
+  transform: translate(-50%, -50%) scale(0.1);
+  opacity: 0;
+  z-index: 1;
+  transition: transform 1s, opacity 1s;
 }
 
 /* the after styles are used to create an overlayed hover and focus animation */
-.headerTitle::after {
-  content: '';
-  position: absolute;
-  top: calc(-1 * var(--margin_y));
-  left: calc(-1 * var(--margin_x));
-  width: 0;
-  height: calc(100% + var(--gap_y));
-  background-color: rgba(0, 0, 0, 0.22);
-  transition: all 0.5s ease;
+.header__title:hover::after {
+  opacity: 1;
+  top: 50%;
+  left: 50%;
+  width: 100vw;
+  height: 100vw;
+  background-color: rgba(0, 0, 0, 0.145);
+  transform: scale(1) translate(-50%, -50%);
+  transition: transform 0.5s, opacity 0.5s;
 }
-.headerTitle:hover::after {
-  content: '';
-  position: absolute;
-  top: calc(-1 * var(--margin_y));
-  left: calc(-1 * var(--margin_x));
-  width: calc(100% + var(--gap_x));
-  height: calc(100% + var(--gap_y));
-  background-color: rgba(0, 0, 0, 0.22);
+.header__title:hover .content__icon {
+  color: rgb(48, 116, 162);
+  transition: all 0.5s;
 }
 
-.headerTitle:focus {
-  outline: none;
-}
-
-.headerTitle:focus::after {
-  top: calc(-1 * var(--margin_y));
-  left: calc(-1 * var(--margin_x));
-  width: calc(100% + var(--gap_x));
-  height: calc(100% + var(--gap_y));
-  box-shadow: 0 0 0 4px rgba(0, 0, 0, 0.4);
-  transition: all 0.3s ease;
+.header__title:focus {
+  outline: solid 2px black;
 }
 
 /* the subtitle contains the coordinates, church type and info section */
@@ -81,11 +117,6 @@
   display: flex;
   align-items: flex-end;
   margin-left: 5px;
-}
-
-.icon {
-  font-size: var(--card__coordinates_icon_size);
-  color: red;
 }
 
 .short_description {

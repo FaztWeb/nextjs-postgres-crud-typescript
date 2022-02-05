@@ -2,7 +2,7 @@
   position: relative;
   width: 100%;
   height: var(--carousel_height);
-  margin: 10px 0px;
+  margin: 20px 0px;
 }
 .slide {
   position: relative;

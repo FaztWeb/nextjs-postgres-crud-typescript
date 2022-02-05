@@ -1,7 +1,8 @@
 .container {
-  width: var(--width);
-  height: var(--height);
-  background-color: rgb(255, 255, 255);
+  width: calc(100vw - 40px);
+  height: calc(100vh - 40px);
+  background-color: #4e4e6a;
+  border-radius: 20px;
   position: relative;
   z-index: 10;
   top: 0;

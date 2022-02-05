@@ -1,35 +1,79 @@
 /* the container of the button */
 .container {
   width: calc(100% - 2 * var(--gap_x));
-  height: var(--button_height);
-  margin-top: var(--gap_x);
   display: flex;
   align-items: center;
-  font-size: calc(3 / 5 * var(--button_height));
+  justify-content: space-between;
+  margin-top: 30px;
+  display: flex;
+  align-items: center;
+  font-size: 22px;
 }
 
-.searchBar {
+.search__container {
+  display: flex;
+  width: calc(100% - 50px - 40px);
   height: 100%;
-  width: calc(100% - var(--search__text_width));
-  border-top-left-radius: 100px;
-  border-bottom-left-radius: 100px;
-  background-color: #f3f2f2;
-  padding-left: var(--gap_x);
-  box-shadow: 6px 7px 0px rgba(0, 0, 0, 0.438);
-  color: rgb(0, 0, 0);
 }
-.icon {
-  height: 100%;
-  width: var(--search__text_width);
+.search__bar {
+  width: 100%;
+  padding: 10px 20px;
+  font-weight: 600;
   border-top-right-radius: 100px;
   border-bottom-right-radius: 100px;
-  background-color: #f3f2f2;
-  box-shadow: 6px 7px 0px rgba(0, 0, 0, 0.438);
+  background-color: #f2f2f2;
+  color: rgb(0, 0, 0);
+}
+
+.close {
+  position: relative;
+  height: 50px;
+  width: 50px;
+  color: #d0d0d0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 34px;
+  cursor: pointer;
+  border-radius: 50%;
+}
+.close:hover {
+  color: #ffffff;
+}
+
+.close::before {
+  content: '';
+  display: block;
+  opacity: 0;
+  position: absolute;
+  transition-duration: 0.15s;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: -1;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  top: 0;
+  background: rgba(225, 225, 225, 0.275);
+  border-radius: 50%;
+  transform: scale(0);
+  transition-property: transform, opacity;
+}
+
+.close:hover::before {
+  border-radius: 50%;
+  opacity: 0.5;
+  transform: scale(1);
+}
+
+.icon {
+  height: 100%;
+  padding-left: 20px;
+  border-top-left-radius: 100px;
+  border-bottom-left-radius: 100px;
+  background-color: #f2f2f2;
   color: rgb(0, 0, 0);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 30px;
-  padding: 0 15px;
   cursor: pointer;
 }

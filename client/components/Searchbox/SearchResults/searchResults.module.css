@@ -1,20 +1,18 @@
 .panel {
   width: 100%;
-  height: var(--panel_height);
   margin-top: var(--gap_x);
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow-y: scroll;
 }
 
 .cards__container {
-  background-color: #dfdfdf;
-  width: calc(100% - 2 * var(--gap_x));
+  width: calc(100% - 100px);
   height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  overflow-y: scroll;
 }
 
 /* scrollbar customizations */
