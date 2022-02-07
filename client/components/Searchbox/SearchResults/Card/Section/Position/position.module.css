@@ -1,0 +1,13 @@
+.coordinates {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  font-size: var(--card__coordinates_text_size);
+  height: auto;
+}
+
+.latLong {
+  display: flex;
+  align-items: flex-end;
+  margin-left: 5px;
+}

@@ -1,0 +1,65 @@
+.main__container {
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  padding: 0;
+  text-align: left;
+  border: none;
+  transition: all 0.3s ease;
+}
+.main__container::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  aspect-ratio: 1;
+  border-color: transparent;
+  border-radius: 50%;
+  opacity: 0;
+  z-index: 1;
+  transform: translate(-50%, -50%);
+  transition: transform 0.5s, opacity 0.5s;
+}
+
+/* the after styles are used to create an overlayed hover and focus animation */
+.main__container:focus::after {
+  content: '';
+  opacity: 1;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  aspect-ratio: 1;
+  background-color: #7bc7e73d;
+  transition: transform 0.5s, opacity 0.5s;
+  transform: translate(-50%, -50%) scale(0.5);
+  animation: idle 1.5s infinite alternate-reverse;
+}
+
+.click {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  aspect-ratio: 1;
+  border-color: transparent;
+  border-radius: 50%;
+  z-index: 1;
+  animation: fadeOut 0.5s forwards;
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0);
+  }
+  50% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(0.5);
+    background-color: #3f5f6d34;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}

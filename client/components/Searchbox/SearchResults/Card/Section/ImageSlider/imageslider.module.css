@@ -1,0 +1,64 @@
+.add_more__section {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}
+.add_more__button {
+  overflow: hidden;
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  outline: none;
+  border: none;
+  width: auto;
+  padding: 10px;
+  margin: 10px;
+  background: none;
+  color: #3f5f6d;
+  font-size: 16px;
+}
+
+.add_more__button:hover {
+  cursor: pointer;
+}
+
+.add_more__button::after {
+  content: '';
+  z-index: -1;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  aspect-ratio: 1;
+  border-color: transparent;
+  opacity: 0;
+  z-index: 1;
+  transition: transform 0.3s, opacity 0.3s, box-shadow 0.3s ease-in-out;
+}
+
+.add_more__button:focus {
+  box-shadow: 0px 0px 0px 1px #5c95ae;
+  transition: box-shadow 0.5s ease-in-out;
+  /* -webkit-box-shadow: 0px 0.5px 0px 0.5px rgba(0, 0, 0, 1);
+  -moz-box-shadow: 0px 0.5px 0px 0.5px rgba(0, 0, 0, 1); */
+}
+
+/* the after styles are used to create an overlayed hover and focus animation */
+.add_more__button:focus::after {
+  z-index: -1;
+  opacity: 1;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  aspect-ratio: 1;
+  background-color: #6ebada3d;
+  border-radius: 50%;
+  transition: transform 0.5s, opacity 0.5s;
+  transform: translate(-50%, -50%) scaleX(0.5);
+  animation: idle 1.5s infinite alternate-reverse;
+}
+
+.add_more__text {
+  margin-right: 10px;
+}

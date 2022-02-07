@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { debounceTime, from, mergeMap, tap, map } from 'rxjs';
 import searchResults from './searchResults.module.css';
 import { chruches } from 'components/Map/featureLayer';
-import Card from '../../Card/Card';
+import Card from './Card/Card';
 
 export interface Church {
   name: string;

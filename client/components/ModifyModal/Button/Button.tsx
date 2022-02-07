@@ -19,7 +19,7 @@ import { useSession, signIn } from 'next-auth/react';
 
 import Tooltip from 'rc-tooltip';
 import buttonStyle from './button.module.css';
-import ActionPopup from '../../ActionPopup/ActionPopup';
+import ActionPopup from '../ActionPopup/ActionPopup';
 
 const data = ids.reduce<Record<string, string>>((obj, field) => {
   return { ...obj, [field]: '' };

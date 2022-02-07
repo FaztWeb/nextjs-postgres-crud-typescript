@@ -1,0 +1,13 @@
+.church__name__info {
+  position: relative;
+  text-transform: capitalize;
+  width: fit-content;
+}
+
+.church__name__info:hover {
+  text-decoration: underline;
+}
+
+.church__name__info:focus {
+  background-color: #5c95ae6c;
+}
