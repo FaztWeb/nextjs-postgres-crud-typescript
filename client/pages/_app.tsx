@@ -12,7 +12,10 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
   const [showModal, setShowModal] = useState<boolean>(false);
 
   useEffect(() => {
-    modal$.subscribe(setShowModal);
+    modal$.subscribe((show) => {
+      setShowModal(show);
+      console.log(show);
+    });
   }, []);
   return (
     <Provider store={store}>

@@ -8,6 +8,7 @@ interface CreateSection {
     element: JSX.Element;
     position: 'first' | 'last' | 'middle';
     iconAlign: 'top' | 'center';
+    sideEffects: (() => void) | undefined;
   };
   iconContent: {
     element: JSX.Element;
