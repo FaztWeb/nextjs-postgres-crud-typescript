@@ -9,6 +9,17 @@
  */
 
 * {
+  --small__icon_size: 1.5rem;
+  --medium__icon_size: 2rem;
+  --big__icon_size: 2.5rem;
+
+  --small__font_size: 1rem;
+  --medium__font_size: 1.5rem;
+  --large__font_size: 2rem;
+
+  --button_space: 0.6rem;
+  --space: 2rem;
+
   /* The width and height of the main search container */
   --width: 350px;
   --height: 600px;
@@ -54,13 +65,14 @@
 
   --modal__width: 450px;
   --modal__height: 650px;
-  --scrollbar_width: 12px;
-  --scrollbar_height: 12px;
+  --scrollbar_width: 7px;
+  --scrollbar_height: 3px;
   --scrollbar__bg_color: #8b8b8b;
-  --scrollbar__scroll_color: #cacaca;
+  --scrollbar__scroll_color: #cfcfcf;
 }
 
 html {
+  font-size: 16px;
   line-height: 1.15; /* 1 */
   -webkit-text-size-adjust: 100%; /* 2 */
 }

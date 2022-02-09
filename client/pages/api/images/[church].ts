@@ -17,7 +17,6 @@ export default async function handler(
     })
   );
   try {
-    console.log(destinationFolder);
     const fileNames = await fs.readdir(destinationFolder);
     const files = await Promise.all(
       fileNames.map(
@@ -25,7 +24,6 @@ export default async function handler(
           await fs.readFile(path.join(destinationFolder, filename), 'base64')
       )
     );
-    console.log(files);
     res.json(files);
   } catch (e) {
     res.json({

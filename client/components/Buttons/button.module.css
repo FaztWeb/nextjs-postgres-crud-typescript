@@ -1,0 +1,42 @@
+.outer__container {
+  overflow: hidden;
+  position: relative;
+  z-index: 1;
+  outline: none;
+  border: none;
+  width: auto;
+  margin: 0.7em;
+  background: none;
+  color: #3f5f6d;
+}
+
+.inner__container {
+  padding: 0.7em;
+  display: flex;
+  align-items: center;
+}
+
+/* the after styles are used to create an overlayed hover and focus animation */
+.container:focus::after {
+  z-index: -1;
+  opacity: 1;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  aspect-ratio: 1;
+  background-color: #6ebada3d;
+  border-radius: 50%;
+  transition: transform 0.5s, opacity 0.5s;
+  transform: translate(-50%, -50%) scaleX(0.5);
+  animation: idle 1.5s infinite alternate-reverse;
+}
+
+.button_text {
+  margin-right: 0.6em;
+  white-space: nowrap;
+}
+
+.button_icon {
+  display: flex;
+  font-size: 1.5em;
+}

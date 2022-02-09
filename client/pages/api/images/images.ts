@@ -30,7 +30,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       file.path = path.join(process.cwd(), 'uploads', destination, file.name);
     });
     form.parse(req, (err, _, __) => {
-      console.log(err);
       if (err) {
         res.send('Could not parse the file, please try again in a bit');
         return;

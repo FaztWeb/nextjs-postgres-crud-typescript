@@ -2,9 +2,9 @@ import React, { FC } from 'react';
 import Carousel from '../../Carousel/Carousel';
 import Section from '../Section';
 import image_slider_style from './imageslider.module.css';
-import { BiImageAdd } from 'react-icons/bi';
 import { MdInsertPhoto } from 'react-icons/md';
-import ClickOverlay from 'components/ClickOverlay/ClickOverlay';
+import Button from 'components/Buttons/Button';
+import { BiImageAdd } from 'react-icons/bi';
 
 const ImageSlider: FC<{ name: string }> = ({ name }) => {
   return (
@@ -19,21 +19,15 @@ const ImageSlider: FC<{ name: string }> = ({ name }) => {
           <>
             <Carousel church={name} />
             <div className={image_slider_style.add_more__section}>
-              <ClickOverlay>
-                <div className={image_slider_style.add_more_container}>
-                  <div className={image_slider_style.add_more__text}>
-                    Adauga Fotografii
-                  </div>
-                  <BiImageAdd
-                    className={`${image_slider_style.extra_small__icon}`}
-                  />
-                </div>
-              </ClickOverlay>
+              <Button text="Adaugati Imagini" icon={<BiImageAdd />} />
             </div>
           </>
         ),
         iconAlign: 'top',
         position: 'middle',
+        sideEffects: () => {
+          return;
+        },
       }}
     />
   );

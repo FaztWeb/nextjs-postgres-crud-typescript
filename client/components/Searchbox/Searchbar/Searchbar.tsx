@@ -15,8 +15,8 @@ const Searchbar = () => {
         <IoMdClose className={searchbarStyle.close_icon} />
       </div>
       <div className={searchbarStyle.search__container}>
-        <div className={searchbarStyle.icon}>
-          <FaSearch />
+        <div className={searchbarStyle.search}>
+          <FaSearch className={searchbarStyle.search__icon} />
         </div>
         <input
           type="text"

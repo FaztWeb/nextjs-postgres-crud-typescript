@@ -1,16 +1,15 @@
 .content__container {
-  width: calc(100%-40px);
-  margin: 20px;
+  width: calc(100%-4em);
+  margin: 1em 2em;
   height: auto;
   display: flex;
   align-items: center;
-  font-size: 16px;
   font-weight: 800;
 }
 
 .main__content {
-  padding-left: 20px;
-  width: calc(100% - 50px - 20px);
+  padding-left: 2em;
+  width: calc(100% - 50px - 2em);
 }
 
 .icon__container {
@@ -32,24 +31,37 @@
 }
 
 .first {
-  border-top-left-radius: 20px;
-  border-top-right-radius: 20px;
+  margin-top: 2em;
+  border-top-left-radius: 2em;
+  border-top-right-radius: 2em;
 }
 
 .last {
-  border-bottom-left-radius: 20px;
-  border-bottom-right-radius: 20px;
-  margin-bottom: 20px;
+  border-bottom-left-radius: 2em;
+  border-bottom-right-radius: 2em;
+  margin-bottom: 2em;
+}
+
+.x-tiny {
+  font-size: 0.5em;
+}
+
+.tiny {
+  font-size: 1em;
 }
 
 .small {
-  font-size: 30px;
+  font-size: 1.5em;
+}
+
+.medium {
+  font-size: 2em;
 }
 
 .large {
-  font-size: 48px;
+  font-size: 2.5em;
 }
-/* 
-.extra_small__icon {
-  font-size: 24px;
-} */
+
+.x-large {
+  font-size: 3em;
+}

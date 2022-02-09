@@ -1,8 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { buttonReducer } from 'components/ModifyModal/Button/button-slice';
+import showSearchReducer from 'components/Searchbox/search-slice';
 export const store = configureStore({
   reducer: {
     button: buttonReducer,
+    showSearch: showSearchReducer,
   },
 });
 

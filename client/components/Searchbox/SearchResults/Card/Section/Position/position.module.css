@@ -2,7 +2,6 @@
   display: flex;
   flex-direction: row;
   align-items: flex-end;
-  font-size: var(--card__coordinates_text_size);
   height: auto;
 }
 

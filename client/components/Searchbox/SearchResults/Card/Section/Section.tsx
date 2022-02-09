@@ -12,7 +12,7 @@ interface CreateSection {
   };
   iconContent: {
     element: JSX.Element;
-    size: 'tiny' | 'small' | 'large';
+    size: 'x-tiny' | 'tiny' | 'small' | 'medium' | 'large' | 'x-large';
   };
 }
 

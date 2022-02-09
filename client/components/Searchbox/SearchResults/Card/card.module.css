@@ -5,9 +5,9 @@
   display: flex;
   align-items: center;
   flex-direction: column;
-  border-radius: 20px;
+  border-radius: 2em;
+  margin-bottom: 2em;
 }
-
 .content__container {
   max-width: 100%;
   height: auto;
