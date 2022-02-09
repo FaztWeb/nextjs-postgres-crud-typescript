@@ -4,6 +4,7 @@ import { debounceTime, from, mergeMap, tap, map } from 'rxjs';
 import searchResults from './searchResults.module.css';
 import { chruches } from 'components/Map/featureLayer';
 import Card from './Card/Card';
+import { securePipe } from 'lib/safeObservable';
 
 export interface Church {
   name: string;
@@ -15,6 +16,7 @@ const Searchbar = () => {
   useEffect(() => {
     const data$ = from(chruches);
     chruches.then((allChurches) => setInputValue(allChurches));
+
     const obs = input$
       .pipe(
         mergeMap((inputedValue: string) => {
@@ -25,11 +27,16 @@ const Searchbar = () => {
           );
         }),
         debounceTime(500),
-        tap((church) => (church ? setInputValue(church) : 0))
+        tap((church) => {
+          console.log('HEREEE');
+          return church ? setInputValue(church) : 0;
+        })
       )
       .subscribe();
 
-    () => obs.unsubscribe();
+    return () => {
+      obs.unsubscribe();
+    };
   }, []);
   return (
     <div className={searchResults.panel}>

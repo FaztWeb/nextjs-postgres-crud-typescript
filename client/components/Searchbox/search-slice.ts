@@ -6,11 +6,14 @@ const searchSlice = createSlice({
   initialState: visible,
   name: 'searchbar',
   reducers: {
-    toggle(state) {
-      return !state;
+    open() {
+      return true;
+    },
+    close() {
+      return false;
     },
   },
 });
 
-export const { toggle } = searchSlice.actions;
+export const { open, close } = searchSlice.actions;
 export default searchSlice.reducer;

@@ -5,13 +5,13 @@ const Navbar = () => {
   const dispatch = useAppDispatch();
   const showSearch = () => {
     dispatch({
-      type: 'searchbar/toggle',
+      type: 'searchbar/open',
     });
   };
   return (
-    <div className={navbar_style.container}>
+    <div className={navbar_style.container} onClick={showSearch}>
       <div className={navbar_style.icon}>
-        <HiMenu onClick={showSearch} />
+        <HiMenu />
       </div>
     </div>
   );
