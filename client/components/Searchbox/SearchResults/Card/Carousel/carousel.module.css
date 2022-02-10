@@ -1,9 +1,9 @@
 .container {
   position: relative;
-  width: calc(100% - 2em);
-  padding: 1em;
+  width: 100%;
+  padding: 0.5em;
   background-color: #d2d6d9;
-  border-radius: 2em;
+  border-radius: 1em;
 }
 .slide {
   position: relative;
@@ -12,7 +12,7 @@
 }
 
 .slide img {
-  border-radius: 2em;
+  border-radius: 1em;
   transform: translateX(1em);
   max-width: calc(100% - 2em);
 }
@@ -21,7 +21,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.4em;
+  font-size: 1.6em;
   position: absolute;
   cursor: pointer;
   z-index: 10;

@@ -1,7 +1,6 @@
 import { providedInfo$, trigger$ } from 'lib/modal';
 import { debounce, tap, map, timer } from 'rxjs';
 import { useEffect, useState } from 'react';
-
 import iconStyle from './statusicon.module.css';
 import { FaCheckCircle } from 'react-icons/fa';
 import Tooltip from 'rc-tooltip';

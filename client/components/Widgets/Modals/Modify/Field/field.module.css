@@ -1,14 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
 
 .container {
-  --terminal__gap: calc(5 / 350 * var(--modal__width));
-  width: calc(100% - 40px);
+  width: 100%;
+  padding: 1em 2em;
   height: auto;
-  margin-bottom: 30px;
-}
-
-.container:last-child {
-  margin-bottom: 0;
 }
 
 .terminal {
@@ -18,7 +13,7 @@
   flex-direction: column;
   font-family: Ubuntu;
   font-weight: 700;
-  font-size: clamp(14px, calc(16 / 550 * var(--modal__width)), 36px);
+  font-size: 1em;
 }
 
 .name {
@@ -28,7 +23,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: var(--terminal__gap) calc(2 * var(--terminal__gap));
+  padding: 0.5em 1em;
 }
 
 .nameAndStatus {
@@ -42,20 +37,20 @@
   display: flex;
   flex-direction: column;
   background-color: #282a34;
-  padding: var(--terminal__gap) calc(2 * var(--terminal__gap));
+  padding: 0.5em 1em;
 }
 
 .fieldName {
   color: white;
-  padding-top: var(--terminal__gap);
-  padding-bottom: var(--terminal__gap);
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
 }
 
 .fieldInput {
   width: 100%;
   color: white;
-  padding-top: var(--terminal__gap);
-  padding-bottom: var(--terminal__gap);
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
 }
 
 .textarea {
@@ -63,11 +58,10 @@
   background: transparent;
   font-family: Ubuntu;
   font-weight: 700;
-  width: calc(100% - 40px);
-  height: calc(5 * var(--terminal__gap));
+  width: 100%;
+  padding: 0.5em 1em;
   resize: none;
   border: none;
-  padding: 0 calc(2 * var(--terminal__gap));
   overflow-y: hidden;
   transition: height 0.5s ease-in-out;
 }

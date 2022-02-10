@@ -2,7 +2,6 @@ import { churchToModify$, imageSupplier$ } from 'lib/modal';
 import { useEffect, useReducer, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import useToggle from 'hooks/useToggle';
-
 import { CgCloseO } from 'react-icons/cg';
 import { MdOutlinePhotoCamera } from 'react-icons/md';
 import imageSupplierStyle from './imageSupplier.module.css';

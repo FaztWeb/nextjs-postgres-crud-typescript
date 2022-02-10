@@ -1,7 +1,6 @@
 .container {
-  font-size: 10px;
-  width: calc(100vw - 9em);
-  height: calc(100vh - 12em);
+  width: 40em;
+  height: 55em;
   background-color: #4e4e6a;
   border-radius: 2em;
   padding: 3em 2em;

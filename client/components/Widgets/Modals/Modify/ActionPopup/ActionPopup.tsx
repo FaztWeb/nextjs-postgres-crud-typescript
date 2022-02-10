@@ -1,13 +1,11 @@
 import actionStyle from './actionpopup.module.css';
 import { FaInfoCircle } from 'react-icons/fa';
 import { AnimatePresence, motion } from 'framer-motion';
-import { useAppSelector } from 'hooks/redux-hooks';
 
 const ActionPopup = () => {
-  const visible = useAppSelector((state) => state.button);
   return (
     <AnimatePresence>
-      {visible ? (
+      {false ? (
         <motion.div
           initial={{
             opacity: 0,

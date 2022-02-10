@@ -1,0 +1,84 @@
+.container {
+  --modal__gap_y: calc(5 / 550 * var(--modal__height));
+  --typewritter__font_size: calc(36 / 650 * var(--modal__width));
+  --icon_font: clamp(42px, calc(42 / 350 * var(--modal__width)), 56px);
+  --button__height: calc(50 / 750 * var(--modal__height));
+  --button__size: calc(22 / 850 * var(--modal__height));
+  --button_padding: calc(20 / 750 * var(--modal__width));
+  --icon__font_size: calc(36 / 550 * var(--modal__width));
+  position: relative;
+  width: 30em;
+  height: 40em;
+  background-color: rgb(255, 255, 255);
+  font-family: Ubuntu;
+  flex-direction: column;
+  display: flex;
+  align-items: center;
+}
+
+.navigation {
+  padding: 0 2em;
+  margin-top: 2em;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+
+.header {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.title {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  white-space: wrap;
+  font-size: 20px;
+}
+
+.subtitle {
+  margin-top: 0.5em;
+  font-size: 12px;
+  color: #acacac;
+  letter-spacing: 1px;
+  font-weight: 400;
+}
+
+.close {
+  position: relative;
+  color: grey;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  cursor: pointer;
+}
+
+.closeIcon {
+  border-radius: 50%;
+  font-size: var(--icon_font);
+}
+
+.closeIcon:hover {
+  background-color: rgb(236, 236, 236);
+}
+
+.cursor {
+  margin: 5px;
+  position: relative;
+  animation: animate 0.8s alternate-reverse infinite;
+}
+
+.modal__container {
+  position: absolute;
+  z-index: 11;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(36, 36, 36, 0.678);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

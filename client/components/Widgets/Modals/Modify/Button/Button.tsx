@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { trigger$, showLoading$, ids, imageSupplier$ } from 'lib/modal';
+import { trigger$, showLoading$, imageSupplier$, imagesFrom } from 'lib/modal';
 import {
   mergeMap,
   exhaustMap,
@@ -17,18 +17,14 @@ import {
 } from 'rxjs';
 import { useSession, signIn } from 'next-auth/react';
 
-import Tooltip from 'rc-tooltip';
+// import Tooltip from 'rc-tooltip';
+// import ActionPopup from '../ActionPopup/ActionPopup';
+
 import buttonStyle from './button.module.css';
-import ActionPopup from '../ActionPopup/ActionPopup';
-
-const data = ids.reduce<Record<string, string>>((obj, field) => {
-  return { ...obj, [field]: '' };
-}, {} as Record<string, string>);
-
-const form = new FormData();
+// const form = new FormData();
 
 const Button = () => {
-  const [visible, setIsVisible] = useState(false);
+  // const [visible, setIsVisible] = useState(false);
   const buttonRef = useRef<HTMLButtonElement>(null);
   const tooltipRef = useRef<HTMLDivElement>(null);
   const { data: session } = useSession();
@@ -48,27 +44,9 @@ const Button = () => {
             /**
              * We process the images from the user (only when submitting).
              */
-            return imageSupplier$.pipe(
-              map(({ church, files }) => {
-                /**
-                 * Before processing the current set of images we want to  remove all previous files
-                 */
-                form.delete(church);
-
-                files.forEach((file) =>
-                  /**
-                   * Since the backend expects a form like structure, we append the images to
-                   * the form object. For each file we also want to specify a name, that will mimic
-                   * a real input form's unique id. This will help us sorting and saving images in the filesystem
-                   */
-                  form.append(church, file)
-                );
-
-                return { form, church };
-              })
-            );
+            return imagesFrom.pipe(map((v) => v));
           }),
-          exhaustMap(({ form }) => {
+          exhaustMap((form) => {
             /**
              * **data$** will control the loading state based on request made.
              * It will mount the loading component when data processing and posting starts, and
@@ -94,14 +72,13 @@ const Button = () => {
                 showLoading$.next(false);
               }),
               tap(() => {
-                setIsVisible(true);
+                // setIsVisible(true);
               }),
               delay(2000),
               tap(() => {
-                setIsVisible(false);
+                // setIsVisible(false);
               })
             );
-
             /**
              * **showAfter$** is used to prevent the Loading component from showing if the response time of the server
              * is under 500ms.
@@ -118,7 +95,6 @@ const Button = () => {
               delay(500),
               tap(() => showLoading$.next(true))
             );
-
             /**
              * **showFor$** will make sure the Loading component doesn't flash before the user,
              * guaranteeing a consistent UI.
@@ -131,7 +107,6 @@ const Button = () => {
              * Thus **showFor$** will keep the loading state to true for as much as the timer indicates.
              */
             const showFor$ = of(1).pipe(delay(1500));
-
             /**
              * **loading$** chains the observers to prevent UI inconsistencies.
              *
@@ -145,7 +120,6 @@ const Button = () => {
              * 2. If the first observable (i.e **showAfter$**) emits first, *race* will pick **loading$** and unsubscribe to **data$** thus following the pattern described in **showFor$**
              */
             const loading$ = concat(showAfter$, showFor$, data$);
-
             /**
              * as the specs provide race will subscribe to both observables, consecutively unsubscribing to the one emitting slower.
              * Looking into the behavior of **loading$**, what **race** really does is seeing if it's worth displaying the Loading component,
@@ -153,36 +127,22 @@ const Button = () => {
              */
             return race(loading$, data$);
           }),
-
           catchError((err) =>
             of({ error: true, message: err.toString() } as const)
           )
         )
         .subscribe(console.log);
-
-    const value$ = ids.map((id) =>
-      trigger$[id].subscribe((event) => {
-        data[id] = event.payload;
-        console.log(data);
-      })
-    );
-    () => {
-      clickSub.unsubscribe();
-      value$.forEach((value) => value.unsubscribe());
+    return () => {
+      clickSub?.unsubscribe();
     };
   }, []);
 
   return (
-    <Tooltip
-      visible={true}
-      ref={tooltipRef}
-      overlay={<ActionPopup visible={visible} />}
-      placement="bottom"
-    >
-      <button className={buttonStyle.button} ref={buttonRef}>
-        Salvati Modificarile
-      </button>
-    </Tooltip>
+    <button className={buttonStyle.button} ref={buttonRef}>
+      Salvati Modificarile
+    </button>
+    //     <Tooltip visible={true} ref={tooltipRef} placement="bottom">
+    // </Tooltip>
   );
 };
 
