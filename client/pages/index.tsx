@@ -1,24 +1,28 @@
-import Map from '../components/Map/Map';
-import modalStyle from './modal.module.css';
-import Modal from '../components/ModifyModal/Modal';
+import modalStyle from './main.module.css';
 import Navbar from 'components/Navbar/Navbar';
 import { useAppSelector } from 'hooks/redux-hooks';
 import Searchbox from 'components/Searchbox/Searchbox';
+import Modal from 'components/Widgets/Modals/Modify/Modify';
+import Info from 'components/Widgets/Modals/Info/Info';
+import dynamic from 'next/dynamic';
+
+const DynamicMap = dynamic(() => import('../components/Map/Map'), {
+  ssr: false,
+});
 
 const Main = () => {
-  const visible = useAppSelector(({ showSearch }) => showSearch);
+  const searchVisible = useAppSelector(({ showSearch }) => showSearch);
   return (
-    <div className={modalStyle.container}>
+    <div className={modalStyle.app__container}>
+      <DynamicMap />
+      <Modal />
+      <Info />
       <Navbar />
-      {/*false ? (
-        <div className={modalStyle.modal__container}>
-          <Modal />
+      {searchVisible ? (
+        <div className={modalStyle.app}>
+          <Searchbox />
         </div>
-      ) : null} */}
-      <div className={modalStyle.app}>
-        <Map />
-        {visible ? <Searchbox /> : null}
-      </div>
+      ) : null}
     </div>
   );
 };
