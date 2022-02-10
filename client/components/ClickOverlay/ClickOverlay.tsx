@@ -2,9 +2,11 @@ import { debounceTime, fromEvent, Subscription, tap } from 'rxjs';
 import { FC, useEffect, useRef, useState } from 'react';
 import click_style from './clickoverlay.module.css';
 import { securePipe } from 'lib/safeObservable';
-import { modal$ } from 'lib/modal';
 
-const ClickOverlay: FC = ({ children }) => {
+const ClickOverlay: FC<{ sideEffects: () => void }> = ({
+  children,
+  sideEffects,
+}) => {
   const buttonRef = useRef<HTMLDivElement>(null);
   const [overlays, setOverlays] = useState<JSX.Element[]>([]);
   useEffect(() => {
@@ -29,9 +31,7 @@ const ClickOverlay: FC = ({ children }) => {
 
   return (
     <div
-      onClick={() => {
-        modal$.next(true);
-      }}
+      onClick={sideEffects}
       ref={buttonRef}
       className={`${click_style.main__container}`}
       onMouseDown={() => {

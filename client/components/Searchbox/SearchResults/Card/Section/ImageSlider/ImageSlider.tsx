@@ -3,10 +3,17 @@ import Carousel from '../../Carousel/Carousel';
 import Section from '../Section';
 import image_slider_style from './imageslider.module.css';
 import { MdInsertPhoto } from 'react-icons/md';
-import Button from 'components/Buttons/Button';
+import Button from 'components/Searchbox/SearchResults/Card/Section/ImageSlider/Buttons/Button';
 import { BiImageAdd } from 'react-icons/bi';
+import { useAppDispatch } from 'hooks/redux-hooks';
+import { open } from 'components/Widgets/Modals/Modify/modify-slice';
 
 const ImageSlider: FC<{ name: string }> = ({ name }) => {
+  const dispatch = useAppDispatch();
+  function openModal() {
+    dispatch(open());
+  }
+
   return (
     <Section
       iconContent={{
@@ -19,7 +26,11 @@ const ImageSlider: FC<{ name: string }> = ({ name }) => {
           <>
             <Carousel church={name} />
             <div className={image_slider_style.add_more__section}>
-              <Button text="Adaugati Imagini" icon={<BiImageAdd />} />
+              <Button
+                onClick={openModal}
+                text="Adaugati Imagini"
+                icon={<BiImageAdd />}
+              />
             </div>
           </>
         ),
