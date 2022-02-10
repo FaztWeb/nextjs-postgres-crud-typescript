@@ -69,6 +69,7 @@
   --scrollbar_height: 3px;
   --scrollbar__bg_color: #8b8b8b;
   --scrollbar__scroll_color: #cfcfcf;
+  box-sizing: border-box;
 }
 
 html {
