@@ -1,16 +1,15 @@
 .button {
-  font-size: clamp(16px, var(--button__size), 22px);
+  font-size: 1em;
   position: relative;
   z-index: 1;
   border: none;
   font-family: Ubuntu;
   font-weight: 700;
-  height: var(--button__height);
   cursor: pointer;
-  padding: 0 var(--button_padding);
   color: rgb(0, 0, 0);
   background-color: transparent;
   transition: all 0.3s ease;
+  padding: 1em;
 }
 .button:hover {
   color: rgb(255, 255, 255);

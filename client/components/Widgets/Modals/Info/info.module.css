@@ -1,0 +1,13 @@
+.container {
+  padding: 0 3em;
+  margin: 3em 0;
+  overflow-y: scroll;
+  line-height: 1.4em;
+}
+
+.button__wrapper {
+  width: 100%;
+  height: auto;
+  display: flex;
+  justify-content: flex-end;
+}

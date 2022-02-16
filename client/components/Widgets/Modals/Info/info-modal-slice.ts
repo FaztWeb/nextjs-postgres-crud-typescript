@@ -4,7 +4,7 @@ const isVisible = false;
 
 const infoModal = createSlice({
   initialState: isVisible,
-  name: 'infoModal',
+  name: 'info-modal',
   reducers: {
     close() {
       return false;
@@ -16,4 +16,5 @@ const infoModal = createSlice({
 });
 
 export const { close, open } = infoModal.actions;
+export const name = infoModal.name;
 export default infoModal.reducer;

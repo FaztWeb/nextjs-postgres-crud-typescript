@@ -15,5 +15,5 @@ const modifyModalSlice = createSlice({
   },
 });
 
-export const { open, close } = modifyModalSlice.actions;
+export const name = modifyModalSlice.name;
 export default modifyModalSlice.reducer;

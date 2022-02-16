@@ -84,6 +84,8 @@ export const imageSupplier$ = new ReplaySubject<File[]>(1);
  */
 export const churchToModify$ = new ReplaySubject<string>(1);
 
+imageSupplier$.subscribe(console.log);
+
 export const imagesFrom = imageSupplier$.pipe(
   mergeMap((files) => {
     return churchToModify$.pipe(
@@ -96,11 +98,11 @@ export const imagesFrom = imageSupplier$.pipe(
     );
   }),
   map(({ files, from }) => {
+    console.log(files, from);
     const form = new FormData();
     files.forEach((file) => form.append(from, file));
     return form;
-  }),
-  take(1)
+  })
 );
 
 export const showPopup = new Subject<boolean>();

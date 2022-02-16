@@ -1,6 +1,7 @@
 import { FC } from 'react';
 import modal__style from './modal.module.css';
 import { IoIosClose } from 'react-icons/io';
+import { useAppSelector } from 'hooks/redux-hooks';
 
 interface ModalComponents {
   actions: {
@@ -12,7 +13,6 @@ interface ModalComponents {
   };
 }
 const ModalTemplate: FC<ModalComponents> = ({ children, actions, header }) => {
-  // name the classes better
   return (
     <div className={modal__style.modal__container}>
       <div className={modal__style.container}>

@@ -1,11 +1,4 @@
 .container {
-  --modal__gap_y: calc(5 / 550 * var(--modal__height));
-  --typewritter__font_size: calc(36 / 650 * var(--modal__width));
-  --icon_font: clamp(42px, calc(42 / 350 * var(--modal__width)), 56px);
-  --button__height: calc(50 / 750 * var(--modal__height));
-  --button__size: calc(22 / 850 * var(--modal__height));
-  --button_padding: calc(20 / 750 * var(--modal__width));
-  --icon__font_size: calc(36 / 550 * var(--modal__width));
   position: relative;
   width: 30em;
   height: 40em;
@@ -37,14 +30,13 @@
   display: flex;
   align-items: center;
   white-space: wrap;
-  font-size: 20px;
+  font-size: 1.5em;
 }
 
 .subtitle {
   margin-top: 0.5em;
-  font-size: 12px;
+  font-size: 0.9em;
   color: #acacac;
-  letter-spacing: 1px;
   font-weight: 400;
 }
 
@@ -59,7 +51,7 @@
 
 .closeIcon {
   border-radius: 50%;
-  font-size: var(--icon_font);
+  font-size: 4em;
 }
 
 .closeIcon:hover {
