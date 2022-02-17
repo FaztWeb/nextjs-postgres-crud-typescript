@@ -1,16 +1,28 @@
-import { createSlice } from '@reduxjs/toolkit';
-
-const visible = false;
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 const modifyModalSlice = createSlice({
-  initialState: visible,
+  initialState: {
+    visible: false,
+    zIndex: 0,
+  },
   name: 'modify-modal',
   reducers: {
-    open() {
-      return true;
+    open(
+      _,
+      action: PayloadAction<{
+        zIndex: number;
+      }>
+    ) {
+      return {
+        visible: true,
+        zIndex: action.payload.zIndex,
+      };
     },
     close() {
-      return false;
+      return {
+        visible: false,
+        zIndex: 0,
+      };
     },
   },
 });

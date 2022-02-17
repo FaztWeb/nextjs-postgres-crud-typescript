@@ -1,16 +1,23 @@
-import { createSlice } from '@reduxjs/toolkit';
-
-const isVisible = false;
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 const infoModal = createSlice({
-  initialState: isVisible,
+  initialState: {
+    visible: false,
+    zIndex: 0,
+  },
   name: 'info-modal',
   reducers: {
     close() {
-      return false;
+      return {
+        visible: false,
+        zIndex: 0,
+      };
     },
-    open() {
-      return true;
+    open(_, action: PayloadAction<{ zIndex: number }>) {
+      return {
+        visible: true,
+        zIndex: action.payload.zIndex,
+      };
     },
   },
 });

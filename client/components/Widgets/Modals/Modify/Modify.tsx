@@ -5,20 +5,26 @@ import TypewriterComponent from 'typewriter-effect';
 import Field from './Field/Field';
 import StatusIcon from './StatusIcon/StatusIcon';
 import { write } from './typewriter';
-import { close } from './modify-modal-slice';
 import Button from '../../Button/Button';
 import Loading from 'components/Loading/Loading';
 import ImageSupplier from './ImageSupplier/ImageSupplier';
 import { useAppDispatch, useAppSelector } from 'hooks/redux-hooks';
 import ModalTemplate from '../Modals';
-
+import { action } from 'store';
 const Modal = () => {
   const dispatch = useAppDispatch();
-  const isVisible = useAppSelector(({ modifyModal }) => modifyModal);
+  const { visible, zIndex } = useAppSelector(({ modifyModal }) => modifyModal);
   const [loading, setLoading] = useState(false);
+  useEffect(() => {
+    console.log(zIndex);
+  }, [zIndex]);
 
   function closeModal() {
-    dispatch(close());
+    dispatch(
+      action('modify-modal/close', {
+        zIndex: 0,
+      })
+    );
   }
 
   useEffect(() => {
@@ -51,9 +57,10 @@ const Modal = () => {
     </div>
   );
 
-  return isVisible ? (
+  return visible ? (
     <ModalTemplate
-      actions={{ dispatch: closeModal }}
+      zIndex={zIndex}
+      closeCurrentModal={closeModal}
       header={{
         title: typewriter,
         subtitle:

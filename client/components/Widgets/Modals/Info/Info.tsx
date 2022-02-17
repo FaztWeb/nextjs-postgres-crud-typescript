@@ -2,25 +2,28 @@ import { useAppDispatch, useAppSelector } from 'hooks/redux-hooks';
 import ModalTemplate from '../Modals';
 import info__style from './info.module.css';
 import Button from '../../Button/Button';
-import { modalActions } from 'store';
+import { action } from 'store';
 const Info = () => {
-  const isVisible = useAppSelector(({ infoModal }) => infoModal);
+  const { visible, zIndex } = useAppSelector(({ infoModal }) => infoModal);
   const dispatch = useAppDispatch();
-  const action: typeof modalActions = 'info-modal/close';
   const closeInfo = () => {
-    dispatch({
-      type: action,
-    });
+    dispatch(
+      action('info-modal/close', {
+        zIndex: 0,
+      })
+    );
   };
   const openModifyModal = () => {
-    dispatch(close());
-    dispatch(open());
+    dispatch(
+      action('modify-modal/open', {
+        zIndex: zIndex + 1,
+      })
+    );
   };
-  return isVisible ? (
+  return visible ? (
     <ModalTemplate
-      actions={{
-        dispatch: closeInfo,
-      }}
+      zIndex={zIndex}
+      closeCurrentModal={closeInfo}
       header={{
         title: 'Biserica Catolica din Elisabetin',
         subtitle: 'Aflati mai multe informatii despre biserica Catolica',
