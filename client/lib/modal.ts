@@ -82,13 +82,13 @@ export const imageSupplier$ = new ReplaySubject<File[]>(1);
  * use the **ReplaySubject** to make sure that even late subscribers (such as the modal)
  * still receive the last value emitted from the observer
  */
-export const churchToModify$ = new ReplaySubject<string>(1);
+export const church$ = new ReplaySubject<string>(1);
 
 imageSupplier$.subscribe(console.log);
 
 export const imagesFrom = imageSupplier$.pipe(
   mergeMap((files) => {
-    return churchToModify$.pipe(
+    return church$.pipe(
       map((church) => {
         return {
           files: files,

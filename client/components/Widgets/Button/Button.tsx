@@ -17,12 +17,9 @@ import {
   iif,
 } from 'rxjs';
 import { useSession, signIn } from 'next-auth/react';
-
 import Tooltip from 'rc-tooltip';
-// import ActionPopup from '../ActionPopup/ActionPopup';
 
 import buttonStyle from './button.module.css';
-// const form = new FormData();
 
 const Button: FC<{ payload: string; action: () => void }> = ({
   payload,
@@ -37,13 +34,14 @@ const Button: FC<{ payload: string; action: () => void }> = ({
     if (tooltipRef.current && buttonRef.current)
       clickSub = fromEvent(buttonRef.current, 'click')
         .pipe(
-          // tap(() => {
-          //   console.log(session?.user);
-          //   if (!session?.user) {
-          //     signIn();
-          //     clickSub.unsubscribe();
-          //   }
-          // }),
+          tap(() => {
+            console.log(session?.user);
+            if (!session?.user) {
+              signIn();
+              clickSub.unsubscribe();
+            }
+            if(session?.user)
+          }),
           mergeMap(() => {
             /**
              * We process the images from the user (only when submitting).

@@ -1,0 +1,113 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
+.container {
+  width: 100%;
+  padding: 2em;
+  height: auto;
+}
+
+.subtitle {
+  margin-bottom: 0.5em;
+  color: rgb(148, 148, 148);
+  font-style: italic;
+  letter-spacing: 1px;
+}
+
+.button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: transparent;
+  border: 2px solid rgb(60, 60, 60);
+  color: rgb(60, 60, 60);
+  padding: 0.5em;
+  width: auto;
+  font-size: 1em;
+  font-weight: 500;
+  border-radius: 50px;
+  cursor: pointer;
+}
+
+.text {
+  width: fit-content;
+  padding: 0 1em;
+}
+
+.iconDiv {
+  width: auto;
+  height: 0;
+  display: flex;
+  align-items: center;
+}
+.icon {
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  margin-right: 0.5em;
+  font-size: 1.5em;
+  transition: all 0.3s ease-in-out;
+}
+
+.invisibleInput {
+  display: none;
+}
+
+.preview {
+  --scrollbar__bg_color: rgb(111, 111, 111);
+  --scrollbar__scroll_color: rgb(183, 183, 183);
+  width: auto;
+  height: auto;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: no-wrap;
+  overflow-x: auto;
+  padding: 1em;
+  background: rgb(216, 216, 216);
+  min-height: 100px;
+}
+
+.closeIcon {
+  box-sizing: content-box;
+  position: absolute;
+  right: 3px;
+  top: 3px;
+  background-color: rgb(214, 214, 214);
+  color: rgb(84, 84, 84);
+  border-radius: 50%;
+  cursor: pointer;
+  padding: 0.4em;
+  transition: all 0.4s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+.closeIcon:hover {
+  padding: 0.6em;
+  background-color: rgb(84, 84, 84);
+  color: rgb(214, 214, 214);
+  transition: all 0.4s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+.hideButton {
+  margin: 0 10px;
+  background-color: transparent;
+  width: auto;
+  height: auto;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hideButton:focus {
+  border: 2px solid black;
+  border-radius: 10px;
+}
+
+.thumbnail {
+  position: relative;
+  width: 150px;
+  max-height: auto;
+}
+
+.thumbnail img {
+  max-width: 100%;
+  max-height: 100%;
+}

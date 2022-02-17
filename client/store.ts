@@ -1,9 +1,4 @@
-import {
-  ActionCreatorWithoutPayload,
-  ActionCreatorWithPayload,
-  configureStore,
-  createAction,
-} from '@reduxjs/toolkit';
+import { configureStore } from '@reduxjs/toolkit';
 import { buttonReducer } from 'components/Widgets/Button/button-slice';
 import showSearchReducer from 'components/Searchbox/search-slice';
 import popupReducer from 'components/Widgets/Popup/popup-slice';
@@ -13,22 +8,26 @@ import modifyModalReducer, {
   name as modifyModalName,
 } from 'components/Widgets/Modals/Modify/modify-modal-slice';
 import infoModalReducer, {
-  close,
   open,
   name as infoName,
 } from 'components/Widgets/Modals/Info/info-modal-slice';
 
+import pictureModalReducer, {
+  name as pictureName,
+} from 'components/Widgets/Modals/Pictures/picture-modal-slice';
+
 export const store = configureStore({
   reducer: {
     button: buttonReducer,
+    showPopup: popupReducer,
     showSearch: showSearchReducer,
     infoModal: infoModalReducer,
     modifyModal: modifyModalReducer,
-    showPopup: popupReducer,
+    pictureModal: pictureModalReducer,
   },
 });
 const supportedModalActions = ['open', 'close'] as const;
-const modals = [modifyModalName, infoName] as const;
+const modals = [modifyModalName, infoName, pictureName] as const;
 const modalActions = modals.flatMap((modal) =>
   supportedModalActions.map((action) => `${modal}/${action}` as const)
 );

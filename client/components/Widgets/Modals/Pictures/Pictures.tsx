@@ -1,5 +1,187 @@
-const Pictures = () => {
-  return <div>Pictures</div>;
-};
+import { church$, imageSupplier$ } from 'lib/modal';
+import { useEffect, useReducer, useRef, useState } from 'react';
+import { motion } from 'framer-motion';
+import useToggle from 'hooks/useToggle';
+import { CgCloseO } from 'react-icons/cg';
+import { MdOutlinePhotoCamera } from 'react-icons/md';
+import imageSupplierStyle from './pictures.module.css';
+import Modals from '../Modals';
+import { useAppDispatch, useAppSelector } from 'hooks/redux-hooks';
+import { action } from 'store';
+import Button from '../../Button/Button';
+interface Action {
+  type: 'REMOVE' | 'ADD';
+  src: string;
+  name: string;
+  file: File;
+}
 
-export default Pictures;
+interface photoData {
+  src: string;
+  name: string;
+  file: File;
+}
+
+export default function Pictures() {
+  const inputRef = useRef<HTMLInputElement>(null);
+  const buttonRef = useRef<HTMLButtonElement>(null);
+  const [church, setChurch] = useState<string>('');
+  const { state: show, toggle } = useToggle();
+  const dispatch = useAppDispatch();
+  const { visible, zIndex } = useAppSelector(
+    ({ pictureModal }) => pictureModal
+  );
+
+  useEffect(() => {
+    church$.subscribe(setChurch);
+  }, []);
+
+  /**
+   *  adding and deleting images from the preview section
+   */
+  const [photos, dispatchPhotos] = useReducer(
+    (prev: photoData[], action: Action): photoData[] => {
+      switch (action.type) {
+        case 'REMOVE':
+          return prev.filter(({ src }) => src !== action.src);
+        case 'ADD':
+          if (prev.find(({ name }) => name === action.name)) {
+            return prev;
+          } else
+            return [
+              ...prev,
+              { src: action.src, file: action.file, name: action.name },
+            ];
+      }
+    },
+    [] as photoData[]
+  );
+
+  const closeModal = () => {
+    dispatch(
+      action('picture-modal/close', {
+        zIndex: 0,
+      })
+    );
+  };
+
+  return visible ? (
+    <Modals
+      closeCurrentModal={closeModal}
+      header={{
+        subtitle: (
+          <div className={imageSupplierStyle.subtitle}>
+            Fotografiile pot ajuta utilizatorii sa recunoasca mai usor locatia
+          </div>
+        ),
+        title: 'Adaugati o fotografie',
+      }}
+      zIndex={zIndex}
+    >
+      <div className={imageSupplierStyle.container}>
+        <input
+          type="file"
+          ref={inputRef}
+          multiple
+          // the input will be invisible it's styling does not fit our preferred design
+          className={imageSupplierStyle.invisibleInput}
+          onChange={(event) => {
+            /**
+             * when the input receives images, it will store them (along with some details about the files)
+             * inside **photos**. The metadata, will help display the thumbnail (through the **src**), avoid
+             * duplicates (as the **name** will become the React key at display -keys must be unique so two images
+             * with the same name won't meet the criteria-) and post the images to the backend (through the **file**)
+             */
+            if (event.target.files && event.target.files[0]) {
+              dispatchPhotos({
+                type: 'ADD',
+                src: URL.createObjectURL(event.target.files[0]),
+                name: event.target.files[0].name,
+                file: event.target.files[0],
+              });
+              imageSupplier$.next([
+                ...photos.map((photo) => photo.file),
+                event.target.files[0],
+              ]);
+            }
+          }}
+        />
+
+        <motion.button
+          layout
+          ref={buttonRef}
+          className={imageSupplierStyle.button}
+          onMouseEnter={toggle}
+          onMouseLeave={toggle}
+          onClick={() => {
+            inputRef.current?.click();
+          }}
+        >
+          <motion.div layoutId="Ceva" className={imageSupplierStyle.text}>
+            Adauga fotografii
+          </motion.div>
+          {show ? (
+            <motion.div
+              initial={{ opacity: 0, x: 200 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -200 }}
+              className={imageSupplierStyle.iconDiv}
+            >
+              <MdOutlinePhotoCamera className={imageSupplierStyle.icon} />
+            </motion.div>
+          ) : null}
+        </motion.button>
+
+        <div className={imageSupplierStyle.preview}>
+          {photos.map(({ src, file, name }) => (
+            <button
+              onKeyDown={(event) => {
+                // delete images upon focusing and pressing the enter key on any given image
+                event.key === 'Enter'
+                  ? dispatchPhotos({
+                      type: 'REMOVE',
+                      src,
+                      name,
+                      file,
+                    })
+                  : 0;
+                imageSupplier$.next(photos.map((photo) => photo.file));
+              }}
+              key={name}
+              className={imageSupplierStyle.hideButton}
+            >
+              <div className={imageSupplierStyle.thumbnail}>
+                <CgCloseO
+                  onClick={() => {
+                    // deleting image on clicking the close icon
+                    dispatchPhotos({
+                      type: 'REMOVE',
+                      src,
+                      name,
+                      file,
+                    });
+                  }}
+                  className={imageSupplierStyle.closeIcon}
+                />
+                <img
+                  src={src}
+                  onError={() => {
+                    // ERROR HANDLING
+                  }}
+                />
+              </div>
+            </button>
+          ))}
+        </div>
+      </div>
+      <Button
+        payload="Incarcati imagini"
+        action={() => {
+          const form = new FormData();
+          photos.map((photo) => form.append(church, photo.file));
+          return form;
+        }}
+      ></Button>
+    </Modals>
+  ) : null;
+}

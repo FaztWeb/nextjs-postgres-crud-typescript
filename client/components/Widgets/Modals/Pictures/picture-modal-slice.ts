@@ -1,6 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
-
-const visible = false;
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 const pictureModalSlice = createSlice({
   initialState: {
@@ -9,10 +7,15 @@ const pictureModalSlice = createSlice({
   },
   name: 'picture-modal',
   reducers: {
-    open(_, action) {
+    open(
+      _,
+      action: PayloadAction<{
+        zIndex: number;
+      }>
+    ) {
       return {
         visible: true,
-        zIndex: action.payload as number,
+        zIndex: action.payload.zIndex,
       };
     },
     close() {

@@ -7,7 +7,6 @@ import StatusIcon from './StatusIcon/StatusIcon';
 import { write } from './typewriter';
 import Button from '../../Button/Button';
 import Loading from 'components/Loading/Loading';
-import ImageSupplier from './ImageSupplier/ImageSupplier';
 import { useAppDispatch, useAppSelector } from 'hooks/redux-hooks';
 import ModalTemplate from '../Modals';
 import { action } from 'store';
@@ -15,9 +14,6 @@ const Modal = () => {
   const dispatch = useAppDispatch();
   const { visible, zIndex } = useAppSelector(({ modifyModal }) => modifyModal);
   const [loading, setLoading] = useState(false);
-  useEffect(() => {
-    console.log(zIndex);
-  }, [zIndex]);
 
   function closeModal() {
     dispatch(
@@ -53,7 +49,6 @@ const Modal = () => {
           </Field>
         );
       })}
-      <ImageSupplier />
     </div>
   );
 

@@ -11,7 +11,11 @@ interface ButtonShape {
 const Button: FC<ButtonShape> = ({ text, icon, onClick }) => {
   return (
     <div className={button_style.outer__container} onClick={onClick}>
-      <ClickOverlay>
+      <ClickOverlay
+        sideEffects={() => {
+          return;
+        }}
+      >
         <div className={button_style.inner__container}>
           <div className={button_style.button_text}>{text}</div>
           <div className={button_style.button_icon}>{icon}</div>

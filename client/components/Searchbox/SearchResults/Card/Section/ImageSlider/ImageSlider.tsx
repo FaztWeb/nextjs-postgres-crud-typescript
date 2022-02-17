@@ -7,12 +7,14 @@ import Button from 'components/Searchbox/SearchResults/Card/Section/ImageSlider/
 import { BiImageAdd } from 'react-icons/bi';
 import { useAppDispatch } from 'hooks/redux-hooks';
 import { action } from 'store';
+import { church$ } from 'lib/modal';
 
 const ImageSlider: FC<{ name: string }> = ({ name }) => {
   const dispatch = useAppDispatch();
   function openModal() {
+    church$.next(name);
     dispatch(
-      action('modify-modal/open', {
+      action('picture-modal/open', {
         zIndex: 1000,
       })
     );
