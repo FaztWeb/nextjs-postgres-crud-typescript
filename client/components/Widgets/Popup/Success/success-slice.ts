@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const popupSlice = createSlice({
   initialState: false,
-  name: 'popup',
+  name: 'success-popup',
   reducers: {
     open() {
       return true;
