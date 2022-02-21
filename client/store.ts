@@ -28,7 +28,7 @@ import { useAppSelector } from 'hooks/redux-hooks';
 // popup imports
 import popupReducer, {
   name as popupName,
-} from 'components/Widgets/Popup/popup-slice';
+} from 'components/Widgets/Popup/Success/success-slice';
 
 export const store = configureStore({
   reducer: {
@@ -37,7 +37,7 @@ export const store = configureStore({
     stack: stackReducer,
 
     // popup reducers
-    popup: popupReducer,
+    successPopup: popupReducer,
 
     // modal reducers
     infoModal: infoModalReducer,
