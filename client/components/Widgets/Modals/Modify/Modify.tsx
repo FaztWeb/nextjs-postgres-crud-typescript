@@ -8,19 +8,12 @@ import { write } from './typewriter';
 import Loading from 'components/Loading/Loading';
 import { useAppDispatch, useAppSelector } from 'hooks/redux-hooks';
 import ModalTemplate from '../Modals';
-import { action } from 'store';
+import { indexOf } from 'store';
 const Modal = () => {
-  const dispatch = useAppDispatch();
-  const { visible, zIndex } = useAppSelector(({ modifyModal }) => modifyModal);
-  const [loading, setLoading] = useState(false);
+  const visible = useAppSelector(({ modifyModal }) => modifyModal);
+  const zIndex = indexOf('modify-modal');
 
-  function closeModal() {
-    dispatch(
-      action('modify-modal/close', {
-        zIndex: 0,
-      })
-    );
-  }
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const subscription = showLoading$.subscribe(setLoading);
@@ -54,7 +47,7 @@ const Modal = () => {
   return visible ? (
     <ModalTemplate
       zIndex={zIndex}
-      closeCurrentModal={closeModal}
+      modalToClose="modify-modal"
       header={{
         title: typewriter,
         subtitle:

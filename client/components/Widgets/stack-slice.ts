@@ -5,12 +5,12 @@ const stack = createSlice({
   name: 'stack',
   reducers: {
     addWidget: (stack, action: PayloadAction<string>) => {
-      stack.push(action.payload);
-      return [...stack];
+      stack.indexOf(action.payload) === -1 ? stack.push(action.payload) : null;
+      return stack;
     },
     removeWidget: (stack, action: PayloadAction<string>) => {
       stack.filter((v) => v !== action.payload);
-      return [...stack];
+      return stack;
     },
   },
 });

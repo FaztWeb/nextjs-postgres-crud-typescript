@@ -6,18 +6,14 @@ import { MdInsertPhoto } from 'react-icons/md';
 import Button from 'components/Searchbox/SearchResults/Card/Section/ImageSlider/Buttons/Button';
 import { BiImageAdd } from 'react-icons/bi';
 import { useAppDispatch } from 'hooks/redux-hooks';
-import { action } from 'store';
+import { openModal } from 'store';
 import { church$ } from 'lib/modal';
 
 const ImageSlider: FC<{ name: string }> = ({ name }) => {
   const dispatch = useAppDispatch();
-  function openModal() {
+  function openPicturesModal() {
     church$.next(name);
-    dispatch(
-      action('picture-modal/open', {
-        zIndex: 1000,
-      })
-    );
+    openModal('picture-modal');
   }
 
   return (
@@ -33,7 +29,7 @@ const ImageSlider: FC<{ name: string }> = ({ name }) => {
             <Carousel church={name} />
             <div className={image_slider_style.add_more__section}>
               <Button
-                onClick={openModal}
+                onClick={openPicturesModal}
                 text="Adaugati Imagini"
                 icon={<BiImageAdd />}
               />

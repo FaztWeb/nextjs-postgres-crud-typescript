@@ -1,23 +1,14 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 const infoModal = createSlice({
-  initialState: {
-    visible: false,
-    zIndex: 0,
-  },
   name: 'info-modal',
+  initialState: false,
   reducers: {
-    close() {
-      return {
-        visible: false,
-        zIndex: 0,
-      };
+    open() {
+      return true;
     },
-    open(_, action: PayloadAction<{ zIndex: number }>) {
-      return {
-        visible: true,
-        zIndex: action.payload.zIndex,
-      };
+    close() {
+      return false;
     },
   },
 });

@@ -4,14 +4,15 @@ const popupSlice = createSlice({
   initialState: false,
   name: 'popup',
   reducers: {
-    show() {
+    open() {
       return true;
     },
-    hide() {
+    close() {
       return false;
     },
   },
 });
 
-export const { hide, show } = popupSlice.actions;
+export const { open, close } = popupSlice.actions;
+export const name = popupSlice.name;
 export default popupSlice.reducer;

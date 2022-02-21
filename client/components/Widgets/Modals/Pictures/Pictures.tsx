@@ -7,9 +7,8 @@ import { MdOutlinePhotoCamera } from 'react-icons/md';
 import imageSupplierStyle from './pictures.module.css';
 import Modals from '../Modals';
 import { useAppDispatch, useAppSelector } from 'hooks/redux-hooks';
-import { action } from 'store';
+import { indexOf } from 'store';
 import Submit from '../../Button/Submit/Submit';
-import { of } from 'rxjs';
 
 interface Action {
   type: 'REMOVE' | 'ADD';
@@ -44,11 +43,8 @@ export default function Pictures() {
   const buttonRef = useRef<HTMLButtonElement>(null);
   const [church, setChurch] = useState<string>('');
   const { state: show, toggle } = useToggle();
-  const dispatch = useAppDispatch();
-  const { visible, zIndex } = useAppSelector(
-    ({ pictureModal }) => pictureModal
-  );
-
+  const visible = useAppSelector(({ pictureModal }) => pictureModal);
+  const zIndex = indexOf('picture-modal');
   /**
    *  adding and deleting images from the preview section
    */
@@ -79,17 +75,9 @@ export default function Pictures() {
     }
   };
 
-  const closeModal = () => {
-    dispatch(
-      action('picture-modal/close', {
-        zIndex: 0,
-      })
-    );
-  };
-
   return visible ? (
     <Modals
-      closeCurrentModal={closeModal}
+      modalToClose="picture-modal"
       header={{
         subtitle: (
           <div className={imageSupplierStyle.subtitle}>

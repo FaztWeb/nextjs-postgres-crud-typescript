@@ -1,22 +1,13 @@
 import { useAppDispatch, useAppSelector } from 'hooks/redux-hooks';
-import { action } from 'store';
+import { openModal, indexOf, closeModal } from 'store';
 import ModalTemplate from '../Modals';
 import authenticate__style from './authenticate.module.css';
 import { signIn } from 'next-auth/react';
+import { useEffect } from 'react';
 const PROVIDERS = ['GOOGLE', 'FACEBOOK', 'APPLE', 'INSTAGRAM'] as const;
 const Authenticate = () => {
-  const { visible, zIndex } = useAppSelector(
-    ({ authenticateModal }) => authenticateModal
-  );
-  const dispatch = useAppDispatch();
-
-  const closeAuthenticate = () => {
-    dispatch(
-      action('authenticate-modal/close', {
-        zIndex: 0,
-      })
-    );
-  };
+  const visible = useAppSelector(({ authenticateModal }) => authenticateModal);
+  const zIndex = indexOf('authenticate-modal');
 
   const signInWithProvider = (provider: string) => {
     signIn('github', {
@@ -26,7 +17,7 @@ const Authenticate = () => {
 
   return visible ? (
     <ModalTemplate
-      closeCurrentModal={closeAuthenticate}
+      modalToClose="authenticate-modal"
       header={{
         title: 'Alege o metoda de autentificare',
         subtitle: '',

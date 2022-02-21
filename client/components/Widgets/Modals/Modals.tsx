@@ -1,9 +1,9 @@
 import { FC } from 'react';
 import modal__style from './modal.module.css';
 import { IoIosClose } from 'react-icons/io';
-
+import { supportedModals, closeModal } from 'store';
 interface ModalComponents {
-  closeCurrentModal: () => unknown;
+  modalToClose: supportedModals;
   header: {
     title: JSX.Element | string;
     subtitle: JSX.Element | string;
@@ -12,7 +12,7 @@ interface ModalComponents {
 }
 const ModalTemplate: FC<ModalComponents> = ({
   children,
-  closeCurrentModal,
+  modalToClose,
   header,
   zIndex,
 }) => {
@@ -32,7 +32,9 @@ const ModalTemplate: FC<ModalComponents> = ({
             <div className={modal__style.close}>
               <IoIosClose
                 className={modal__style.closeIcon}
-                onClick={closeCurrentModal}
+                onClick={() => {
+                  closeModal(modalToClose);
+                }}
               />
             </div>
           </div>

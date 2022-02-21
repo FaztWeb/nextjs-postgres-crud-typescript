@@ -1,7 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { buttonReducer } from 'components/Widgets/Button/button-slice';
 import showSearchReducer from 'components/Searchbox/search-slice';
-import popupReducer from 'components/Widgets/Popup/popup-slice';
 
 // modal imports
 import modifyModalReducer, {
@@ -19,22 +18,38 @@ import authenticateReducer, {
   name as authenticateName,
 } from 'components/Widgets/Modals/Authenticate/authenticate-slice';
 
-import stackReducer from 'components/Widgets/stack-slice';
+// widget stack
+import stackReducer, {
+  addWidget,
+  removeWidget,
+} from 'components/Widgets/stack-slice';
 import { useAppSelector } from 'hooks/redux-hooks';
+
+// popup imports
+import popupReducer, {
+  name as popupName,
+} from 'components/Widgets/Popup/popup-slice';
 
 export const store = configureStore({
   reducer: {
     button: buttonReducer,
-    stack: stackReducer,
-    showPopup: popupReducer,
     showSearch: showSearchReducer,
+    stack: stackReducer,
+
+    // popup reducers
+    popup: popupReducer,
+
+    // modal reducers
     infoModal: infoModalReducer,
     modifyModal: modifyModalReducer,
     pictureModal: pictureModalReducer,
     authenticateModal: authenticateReducer,
   },
 });
+
+// actions
 const supportedModalActions = ['open', 'close'] as const;
+
 const modals = [
   modifyModalName,
   infoName,
@@ -42,24 +57,44 @@ const modals = [
   authenticateName,
 ] as const;
 
-const modalActions = modals.flatMap((modal) =>
-  supportedModalActions.map((action) => `${modal}/${action}` as const)
-);
-export type ModalActions = typeof modalActions[number];
+const popups = [popupName] as const;
 
-export const action = (
-  actionType: ModalActions,
-  payload: ReturnType<typeof open>['payload']
-) => {
-  return {
-    type: actionType,
-    payload,
-  };
+export type supportedModals = typeof modals[number];
+export type supportedPopup = typeof popups[number];
+
+export const openModal = (modal: supportedModals) => {
+  console.log(store.dispatch(addWidget(modal)));
+  store.dispatch({
+    type: `${modal}/open` as const,
+  });
 };
 
-export const indexOf = (widget: typeof modals[number]) => {
+export const closeModal = (modal: supportedModals) => {
+  console.log(store.dispatch(removeWidget(modal)));
+  store.dispatch({
+    type: `${modal}/close` as const,
+  });
+};
+
+export const openPopup = (popup: supportedPopup) => {
+  store.dispatch(addWidget(popup));
+  store.dispatch({
+    type: `${popup}/open` as const,
+  });
+};
+
+export const closePopup = (popup: supportedPopup) => {
+  store.dispatch(removeWidget(popup));
+  store.dispatch({
+    type: `${popup}/close` as const,
+  });
+};
+
+export const indexOf = (widget: supportedModals | supportedPopup) => {
   const Index = useAppSelector(({ stack }) => {
-    return stack.indexOf(widget);
+    let index = stack.indexOf(widget);
+    if (index >= 0) index += 100;
+    return index;
   });
   return Index;
 };

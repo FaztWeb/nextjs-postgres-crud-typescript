@@ -3,29 +3,23 @@ import ModalTemplate from '../Modals';
 import info__style from './info.module.css';
 import Button from '../../Button/Button';
 import Dispatch from '../../Button/Dispatch/Dispatch';
-import { action, indexOf } from 'store';
+import { openModal, indexOf } from 'store';
+import { useEffect } from 'react';
+const openModifyModal = () => {
+  openModal('modify-modal');
+};
 const Info = () => {
-  const { visible } = useAppSelector(({ infoModal }) => infoModal);
+  const visible = useAppSelector(({ infoModal }) => infoModal);
   const zIndex = indexOf('info-modal');
-  const dispatch = useAppDispatch();
-  const closeInfo = () => {
-    dispatch(
-      action('info-modal/close', {
-        zIndex: 0,
-      })
-    );
-  };
-  const openModifyModal = () => {
-    dispatch(
-      action('modify-modal/open', {
-        zIndex: zIndex + 1,
-      })
-    );
-  };
+
+  useEffect(() => {
+    console.log(zIndex);
+  }, [zIndex]);
+
   return visible ? (
     <ModalTemplate
       zIndex={zIndex}
-      closeCurrentModal={closeInfo}
+      modalToClose="info-modal"
       header={{
         title: 'Biserica Catolica din Elisabetin',
         subtitle: 'Aflati mai multe informatii despre biserica Catolica',

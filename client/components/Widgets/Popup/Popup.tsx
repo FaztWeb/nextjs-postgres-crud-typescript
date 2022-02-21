@@ -2,12 +2,18 @@ import actionStyle from './actionpopup.module.css';
 import { FaInfoCircle } from 'react-icons/fa';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useAppSelector } from 'hooks/redux-hooks';
+import { indexOf } from 'store';
+
 const ActionPopup = () => {
-  const show = useAppSelector(({ showPopup }) => showPopup);
+  const visible = useAppSelector(({ popup }) => popup);
+  const zIndex = indexOf('popup');
   return (
     <AnimatePresence>
-      {show ? (
+      {visible ? (
         <motion.div
+          style={{
+            zIndex,
+          }}
           initial={{
             opacity: 0,
             x: -200,
