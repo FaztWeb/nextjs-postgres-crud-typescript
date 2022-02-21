@@ -2,7 +2,7 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import path from 'path/posix';
 import formidable from 'formidable-serverless';
 import slugify from 'slugify';
-import fs from 'fs/promises';
+import fs, { stat } from 'fs/promises';
 
 export const config = {
   api: {
@@ -16,7 +16,14 @@ const folderDistrict = (name: string) =>
     replacement: '_',
   });
 
-export default async (req: NextApiRequest, res: NextApiResponse) => {
+const fileExists = async (path: string) =>
+  await stat(path)
+    .then(() => {
+      return 'Fisierul exista deja' as const;
+    })
+    .catch((_) => 'Fisierul nu exista' as const);
+
+async function imagesHandler(req: NextApiRequest, res: NextApiResponse) {
   const form = new formidable.IncomingForm({
     uploadDir: path.join(process.cwd(), 'uploads'),
     keepExtensions: true,
@@ -26,15 +33,24 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     form.on('fileBegin', async (formName, file) => {
       const destination = folderDistrict(formName);
       fs.mkdir(path.join(process.cwd(), 'uploads', destination));
-
-      file.path = path.join(process.cwd(), 'uploads', destination, file.name);
-    });
-    form.parse(req, (err, _, __) => {
-      if (err) {
-        res.send('Could not parse the file, please try again in a bit');
-        return;
+      if (
+        (await fileExists(
+          path.join(process.cwd(), 'uploads', destination, file.name)
+        )) === 'Fisierul nu exista'
+      ) {
+        file.path = path.join(process.cwd(), 'uploads', destination, file.name);
+      } else {
+        console.log('FISIERUL EXISTAA');
+        res.send({
+          ok: false,
+          error: 'Exista deja un fisier cu acest nume',
+        });
       }
-      res.send('OK');
+    });
+    form.parse(req, (err, field, files) => {
+      console.log(err);
     });
   }
-};
+}
+
+export default imagesHandler;

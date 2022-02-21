@@ -8,7 +8,7 @@ const clippingArea = new Extent({
   ymin: 45.720666,
   ymax: 45.777872,
 });
-export default (mapContainer: HTMLDivElement) =>
+const handler = (mapContainer: HTMLDivElement) =>
   new SceneView({
     clippingArea,
     viewingMode: 'local',
@@ -29,3 +29,4 @@ export default (mapContainer: HTMLDivElement) =>
       },
     },
   });
+export default handler;

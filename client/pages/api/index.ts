@@ -2,7 +2,10 @@ import { User } from '@prisma/client';
 import type { NextApiRequest, NextApiResponse } from 'next';
 import prisma from 'utils/prisma';
 
-export default async (req: NextApiRequest, res: NextApiResponse) => {
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
   const response = JSON.parse(req.body);
   const { user: username, info, name, description } = response;
   await prisma.churchInfo.create({
@@ -14,4 +17,4 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     },
   });
   res.status(200).send('SUCCESS');
-};
+}

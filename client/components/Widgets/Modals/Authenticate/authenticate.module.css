@@ -1,0 +1,13 @@
+.option {
+  padding: 1rem 2rem;
+  background-color: rgb(219, 219, 219);
+  border: none;
+  cursor: pointer;
+  margin: 1rem;
+  max-width: 8rem;
+  min-width: 8rem;
+}
+
+.option:hover {
+  background-color: rgb(179, 179, 179);
+}

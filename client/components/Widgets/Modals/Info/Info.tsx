@@ -2,9 +2,11 @@ import { useAppDispatch, useAppSelector } from 'hooks/redux-hooks';
 import ModalTemplate from '../Modals';
 import info__style from './info.module.css';
 import Button from '../../Button/Button';
-import { action } from 'store';
+import Dispatch from '../../Button/Dispatch/Dispatch';
+import { action, indexOf } from 'store';
 const Info = () => {
-  const { visible, zIndex } = useAppSelector(({ infoModal }) => infoModal);
+  const { visible } = useAppSelector(({ infoModal }) => infoModal);
+  const zIndex = indexOf('info-modal');
   const dispatch = useAppDispatch();
   const closeInfo = () => {
     dispatch(
@@ -72,7 +74,7 @@ const Info = () => {
           eaque tempora doloribus quam.
         </p>
         <div className={info__style.button__wrapper}>
-          <Button payload="Sugerati o modificare" action={openModifyModal} />
+          <Dispatch action={openModifyModal} payload="Sugerati o schimbare" />
         </div>
       </div>
     </ModalTemplate>

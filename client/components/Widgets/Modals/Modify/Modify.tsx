@@ -5,7 +5,6 @@ import TypewriterComponent from 'typewriter-effect';
 import Field from './Field/Field';
 import StatusIcon from './StatusIcon/StatusIcon';
 import { write } from './typewriter';
-import Button from '../../Button/Button';
 import Loading from 'components/Loading/Loading';
 import { useAppDispatch, useAppSelector } from 'hooks/redux-hooks';
 import ModalTemplate from '../Modals';
@@ -65,14 +64,7 @@ const Modal = () => {
       {loading ? <Loading></Loading> : null}
       {fieldsToModify}
       <div className={modal.button__container}>
-        <div className={modal.button__content}>
-          <Button
-            action={() => {
-              console.log('AAAAAAAAAAAA');
-            }}
-            payload="Salvati Modificarile"
-          ></Button>
-        </div>
+        <div className={modal.button__content}></div>
       </div>
     </ModalTemplate>
   ) : null;

@@ -1,5 +1,5 @@
-import { church$, imageSupplier$ } from 'lib/modal';
-import { useEffect, useReducer, useRef, useState } from 'react';
+import { church$, imagesFrom, imageSupplier$ } from 'lib/modal';
+import { ChangeEvent, useEffect, useReducer, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import useToggle from 'hooks/useToggle';
 import { CgCloseO } from 'react-icons/cg';
@@ -8,7 +8,9 @@ import imageSupplierStyle from './pictures.module.css';
 import Modals from '../Modals';
 import { useAppDispatch, useAppSelector } from 'hooks/redux-hooks';
 import { action } from 'store';
-import Button from '../../Button/Button';
+import Submit from '../../Button/Submit/Submit';
+import { of } from 'rxjs';
+
 interface Action {
   type: 'REMOVE' | 'ADD';
   src: string;
@@ -22,6 +24,21 @@ interface photoData {
   file: File;
 }
 
+const photoReducer = (prev: photoData[], action: Action): photoData[] => {
+  switch (action.type) {
+    case 'REMOVE':
+      return prev.filter(({ src }) => src !== action.src);
+    case 'ADD':
+      if (prev.find(({ name }) => name === action.name)) {
+        return prev;
+      } else
+        return [
+          ...prev,
+          { src: action.src, file: action.file, name: action.name },
+        ];
+  }
+};
+
 export default function Pictures() {
   const inputRef = useRef<HTMLInputElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
@@ -32,30 +49,35 @@ export default function Pictures() {
     ({ pictureModal }) => pictureModal
   );
 
+  /**
+   *  adding and deleting images from the preview section
+   */
+  const [photos, dispatchPhotos] = useReducer(photoReducer, [] as photoData[]);
+
+  useEffect(() => {
+    imageSupplier$.next(photos.map((photo) => photo.file));
+  }, [photos]);
+
   useEffect(() => {
     church$.subscribe(setChurch);
   }, []);
 
-  /**
-   *  adding and deleting images from the preview section
-   */
-  const [photos, dispatchPhotos] = useReducer(
-    (prev: photoData[], action: Action): photoData[] => {
-      switch (action.type) {
-        case 'REMOVE':
-          return prev.filter(({ src }) => src !== action.src);
-        case 'ADD':
-          if (prev.find(({ name }) => name === action.name)) {
-            return prev;
-          } else
-            return [
-              ...prev,
-              { src: action.src, file: action.file, name: action.name },
-            ];
-      }
-    },
-    [] as photoData[]
-  );
+  const addPhoto = (event: ChangeEvent<HTMLInputElement>) => {
+    /**
+     * when the input receives images, it will store them (along with some details about the files)
+     * inside **photos**. The metadata, will help display the thumbnail (through the **src**), avoid
+     * duplicates (as the **name** will become the React key at display -keys must be unique so two images
+     * with the same name won't meet the criteria-) and post the images to the backend (through the **file**)
+     */
+    if (event.target.files && event.target.files[0]) {
+      dispatchPhotos({
+        type: 'ADD',
+        src: URL.createObjectURL(event.target.files[0]),
+        name: event.target.files[0].name,
+        file: event.target.files[0],
+      });
+    }
+  };
 
   const closeModal = () => {
     dispatch(
@@ -85,26 +107,7 @@ export default function Pictures() {
           multiple
           // the input will be invisible it's styling does not fit our preferred design
           className={imageSupplierStyle.invisibleInput}
-          onChange={(event) => {
-            /**
-             * when the input receives images, it will store them (along with some details about the files)
-             * inside **photos**. The metadata, will help display the thumbnail (through the **src**), avoid
-             * duplicates (as the **name** will become the React key at display -keys must be unique so two images
-             * with the same name won't meet the criteria-) and post the images to the backend (through the **file**)
-             */
-            if (event.target.files && event.target.files[0]) {
-              dispatchPhotos({
-                type: 'ADD',
-                src: URL.createObjectURL(event.target.files[0]),
-                name: event.target.files[0].name,
-                file: event.target.files[0],
-              });
-              imageSupplier$.next([
-                ...photos.map((photo) => photo.file),
-                event.target.files[0],
-              ]);
-            }
-          }}
+          onChange={addPhoto}
         />
 
         <motion.button
@@ -145,7 +148,6 @@ export default function Pictures() {
                       file,
                     })
                   : 0;
-                imageSupplier$.next(photos.map((photo) => photo.file));
               }}
               key={name}
               className={imageSupplierStyle.hideButton}
@@ -153,7 +155,6 @@ export default function Pictures() {
               <div className={imageSupplierStyle.thumbnail}>
                 <CgCloseO
                   onClick={() => {
-                    // deleting image on clicking the close icon
                     dispatchPhotos({
                       type: 'REMOVE',
                       src,
@@ -174,14 +175,11 @@ export default function Pictures() {
           ))}
         </div>
       </div>
-      <Button
-        payload="Incarcati imagini"
-        action={() => {
-          const form = new FormData();
-          photos.map((photo) => form.append(church, photo.file));
-          return form;
-        }}
-      ></Button>
+      <Submit
+        data={imagesFrom}
+        path={'/api/images/images'}
+        payload={'Salvati fotografiile'}
+      />
     </Modals>
   ) : null;
 }

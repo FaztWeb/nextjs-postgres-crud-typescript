@@ -11,8 +11,6 @@ datasource db {
   shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
 }
 
-// TO DO: find better implementation with REDIS
-
 model Account {
   id                 String  @id @default(cuid())
   userId             String
@@ -52,6 +50,8 @@ model User {
   sessions      Session[]
 }
 
+
+// this is used for magic link authentications
 model VerificationToken {
   identifier String
   token      String   @unique
