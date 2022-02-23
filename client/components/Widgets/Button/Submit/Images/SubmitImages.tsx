@@ -17,11 +17,13 @@ import {
   tap,
 } from 'rxjs';
 import { closePopup, openModal, openPopup } from 'store';
-import Button from '../Button';
+import Button from '../../Button';
 import type {
   FileUploadError,
   FileUploadSuccess,
 } from 'pages/api/images/images';
+import submit_images_styles from './submit-images.module.css';
+
 interface Data {
   isFinish: boolean;
   response: Response;
@@ -32,7 +34,7 @@ export interface PopupBuilder {
   payload: string | JSX.Element;
 }
 
-const Dispatch: FC<{
+const SubmitImages: FC<{
   payload: string;
   data: Observable<unknown>;
   path: string;
@@ -104,27 +106,41 @@ const Dispatch: FC<{
                   payload: success.error,
                 }
           );
-          return success?.file || undefined;
+
+          console.log(success.file);
+          return success.file;
         }),
-        delay(10000),
-        tap((file) => {
+        delay(3000),
+        tap(() => {
           closePopup('success-popup');
+        }),
+        delay(1000),
+        tap((file) => {
           if (file)
             openPopup('success-popup', {
               type: 'Error',
               payload: (
-                <div>
+                <div className={submit_images_styles.container}>
                   Doriti sa schimbati numele fisierului
-                  <button
-                    onClick={() => {
-                      openModal('picture-change-name-modal', {
-                        picture: file,
-                      });
-                    }}
-                  >
-                    DA
-                  </button>
-                  <button> NU </button>
+                  <div className={submit_images_styles.button_container}>
+                    <button
+                      onClick={() => {
+                        openModal('picture-change-name-modal', {
+                          picture: file,
+                        });
+                        closePopup('success-popup');
+                      }}
+                    >
+                      DA
+                    </button>
+                    <button
+                      onClick={() => {
+                        closePopup('success-popup');
+                      }}
+                    >
+                      NU
+                    </button>
+                  </div>
                 </div>
               ),
             });
@@ -135,4 +151,4 @@ const Dispatch: FC<{
   return <Button payload={payload} onClick={clickEvent} />;
 };
 
-export default Dispatch;
+export default SubmitImages;

@@ -61,6 +61,7 @@ async function imagesHandler(req: NextApiRequest, res: NextApiResponse) {
         res.send({
           ok: false,
           error: `Fisierul a mai fost incarcat. Va rugam schimbati numele fisierului ${info.filename}`,
+          file: info.filename,
         } as FileUploadError);
         res.end();
       } else {

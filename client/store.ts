@@ -36,15 +36,14 @@ import pictureChangeModalReducer, {
   open as pictureChangeOpen,
   close as pictureChangeClose,
   name as pictureChangeName,
-} from 'components/Widgets/Modals/Pictures/Change/change-slice'
+} from 'components/Widgets/Modals/Pictures/Change/change-slice';
 
 // popup imports
 import popupReducer, {
   name as popupName,
   Popup,
 } from 'components/Widgets/Popup/Success/success-slice';
-import { PopupBuilder } from 'components/Widgets/Button/Submit/Submit';
-
+import { PopupBuilder } from 'components/Widgets/Button/Submit/Images/SubmitImages';
 
 export const store = configureStore({
   reducer: {
@@ -64,26 +63,32 @@ export const store = configureStore({
   },
 });
 
-// actions
-const supportedModalActions = ['open', 'close'] as const;
-
 const modals = [
   modifyModalName,
   infoName,
   pictureName,
   authenticateName,
-  pictureChangeName
+  pictureChangeName,
 ] as const;
 
-const openActions = [modifyOpen, infoOpen, pictureOpen, authenticateOpen, pictureChangeOpen] as const;
+const openActions = [
+  modifyOpen,
+  infoOpen,
+  pictureOpen,
+  authenticateOpen,
+  pictureChangeOpen,
+] as const;
 
 const popups = [popupName] as const;
 
 export type supportedModals = typeof modals[number];
 export type supportedPopup = typeof popups[number];
-export type supportedActions = Parameters<typeof openActions[number]>[0]; 
+export type supportedActions = Parameters<typeof openActions[number]>[0];
 
-export const openModal = (modal: supportedModals, payload: supportedActions = undefined) => {
+export const openModal = (
+  modal: supportedModals,
+  payload: supportedActions = undefined
+) => {
   console.log(store.dispatch(addWidget(modal)));
   store.dispatch({
     type: `${modal}/open` as const,
@@ -91,12 +96,10 @@ export const openModal = (modal: supportedModals, payload: supportedActions = un
   });
 };
 
-
 export const closeModal = <T extends supportedModals>(modal: T) => {
   console.log(store.dispatch(removeWidget(modal)));
   store.dispatch({
     type: `${modal}/close` as const,
-    payload: 
   });
 };
 

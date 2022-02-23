@@ -8,7 +8,7 @@ import dynamic from 'next/dynamic';
 import Pictures from 'components/Widgets/Modals/Pictures/Pictures';
 import Authenticate from 'components/Widgets/Modals/Authenticate/Authenticate';
 import SuccessPopup from 'components/Widgets/Popup/Success/Success';
-import { AnimatePresence } from 'framer-motion';
+import ChangeName from 'components/Widgets/Modals/Pictures/Change/ChangeName';
 const DynamicMap = dynamic(() => import('../components/Map/Map'), {
   ssr: false,
 });
@@ -24,6 +24,7 @@ const Main = () => {
       <Pictures />
       <Authenticate />
       <SuccessPopup />
+      <ChangeName />
       {searchVisible ? (
         <div className={modalStyle.app}>
           <Searchbox />

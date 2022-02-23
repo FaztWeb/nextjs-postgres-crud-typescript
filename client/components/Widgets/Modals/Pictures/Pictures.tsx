@@ -8,7 +8,7 @@ import imageSupplierStyle from './pictures.module.css';
 import Modals from '../Modals';
 import { useAppSelector } from 'hooks/redux-hooks';
 import { indexOf } from 'store';
-import Submit from '../../Button/Submit/Submit';
+import Submit from '../../Button/Submit/Images/SubmitImages';
 
 interface Action {
   type: 'REMOVE' | 'ADD';
