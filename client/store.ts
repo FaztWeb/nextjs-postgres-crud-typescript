@@ -28,7 +28,9 @@ import { useAppSelector } from 'hooks/redux-hooks';
 // popup imports
 import popupReducer, {
   name as popupName,
+  Popup,
 } from 'components/Widgets/Popup/Success/success-slice';
+import { PopupBuilder } from 'components/Widgets/Button/Submit/Submit';
 
 export const store = configureStore({
   reducer: {
@@ -76,10 +78,11 @@ export const closeModal = (modal: supportedModals) => {
   });
 };
 
-export const openPopup = (popup: supportedPopup) => {
+export const openPopup = (popup: supportedPopup, payload: PopupBuilder) => {
   store.dispatch(addWidget(popup));
   store.dispatch({
     type: `${popup}/open` as const,
+    payload,
   });
 };
 

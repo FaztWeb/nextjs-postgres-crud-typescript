@@ -1,40 +1,35 @@
 import actionStyle from './actionpopup.module.css';
-import { FaInfoCircle } from 'react-icons/fa';
-import { AnimatePresence, motion } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { FC } from 'react';
-
+import { IconType } from 'react-icons/lib';
 const Popup: FC<{
   zIndex: number;
-  visible: boolean;
-}> = ({ zIndex, visible }) => {
+  payload: string;
+  Icon: IconType;
+}> = ({ zIndex, Icon, payload }) => {
   return (
-    <AnimatePresence>
-      {visible ? (
-        <motion.div
-          style={{
-            zIndex,
-          }}
-          initial={{
-            opacity: 0,
-            x: -200,
-          }}
-          animate={{
-            opacity: 1,
-            x: 0,
-          }}
-          exit={{
-            opacity: 0,
-            x: 200,
-          }}
-          className={actionStyle.container}
-        >
-          <div className={actionStyle.text}>
-            Schimbarile au fost salvate cu success
-          </div>
-          <FaInfoCircle className={actionStyle.icon} />
-        </motion.div>
-      ) : null}
-    </AnimatePresence>
+    <motion.div
+      key={payload}
+      style={{
+        zIndex,
+      }}
+      initial={{
+        opacity: 0,
+        x: -200,
+      }}
+      animate={{
+        opacity: 1,
+        x: 0,
+      }}
+      exit={{
+        opacity: 0,
+        x: 200,
+      }}
+      className={actionStyle.container}
+    >
+      <div className={actionStyle.text}>{payload}</div>
+      <Icon className={actionStyle.icon} />
+    </motion.div>
   );
 };
 

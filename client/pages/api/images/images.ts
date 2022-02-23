@@ -1,8 +1,19 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import path from 'path/posix';
-import formidable from 'formidable';
 import slugify from 'slugify';
-import fs, { stat } from 'fs/promises';
+import { stat, mkdir } from 'fs/promises';
+import { createWriteStream } from 'fs';
+import busboy from 'busboy';
+import path from 'path/posix';
+
+export interface FileUploadError {
+  ok: false;
+  error: string;
+}
+
+export interface FileUploadSuccess {
+  ok: true;
+  message: string;
+}
 
 export const config = {
   api: {
@@ -22,27 +33,55 @@ const fileExists = async (path: string) =>
     .catch(() => false);
 
 async function imagesHandler(req: NextApiRequest, res: NextApiResponse) {
-  const form = formidable({
-    uploadDir: path.join(process.cwd(), 'uploads'),
-    keepExtensions: true,
-    multiples: true,
+  const busBoyParser = busboy({
+    headers: req.headers,
   });
-  if (req.method === 'POST') {
-    form.on('fileBegin', (formName, file) => {
-      const destination = folderDistrict(formName);
-      console.log(file);
-      const pathToFile = path.join(
-        process.cwd(),
-        'uploads',
-        destination,
-        file.originalFilename as string
-      );
-      file.filepath = pathToFile;
-    });
-    form.parse(req, (err, field, files) => {
-      console.log(err, field, files);
-    });
-  }
+
+  busBoyParser.on('file', async (name, stream, info) => {
+    const folderName = folderDistrict(
+      Buffer.from(name, 'latin1').toString('utf8')
+    );
+
+    console.log(folderName);
+    const pathToFolder = path.join(process.cwd(), 'uploads', folderName);
+    const pathToFile = path.join(pathToFolder, info.filename);
+
+    try {
+      await mkdir(pathToFolder);
+    } catch (e) {
+      // ignore if the folder was already there
+    } finally {
+      if (await fileExists(pathToFile)) {
+        console.log('File is already there');
+        res.send({
+          ok: false,
+          error:
+            'Fisierul a mai fost incarcat. Va rugam schimbati numele fisierului',
+        } as FileUploadError);
+        res.end();
+      } else {
+        console.log('Uploading file');
+        stream.pipe(
+          createWriteStream(
+            path.join(process.cwd(), 'uploads', folderName, info.filename)
+          )
+        );
+        res.send({
+          ok: true,
+          message: 'Fisierul a fost procesat cu success',
+        } as FileUploadSuccess);
+      }
+    }
+  });
+  busBoyParser.on('error', () => {
+    res.send({
+      ok: false,
+      error:
+        'O eroare a aparut in sistem, va rugam incercati din nou mai tarziu',
+    } as FileUploadError);
+    res.end();
+  });
+  req.pipe(busBoyParser);
 }
 
 export default imagesHandler;

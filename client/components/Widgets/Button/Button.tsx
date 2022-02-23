@@ -1,6 +1,5 @@
-import { FC, forwardRef, useEffect, useRef } from 'react';
-import { debounceTime, exhaustMap, fromEvent, tap } from 'rxjs';
-import { action } from 'store';
+import { FC, useEffect, useRef } from 'react';
+import { debounceTime, fromEvent, tap } from 'rxjs';
 import buttonStyle from './button.module.css';
 
 const Button: FC<{ payload: string; onClick: () => unknown }> = ({

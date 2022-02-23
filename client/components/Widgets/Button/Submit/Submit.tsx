@@ -1,4 +1,3 @@
-import { useAppDispatch } from 'hooks/redux-hooks';
 import { useSession } from 'next-auth/react';
 import { FC } from 'react';
 import {
@@ -8,6 +7,7 @@ import {
   first,
   from,
   iif,
+  last,
   map,
   mergeMap,
   Observable,
@@ -16,17 +16,20 @@ import {
   shareReplay,
   tap,
 } from 'rxjs';
-import { action } from 'store';
+import { closePopup, openPopup } from 'store';
 import Button from '../Button';
-
+import type {
+  FileUploadError,
+  FileUploadSuccess,
+} from 'pages/api/images/images';
 interface Data {
   isFinish: boolean;
   response: Response;
 }
 
-interface ResponsePayload {
-  ok: boolean;
-  error?: string;
+export interface PopupBuilder {
+  type: 'Error' | 'Success';
+  payload: string;
 }
 
 const Dispatch: FC<{
@@ -35,19 +38,17 @@ const Dispatch: FC<{
   path: string;
 }> = ({ payload, data, path }) => {
   const { data: sessionData } = useSession();
-  const dispatch = useAppDispatch();
   const clickEvent = () => {
     const s = of(true)
       .pipe(
         tap(() => {
-          if (!sessionData?.user) {
-            dispatch(
-              action('authenticate-modal/open', {
-                zIndex: 9999,
-              })
-            );
-            s.unsubscribe();
-          }
+          closePopup('success-popup');
+        }),
+        tap(() => {
+          // if (!sessionData?.user) {
+          //   openModal('authenticate-modal');
+          //   s.unsubscribe();
+          // }
         }),
         mergeMap(() => {
           return data;
@@ -60,6 +61,7 @@ const Dispatch: FC<{
               body: payload,
             })
           ).pipe(
+            delay(1000),
             map((response) => {
               return {
                 response,
@@ -80,13 +82,31 @@ const Dispatch: FC<{
               return iif(
                 () => v.isFinish,
                 data$,
-                concat(showFor$, data$)
+                concat(showFor$, data$).pipe(last())
               ) as Observable<Data>;
             })
           );
         }),
-        tap(async (v) => {
-          dispatch();
+        tap(async (response) => {
+          const success = (await response.response.json()) as
+            | FileUploadError
+            | FileUploadSuccess;
+          openPopup(
+            'success-popup',
+            success.ok
+              ? {
+                  type: 'Success',
+                  payload: success.message,
+                }
+              : {
+                  type: 'Error',
+                  payload: success.error,
+                }
+          );
+        }),
+        delay(1000),
+        tap(() => {
+          closePopup('success-popup');
         })
       )
       .subscribe();

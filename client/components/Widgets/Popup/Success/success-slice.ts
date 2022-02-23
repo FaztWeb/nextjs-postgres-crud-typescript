@@ -1,14 +1,33 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import type { PopupBuilder } from 'components/Widgets/Button/Submit/Submit';
+
+export interface Popup {
+  visible: boolean;
+  popupType?: 'Error' | 'Success';
+  popupMessage?: string;
+}
 
 const popupSlice = createSlice({
-  initialState: false,
+  initialState: {} as Popup,
   name: 'success-popup',
   reducers: {
-    open() {
-      return true;
+    open(_, action: PayloadAction<PopupBuilder>) {
+      return action.payload.type === 'Error'
+        ? {
+            visible: true,
+            popupType: 'Error' as const,
+            popupMessage: action.payload.payload,
+          }
+        : {
+            visible: true,
+            popupType: 'Success' as const,
+            popupMessage: action.payload.payload,
+          };
     },
     close() {
-      return false;
+      return {
+        visible: false,
+      };
     },
   },
 });

@@ -1,4 +1,7 @@
 .container {
+  position: absolute;
+  bottom: 40px;
+  left: 40px;
   font-size: clamp(14px, calc(14 / 350 * var(--modal__width)), 16px);
   width: fit-content;
   background-color: whitesmoke;
