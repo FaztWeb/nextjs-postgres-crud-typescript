@@ -2,14 +2,14 @@ import actionStyle from './actionpopup.module.css';
 import { motion } from 'framer-motion';
 import { FC } from 'react';
 import { IconType } from 'react-icons/lib';
+
 const Popup: FC<{
   zIndex: number;
-  payload: string;
+  payload: JSX.Element | string | undefined;
   Icon: IconType;
 }> = ({ zIndex, Icon, payload }) => {
   return (
     <motion.div
-      key={payload}
       style={{
         zIndex,
       }}
@@ -27,7 +27,7 @@ const Popup: FC<{
       }}
       className={actionStyle.container}
     >
-      <div className={actionStyle.text}>{payload}</div>
+      {payload ? <div className={actionStyle.text}>{payload}</div> : null}
       <Icon className={actionStyle.icon} />
     </motion.div>
   );

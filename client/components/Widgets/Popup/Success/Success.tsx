@@ -3,7 +3,7 @@ import { useAppSelector } from 'hooks/redux-hooks';
 import { indexOf } from 'store';
 import { FaExclamationTriangle } from 'react-icons/fa';
 import { AnimatePresence } from 'framer-motion';
-
+import success_styles from './success.module.css';
 const Success = () => {
   const popup = useAppSelector(({ successPopup }) => successPopup);
   const zIndex = indexOf('success-popup');
@@ -14,7 +14,7 @@ const Success = () => {
         <Popup
           zIndex={zIndex}
           Icon={FaExclamationTriangle}
-          payload={popup.popupMessage as string}
+          payload={popup.popupMessage}
         ></Popup>
       ) : null}
     </AnimatePresence>

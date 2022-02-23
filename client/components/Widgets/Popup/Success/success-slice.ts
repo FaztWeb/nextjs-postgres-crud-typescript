@@ -4,7 +4,7 @@ import type { PopupBuilder } from 'components/Widgets/Button/Submit/Submit';
 export interface Popup {
   visible: boolean;
   popupType?: 'Error' | 'Success';
-  popupMessage?: string;
+  popupMessage?: string | JSX.Element;
 }
 
 const popupSlice = createSlice({

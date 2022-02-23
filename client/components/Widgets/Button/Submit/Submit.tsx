@@ -16,7 +16,7 @@ import {
   shareReplay,
   tap,
 } from 'rxjs';
-import { closePopup, openPopup } from 'store';
+import { closePopup, openModal, openPopup } from 'store';
 import Button from '../Button';
 import type {
   FileUploadError,
@@ -29,7 +29,7 @@ interface Data {
 
 export interface PopupBuilder {
   type: 'Error' | 'Success';
-  payload: string;
+  payload: string | JSX.Element;
 }
 
 const Dispatch: FC<{
@@ -87,10 +87,11 @@ const Dispatch: FC<{
             })
           );
         }),
-        tap(async (response) => {
+        mergeMap(async (response) => {
           const success = (await response.response.json()) as
             | FileUploadError
             | FileUploadSuccess;
+
           openPopup(
             'success-popup',
             success.ok
@@ -103,10 +104,30 @@ const Dispatch: FC<{
                   payload: success.error,
                 }
           );
+          return success?.file || undefined;
         }),
-        delay(1000),
-        tap(() => {
+        delay(10000),
+        tap((file) => {
           closePopup('success-popup');
+          if (file)
+            openPopup('success-popup', {
+              type: 'Error',
+              payload: (
+                <div>
+                  Doriti sa schimbati numele fisierului
+                  <button
+                    onClick={() => {
+                      openModal('picture-change-name-modal', {
+                        picture: file,
+                      });
+                    }}
+                  >
+                    DA
+                  </button>
+                  <button> NU </button>
+                </div>
+              ),
+            });
         })
       )
       .subscribe();

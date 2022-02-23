@@ -8,11 +8,13 @@ import path from 'path/posix';
 export interface FileUploadError {
   ok: false;
   error: string;
+  file: string;
 }
 
 export interface FileUploadSuccess {
   ok: true;
   message: string;
+  file: undefined;
 }
 
 export const config = {
@@ -58,8 +60,7 @@ async function imagesHandler(req: NextApiRequest, res: NextApiResponse) {
         console.log('File is already there');
         res.send({
           ok: false,
-          error:
-            'Fisierul a mai fost incarcat. Va rugam schimbati numele fisierului',
+          error: `Fisierul a mai fost incarcat. Va rugam schimbati numele fisierului ${info.filename}`,
         } as FileUploadError);
         res.end();
       } else {
