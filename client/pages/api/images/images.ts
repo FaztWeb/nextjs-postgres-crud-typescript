@@ -47,9 +47,12 @@ async function imagesHandler(req: NextApiRequest, res: NextApiResponse) {
     const pathToFile = path.join(pathToFolder, info.filename);
 
     try {
-      await mkdir(pathToFolder);
+      await mkdir(pathToFolder, {
+        recursive: true,
+      });
     } catch (e) {
       // ignore if the folder was already there
+      console.log(e);
     } finally {
       if (await fileExists(pathToFile)) {
         console.log('File is already there');
@@ -61,11 +64,7 @@ async function imagesHandler(req: NextApiRequest, res: NextApiResponse) {
         res.end();
       } else {
         console.log('Uploading file');
-        stream.pipe(
-          createWriteStream(
-            path.join(process.cwd(), 'uploads', folderName, info.filename)
-          )
-        );
+        stream.pipe(createWriteStream(pathToFile));
         res.send({
           ok: true,
           message: 'Fisierul a fost procesat cu success',
