@@ -45,6 +45,13 @@ import popupReducer, {
 } from 'components/Widgets/Popup/Success/success-slice';
 import { PopupBuilder } from 'components/Widgets/Button/Submit/Images/SubmitImages';
 
+// loading
+import {
+  loadingReducers,
+  doneLoading,
+  startLoading,
+} from 'components/Loading/loading-slice';
+
 export const store = configureStore({
   reducer: {
     button: buttonReducer,
@@ -60,6 +67,9 @@ export const store = configureStore({
     pictureModal: pictureModalReducer,
     authenticateModal: authenticateReducer,
     pictureChangeModal: pictureChangeModalReducer,
+
+    // loading reducer
+    loading: loadingReducers,
   },
 });
 
@@ -127,5 +137,16 @@ export const indexOf = (widget: supportedModals | supportedPopup) => {
   return Index;
 };
 
+export const startLoadingModal = (modal: supportedModals) => {
+  startLoading({
+    modal,
+  });
+};
+
+export const stopLoadingModal = (modal: supportedModals) => {
+  stopLoadingModal({
+    modal,
+  });
+};
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;

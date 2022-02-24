@@ -1,7 +1,8 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import modal__style from './modal.module.css';
 import { IoIosClose } from 'react-icons/io';
 import { supportedModals, closeModal } from 'store';
+import Loading from 'components/Loading/Loading';
 interface ModalComponents {
   modalToClose: supportedModals;
   header: {
@@ -9,14 +10,18 @@ interface ModalComponents {
     subtitle: JSX.Element | string;
   };
   zIndex: number;
+  loading: boolean;
 }
 const ModalTemplate: FC<ModalComponents> = ({
   children,
   modalToClose,
   header,
   zIndex,
+  loading,
 }) => {
-  return (
+  return loading ? (
+    <Loading></Loading>
+  ) : (
     <div
       className={modal__style.modal__container}
       style={{

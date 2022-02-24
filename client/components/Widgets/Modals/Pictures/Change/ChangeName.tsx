@@ -1,18 +1,29 @@
 import { useAppSelector } from 'hooks/redux-hooks';
-import { useState } from 'react';
+import { church$ } from 'lib/modal';
+import { useEffect, useState } from 'react';
 import { indexOf } from 'store';
 import ModalTemplate from '../../Modals';
+
+export interface pathToFile {
+  church: string;
+  oldFilename: string;
+  newFilename: string;
+}
 
 const ChangeName = () => {
   const zIndex = indexOf('picture-change-name-modal');
   const [newFilename, setNewFilename] = useState('');
-  const { visible, pictureToChange: filename } = useAppSelector(
+  const [church, setChurch] = useState('');
+  const { visible, pictureToChange: oldFilename } = useAppSelector(
     ({ pictureChangeModal }) => pictureChangeModal
   );
+  useEffect(() => {
+    church$.subscribe(setChurch);
+  });
   return visible ? (
     <ModalTemplate
       header={{
-        title: `Schimbati denumirea fisierului ${filename}`,
+        title: `Schimbati denumirea fisierului ${oldFilename}`,
         subtitle:
           'Acest fisier exista deja in baza noastra de date. Verificati continutul pentru a evita duplicarile, si incercati sa schimbati denumirea fisierului',
       }}
@@ -21,16 +32,20 @@ const ChangeName = () => {
     >
       <input
         type="text"
-        placeholder={filename}
+        placeholder={oldFilename}
         onChange={(e) => {
           setNewFilename(e.currentTarget.value);
         }}
       />
       <button
         onClick={() => {
-          fetch(`/api/images/change/${filename}`, {
+          fetch(`/api/images/change/${oldFilename}`, {
             method: 'POST',
-            body: newFilename,
+            body: JSON.stringify({
+              newFilename,
+              church,
+              oldFilename,
+            } as pathToFile),
           });
         }}
       >
