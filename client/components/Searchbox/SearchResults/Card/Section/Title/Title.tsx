@@ -2,10 +2,12 @@ import React, { FC } from 'react';
 import Section from '../Section';
 import { BiChurch } from 'react-icons/bi';
 import { modal$ } from 'lib/modal';
+import { useRouter } from 'next/router';
 
 const Title: FC<{ name: string }> = ({ name }) => {
+  const router = useRouter();
   const handleClick = () => {
-    modal$.next(true);
+    router.push(`/churches/${name}`);
   };
   return (
     <Section

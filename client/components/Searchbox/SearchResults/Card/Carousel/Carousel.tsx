@@ -4,24 +4,23 @@ import carouselStyles from './carousel.module.css';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import { useEffect, useState } from 'react';
-import useLoading from 'hooks/useLoading';
 import Loading from 'components/Loading/Loading';
 
 const Carousel = ({ church }: { church: string }) => {
   const [photos, setPhotos] = useState<HTMLImageElement[]>([]);
-  const { doAction, loading } = useLoading<string, HTMLImageElement[]>(
-    async function () {
-      const response = await fetch(`/api/images/${church}`);
-      const base64Images = (await response.json()) as string[];
-      if (!base64Images.error)
-        return base64Images.map((base64Image) => {
-          const image = new Image();
-          image.src = 'data:image/png;base64,' + base64Image;
-          return image;
-        });
-      else return [];
-    }
-  );
+  // const { doAction, loading } = useLoading<string, HTMLImageElement[]>(
+  //   async function () {
+  //     const response = await fetch(`/api/images/${church}`);
+  //     const base64Images = (await response.json()) as string[];
+  //     if (!base64Images.error)
+  //       return base64Images.map((base64Image) => {
+  //         const image = new Image();
+  //         image.src = 'data:image/png;base64,' + base64Image;
+  //         return image;
+  //       });
+  //     else return [];
+  //   }
+  // );
   const NextArrow = ({ onClick }: { onClick?: React.MouseEventHandler }) => {
     return (
       <div
@@ -33,11 +32,11 @@ const Carousel = ({ church }: { church: string }) => {
     );
   };
 
-  useEffect(() => {
-    doAction(church).then((images) => {
-      setPhotos(images);
-    });
-  }, []);
+  // useEffect(() => {
+  //   doAction(church).then((images) => {
+  //     setPhotos(images);
+  //   });
+  // }, []);
 
   const PrevArrow = ({ onClick }: { onClick?: React.MouseEventHandler }) => {
     return (
@@ -63,7 +62,7 @@ const Carousel = ({ church }: { church: string }) => {
 
   return (
     <div className={carouselStyles.container}>
-      {!loading ? (
+      {true ? (
         <Slider {...settings}>
           {photos.map((img, index) => (
             <div key={index} className={carouselStyles.slide}>

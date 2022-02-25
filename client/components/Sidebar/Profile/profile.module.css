@@ -1,0 +1,41 @@
+.container {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+  height: auto;
+  display: flex;
+  align-items: center;
+  margin-bottom: 3rem;
+}
+
+.icon {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background-color: azure;
+  margin-right: 2rem;
+}
+
+.user_profile {
+  flex: 1;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  overflow: hidden;
+}
+
+.user_name {
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.user_navigate {
+  opacity: 0.5;
+  cursor: pointer;
+}
+
+.user_navigate:hover {
+  opacity: 0.8;
+}

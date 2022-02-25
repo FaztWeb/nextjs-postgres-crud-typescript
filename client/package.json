@@ -16,7 +16,6 @@
     "@arcgis/core": "^4.22.2",
     "@emotion/react": "^11.7.1",
     "@emotion/styled": "^11.6.0",
-    "@fontsource/roboto": "^4.5.2",
     "@googlemaps/react-wrapper": "^1.1.19",
     "@googlemaps/three": "^1.0.13",
     "@mui/icons-material": "^5.3.1",
