@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
 
 .icon {
-  height: var(--icon__font_size);
+  height: 30px;
   width: auto;
   display: flex;
   align-items: flex-end;
@@ -10,7 +10,7 @@
 
 .tooltip {
   background-color: rgba(48, 48, 48, 0.733);
-  font-size: clamp(14px, calc(16 / 550 * var(--modal__width), 24px));
+  font-size: 12px;
   font-family: Ubuntu;
   height: fit-content !important;
   width: auto;

@@ -1,5 +1,29 @@
 .container {
   width: 100%;
   height: auto;
+  display: flex;
+  flex-direction: column;
   margin-bottom: 3rem;
+}
+
+.selector__container {
+  width: 100%;
+  height: auto;
+  display: flex;
+  margin-bottom: 1rem;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 20px;
+  cursor: pointer;
+  transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.icon {
+  font-size: 30px;
+  transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.container:hover .icon {
+  transform: translateX(10px) scale(1.2);
+  transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }

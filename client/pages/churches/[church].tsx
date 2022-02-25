@@ -7,7 +7,7 @@ const CulturalArchive = () => {
   return (
     <div className={church_cultural_archive__style.container}>
       <Sidebar></Sidebar>
-      <Blogs></Blogs>
+      <Blogs name={router.query.church as string}></Blogs>
     </div>
   );
 };

@@ -1,8 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 .container {
+  position: relative;
   width: 400px;
   height: 100%;
-  background-color: #1b1e1f;
+  background-color: #444c53;
   color: white;
   font-family: 'Roboto';
   font-weight: 900;
@@ -11,4 +12,30 @@
   border-top-right-radius: 3rem;
   border-bottom-right-radius: 3rem;
   flex-direction: column;
+  font-size: 20px;
+}
+
+.make_post__container {
+  width: 100%;
+  height: auto;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.icon {
+  font-size: 20px;
+  transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.make_post__container:hover .icon {
+  font-size: 35px;
+  transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.logout {
+  position: absolute;
+  bottom: 3rem;
+  cursor: pointer;
 }

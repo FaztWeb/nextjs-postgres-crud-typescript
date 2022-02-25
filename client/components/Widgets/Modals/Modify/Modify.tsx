@@ -6,7 +6,7 @@ import Field from './Field/Field';
 import StatusIcon from './StatusIcon/StatusIcon';
 import { write } from './typewriter';
 import Loading from 'components/Loading/Loading';
-import { useAppDispatch, useAppSelector } from 'hooks/redux-hooks';
+import { useAppSelector } from 'hooks/redux-hooks';
 import ModalTemplate from '../Modals';
 import { indexOf } from 'store';
 const Modal = () => {
@@ -33,15 +33,9 @@ const Modal = () => {
   );
 
   const fieldsToModify = (
-    <div className={modal.main__content}>
-      {ids.map((id) => {
-        return (
-          <Field key={id} id={id}>
-            <StatusIcon id={id}></StatusIcon>
-          </Field>
-        );
-      })}
-    </div>
+    <Field id="description">
+      <StatusIcon id="description"></StatusIcon>
+    </Field>
   );
 
   return visible ? (
