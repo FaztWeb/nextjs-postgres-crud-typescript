@@ -1,4 +1,4 @@
-import { configureStore } from '@reduxjs/toolkit';
+import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
 import { buttonReducer } from 'components/Widgets/Button/button-slice';
 import showSearchReducer from 'components/Searchbox/search-slice';
 
@@ -52,6 +52,8 @@ import {
   startLoading,
 } from 'components/Loading/loading-slice';
 
+import { churchInfoApi } from 'lib/church-info-fetcher';
+
 export const store = configureStore({
   reducer: {
     button: buttonReducer,
@@ -70,7 +72,12 @@ export const store = configureStore({
 
     // loading reducer
     loading: loadingReducers,
+
+    // rtk-query reducers
+    [churchInfoApi.reducerPath]: churchInfoApi.reducer,
   },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(churchInfoApi.middleware),
 });
 
 const modals = [

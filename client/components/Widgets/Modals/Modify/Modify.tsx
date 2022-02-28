@@ -32,12 +32,6 @@ const Modal = () => {
     />
   );
 
-  const fieldsToModify = (
-    <Field id="description">
-      <StatusIcon id="description"></StatusIcon>
-    </Field>
-  );
-
   return visible ? (
     <ModalTemplate
       zIndex={zIndex}
@@ -49,7 +43,9 @@ const Modal = () => {
       }}
     >
       {loading ? <Loading></Loading> : null}
-      {fieldsToModify}
+      <Field name={name} id="description">
+        <StatusIcon id="description"></StatusIcon>
+      </Field>
       <div className={modal.button__container}>
         <div className={modal.button__content}></div>
       </div>

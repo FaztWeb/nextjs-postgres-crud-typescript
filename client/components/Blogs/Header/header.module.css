@@ -1,11 +1,19 @@
 .container {
+  margin-top: 40px;
   width: 100%;
   height: auto;
-  font-size: 48px;
+  font-size: 3em;
   font-family: 'Roboto';
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   font-weight: 900;
+  margin-bottom: 1em;
   color: #515b63;
+}
+
+@media screen and (max-width: 1440px) {
+  .container {
+    margin-top: 0px;
+  }
 }

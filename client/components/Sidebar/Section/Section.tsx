@@ -14,7 +14,7 @@ const Section = () => {
         tabIndex={0}
         onClick={openSection}
       >
-        Postarile mele{' '}
+        Postarile mele
         {state === 'Close' ? (
           <RiArrowRightSLine className={section__styles.icon} />
         ) : (

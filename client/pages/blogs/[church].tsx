@@ -6,7 +6,7 @@ const CulturalArchive = () => {
   const router = useRouter();
   return (
     <div className={church_cultural_archive__style.container}>
-      <Sidebar></Sidebar>
+      <Sidebar name={router.query.church as string}></Sidebar>
       <Blogs name={router.query.church as string}></Blogs>
     </div>
   );

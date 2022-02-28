@@ -3,14 +3,14 @@
   height: auto;
   display: flex;
   flex-direction: column;
-  margin-bottom: 3rem;
+  margin-bottom: 10px;
 }
 
 .selector__container {
   width: 100%;
   height: auto;
   display: flex;
-  margin-bottom: 1rem;
+  margin-bottom: 10px;
   align-items: center;
   justify-content: space-between;
   font-size: 20px;

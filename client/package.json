@@ -46,6 +46,7 @@
     "react-redux": "^7.2.6",
     "react-slick": "^0.28.1",
     "react-tooltip": "^4.2.21",
+    "redux-observable": "^2.0.0",
     "rxjs": "^7.5.2",
     "sass": "^1.47.0",
     "slick-carousel": "^1.8.1",

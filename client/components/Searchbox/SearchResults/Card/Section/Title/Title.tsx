@@ -7,7 +7,7 @@ import { useRouter } from 'next/router';
 const Title: FC<{ name: string }> = ({ name }) => {
   const router = useRouter();
   const handleClick = () => {
-    router.push(`/churches/${name}`);
+    router.push(`/blogs/${name}`);
   };
   return (
     <Section

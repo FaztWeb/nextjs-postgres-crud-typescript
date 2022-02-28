@@ -5,7 +5,7 @@
   height: auto;
   display: flex;
   align-items: center;
-  margin-bottom: 3rem;
+  margin-bottom: 10px;
 }
 
 .icon {
@@ -29,11 +29,13 @@
   width: 100%;
   overflow: hidden;
   text-overflow: ellipsis;
+  font-size: 24px;
 }
 
 .user_navigate {
   opacity: 0.5;
   cursor: pointer;
+  font-size: 16px;
 }
 
 .user_navigate:hover {

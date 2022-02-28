@@ -1,8 +1,19 @@
 import { trigger$ } from 'lib/modal';
-import { ReactElement, useRef } from 'react';
+import { FC, useRef, useEffect } from 'react';
 import fieldStyle from './field.module.css';
+import { useGetChurchInfoQuery } from 'lib/church-info-fetcher';
 
-const Field = ({ children, id }: { children: ReactElement; id: string }) => {
+const Field: FC<{
+  id: string;
+  name: string;
+}> = ({ children, id, name }) => {
+  const { currentData } = useGetChurchInfoQuery(
+    'Biserica Catolica din Elisabetin'
+  );
+  useEffect(() => {
+    console.log(currentData);
+  }, [currentData]);
+
   const placeholderRef = useRef<HTMLTextAreaElement>(null);
   return (
     <div className={fieldStyle.container}>
@@ -21,7 +32,7 @@ const Field = ({ children, id }: { children: ReactElement; id: string }) => {
               placeholder="Sugerati o descriere aici"
               onFocus={() => {
                 trigger$[id].next({
-                  payload: '',
+                  payload: currentData?.churchDescription || '',
                   showFor: 1000,
                 });
               }}

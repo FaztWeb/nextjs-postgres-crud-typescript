@@ -3,6 +3,125 @@
 .container {
   flex: 1;
   font-family: 'Roboto';
-  padding: 3rem 9rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   overflow-y: scroll;
+}
+
+.visit {
+  display: none;
+}
+
+.search__container {
+  display: none;
+  width: 100%;
+  height: 4em;
+  margin-bottom: 2em;
+}
+.search__bar {
+  width: 100%;
+  padding: 0.5em 0;
+  font-weight: 600;
+  border-top-right-radius: 100px;
+  border-bottom-right-radius: 100px;
+  background-color: #515b63;
+  color: rgb(255, 255, 255);
+  font-size: 1.5em;
+}
+
+.close {
+  position: relative;
+  height: 3em;
+  width: 3em;
+  color: #d0d0d0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border-radius: 50%;
+}
+.close:hover {
+  color: #ffffff;
+}
+
+.close::before {
+  content: '';
+  display: block;
+  opacity: 0;
+  position: absolute;
+  transition-duration: 0.15s;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: -1;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  top: 0;
+  background: rgba(225, 225, 225, 0.275);
+  border-radius: 50%;
+  transform: scale(0);
+  transition-property: transform, opacity;
+}
+
+.close:hover::before {
+  border-radius: 50%;
+  opacity: 0.5;
+  transform: scale(1);
+}
+
+.search {
+  height: 100%;
+  padding: 0em 1em;
+  border-top-left-radius: 100px;
+  border-bottom-left-radius: 100px;
+  background-color: #515b63;
+  color: rgb(255, 255, 255);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.search__icon {
+  font-size: 1em;
+}
+.close_icon {
+  font-size: 2.5em;
+}
+
+@media screen and (min-width: 1000px) {
+  .search__container {
+    display: flex;
+  }
+  .card__container {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    overflow: hidden;
+    justify-content: space-around;
+  }
+  .second_row {
+    width: 50%;
+    overflow-y: scroll;
+  }
+  .second_row__wrapper {
+    max-width: fit-content;
+  }
+
+  .first_row {
+    position: relative;
+    width: 50%;
+    margin-top: 4em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .visit {
+    display: block;
+    position: absolute;
+    bottom: 4em;
+    width: 100%;
+    padding-left: 5vw;
+  }
 }
