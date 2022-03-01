@@ -1,7 +1,5 @@
-import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
-import { buttonReducer } from 'components/Widgets/Button/button-slice';
-import showSearchReducer from 'components/Searchbox/search-slice';
-
+import { store } from './store';
+import { startLoading } from 'components/Loading/loading-slice';
 // modal imports
 import modifyModalReducer, {
   open as modifyOpen,
@@ -44,42 +42,6 @@ import popupReducer, {
   Popup,
 } from 'components/Widgets/Popup/Success/success-slice';
 import { PopupBuilder } from 'components/Widgets/Button/Submit/Images/SubmitImages';
-
-// loading
-import {
-  loadingReducers,
-  doneLoading,
-  startLoading,
-} from 'components/Loading/loading-slice';
-
-import { churchInfoApi } from 'lib/church-info-fetcher';
-
-export const store = configureStore({
-  reducer: {
-    button: buttonReducer,
-    showSearch: showSearchReducer,
-    stack: stackReducer,
-
-    // popup reducers
-    successPopup: popupReducer,
-
-    // modal reducers
-    infoModal: infoModalReducer,
-    modifyModal: modifyModalReducer,
-    pictureModal: pictureModalReducer,
-    authenticateModal: authenticateReducer,
-    pictureChangeModal: pictureChangeModalReducer,
-
-    // loading reducer
-    loading: loadingReducers,
-
-    // rtk-query reducers
-    [churchInfoApi.reducerPath]: churchInfoApi.reducer,
-  },
-  middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(churchInfoApi.middleware),
-});
-
 const modals = [
   modifyModalName,
   infoName,
@@ -150,10 +112,18 @@ export const startLoadingModal = (modal: supportedModals) => {
   });
 };
 
-export const stopLoadingModal = (modal: supportedModals) => {
-  stopLoadingModal({
-    modal,
-  });
-};
-export type RootState = ReturnType<typeof store.getState>;
-export type AppDispatch = typeof store.dispatch;
+// export const stopLoadingModal = (modal: supportedModals) => {
+//   stopLoading({
+//     type: modal,
+//   });
+// };
+
+export const widgetsReducer = {
+  modifyModalReducer,
+  infoModalReducer,
+  pictureModalReducer,
+  authenticateReducer,
+  stackReducer,
+  pictureChangeModalReducer,
+  popupReducer,
+} as const;

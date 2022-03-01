@@ -2,6 +2,8 @@ import { trigger$ } from 'lib/modal';
 import { FC, useRef, useEffect } from 'react';
 import fieldStyle from './field.module.css';
 import { useGetChurchInfoQuery } from 'lib/church-info-fetcher';
+import { processUserInput } from 'lib/redux-observables/info-slice';
+import { useAppDispatch } from 'hooks/redux-hooks';
 
 const Field: FC<{
   id: string;
@@ -13,7 +15,7 @@ const Field: FC<{
   useEffect(() => {
     console.log(currentData);
   }, [currentData]);
-
+  const dispatch = useAppDispatch();
   const placeholderRef = useRef<HTMLTextAreaElement>(null);
   return (
     <div className={fieldStyle.container}>
@@ -30,12 +32,6 @@ const Field: FC<{
               ref={placeholderRef}
               className={fieldStyle.textarea}
               placeholder="Sugerati o descriere aici"
-              onFocus={() => {
-                trigger$[id].next({
-                  payload: currentData?.churchDescription || '',
-                  showFor: 1000,
-                });
-              }}
               onKeyUp={(event) => {
                 const placeholder =
                   placeholderRef.current as HTMLTextAreaElement;
@@ -43,10 +39,7 @@ const Field: FC<{
                   ? ((placeholder.style.height = 'auto'),
                     (placeholder.style.height = `${event.currentTarget.scrollHeight}px`))
                   : (placeholder.style.height = `${event.currentTarget.scrollHeight}px`);
-                trigger$[id].next({
-                  payload: event.currentTarget.value,
-                  showFor: 1000,
-                });
+                dispatch(processUserInput(event.currentTarget.value));
               }}
             />
           </div>

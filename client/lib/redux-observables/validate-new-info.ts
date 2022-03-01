@@ -1,26 +1,41 @@
 import { Action } from '@reduxjs/toolkit';
-import { ofType } from 'redux-observable';
-import { iif, mergeMap, Observable, pipe, withLatestFrom } from 'rxjs';
-
-interface UserProvidedInput {
-  lastUpdatedInfo: string;
-  currentUserInfo: string;
-  type: string;
-}
+import { ofType, StateObservable } from 'redux-observable';
+import {
+  debounceTime,
+  from,
+  iif,
+  mergeMap,
+  Observable,
+  of,
+  tap,
+  withLatestFrom,
+} from 'rxjs';
+import { update } from './info-slice';
+import { RootState } from 'store/store';
 
 const sendNewInfo = (
-  action$: Observable<UserProvidedInput>,
-  state$: Observable<UserProvidedInput>
+  action$: Observable<Action<string>>,
+  state$: StateObservable<RootState>
 ) =>
   action$.pipe(
-    ofType('info/update'),
+    tap((e) => {
+      console.log(e);
+    }),
+    ofType('change-info/processUserInput'),
+    debounceTime(1000),
     withLatestFrom(state$),
-    mergeMap(([action, state]) =>
+    tap(([action, state]) => {
+      console.log(action, state);
+    }),
+    mergeMap(([_, state]) =>
       iif(
-        () => {},
-        of({
-          type: 'icon/stale',
-        })
+        () => state.info.currentUserInfo === state.info.lastUpdatedInfo,
+        of({ type: 'none/none' }),
+        from(fetch(`/api/church-info/${state.info.churchName}`)).pipe(
+          mergeMap(() =>
+            from([update(state.info.currentUserInfo), { type: 'icon/success' }])
+          )
+        )
       )
     )
   );
