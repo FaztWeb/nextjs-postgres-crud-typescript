@@ -1,7 +1,7 @@
 import { AnyAction, combineReducers, configureStore } from '@reduxjs/toolkit';
 import { widgetsReducer } from './widgets';
 import { userInteractionReducers } from './user-interaction';
-import sendNewInfo from 'lib/redux-observables/validate-new-info';
+import sendNewInfo from 'store/redux-observables/validate-new-info';
 import { createEpicMiddleware } from 'redux-observable';
 
 const reducer = combineReducers({

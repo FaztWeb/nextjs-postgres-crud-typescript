@@ -15,11 +15,17 @@ const changeInfo = createSlice({
         lastUpdatedInfo: action.payload,
       };
     },
-    processUserInput(state, action: PayloadAction<string>) {
-      console.log('AAAAAAAAAAAAAAAAAAAA');
+    processUserInput(
+      state,
+      action: PayloadAction<{
+        info: string;
+        churchName: string;
+      }>
+    ) {
       return {
         ...state,
-        currentUserInfo: action.payload,
+        churchName: action.payload.churchName,
+        currentUserInfo: action.payload.info,
       };
     },
   },

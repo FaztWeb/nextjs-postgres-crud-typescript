@@ -2,13 +2,27 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 const infoModal = createSlice({
   name: 'info-modal',
-  initialState: false,
+  initialState: {
+    church: '',
+    visible: false,
+  },
   reducers: {
-    open() {
-      return true;
+    open(
+      _,
+      action: PayloadAction<{
+        church: string;
+      }>
+    ) {
+      return {
+        church: action.payload.church,
+        visible: true,
+      };
     },
     close() {
-      return false;
+      return {
+        church: '',
+        visible: false,
+      };
     },
   },
 });

@@ -3,7 +3,7 @@ import Section from '../Section';
 import more_info_style from './moreinfo.module.css';
 import { TiInfoLarge } from 'react-icons/ti';
 import { useAppDispatch } from 'hooks/redux-hooks';
-import { openModal } from 'store';
+import { openModal } from 'store/widgets';
 
 const MoreInfo: FC<{ name: string }> = ({ name }) => {
   const dispatch = useAppDispatch();
@@ -26,7 +26,9 @@ const MoreInfo: FC<{ name: string }> = ({ name }) => {
         position: 'last',
         iconAlign: 'center',
         sideEffects: () => {
-          openModal('info-modal');
+          openModal('info-modal', {
+            church: name,
+          });
         },
       }}
     />

@@ -2,13 +2,23 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 const modifyModalSlice = createSlice({
   name: 'modify-modal',
-  initialState: false,
+  initialState: {
+    churchName: '',
+    visible: false,
+  },
   reducers: {
-    open() {
-      return true;
+    open(_, action: PayloadAction<string>) {
+      return {
+        churchName: action.payload,
+        visible: true,
+      };
     },
+
     close() {
-      return false;
+      return {
+        churchName: '',
+        visible: false,
+      };
     },
   },
 });

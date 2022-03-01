@@ -8,8 +8,9 @@ export interface ChurchInfo {
 }
 
 const infoForChurch = async (req: NextApiRequest, res: NextApiResponse) => {
-  const church = req.body as ChurchInfo;
   if (req.method === 'POST') {
+    const church = req.body as ChurchInfo;
+    console.log(church);
     try {
       await prisma.churchInfo.upsert({
         where: {
@@ -32,11 +33,12 @@ const infoForChurch = async (req: NextApiRequest, res: NextApiResponse) => {
       });
     }
   } else {
-    console.log('GET' + church);
+    const churchName = req.query.church as string;
+    console.log(churchName);
     try {
       const churchInfo = await prisma.churchInfo.findFirst({
         where: {
-          churchName: church.name,
+          churchName,
         },
       });
       res.send({

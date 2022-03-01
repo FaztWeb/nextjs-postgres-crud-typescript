@@ -2,16 +2,15 @@ import { trigger$ } from 'lib/modal';
 import { FC, useRef, useEffect } from 'react';
 import fieldStyle from './field.module.css';
 import { useGetChurchInfoQuery } from 'lib/church-info-fetcher';
-import { processUserInput } from 'lib/redux-observables/info-slice';
+import { processUserInput } from 'components/Widgets/Modals/Modify/Field/info-slice';
 import { useAppDispatch } from 'hooks/redux-hooks';
 
 const Field: FC<{
   id: string;
   name: string;
 }> = ({ children, id, name }) => {
-  const { currentData } = useGetChurchInfoQuery(
-    'Biserica Catolica din Elisabetin'
-  );
+  const { currentData } = useGetChurchInfoQuery(name);
+  console.log(name);
   useEffect(() => {
     console.log(currentData);
   }, [currentData]);
@@ -39,7 +38,12 @@ const Field: FC<{
                   ? ((placeholder.style.height = 'auto'),
                     (placeholder.style.height = `${event.currentTarget.scrollHeight}px`))
                   : (placeholder.style.height = `${event.currentTarget.scrollHeight}px`);
-                dispatch(processUserInput(event.currentTarget.value));
+                dispatch(
+                  processUserInput({
+                    info: event.currentTarget.value,
+                    churchName: name,
+                  })
+                );
               }}
             />
           </div>

@@ -7,7 +7,7 @@ import { MdOutlinePhotoCamera } from 'react-icons/md';
 import imageSupplierStyle from './pictures.module.css';
 import Modals from '../Modals';
 import { useAppSelector } from 'hooks/redux-hooks';
-import { indexOf } from 'store';
+import { indexOf } from 'store/widgets';
 import Submit from '../../Button/Submit/Images/SubmitImages';
 
 interface Action {
