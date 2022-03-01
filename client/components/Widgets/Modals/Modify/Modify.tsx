@@ -8,9 +8,9 @@ import { write } from './typewriter';
 import Loading from 'components/Loading/Loading';
 import { useAppSelector } from 'hooks/redux-hooks';
 import ModalTemplate from '../Modals';
-import { indexOf } from 'store/widgets';
+import { indexOf } from 'store/widgets/widgets-reducers';
 const Modal = () => {
-  const { visible, churchName } = useAppSelector(
+  const { churchName, visible } = useAppSelector(
     ({ modifyModal }) => modifyModal
   );
   const zIndex = indexOf('modify-modal');

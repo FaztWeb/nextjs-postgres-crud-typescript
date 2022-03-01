@@ -1,7 +1,11 @@
 import { useSession } from 'next-auth/react';
 import { FC } from 'react';
 import { delay, mergeMap, Observable, of, tap } from 'rxjs';
-import { closePopup, openModal, openPopup } from 'store';
+import {
+  closePopup,
+  openModal,
+  openPopup,
+} from 'store/widgets/widgets-reducers';
 import Button from '../Button';
 import type {
   FileUploadError,

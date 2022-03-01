@@ -16,7 +16,11 @@ import {
   shareReplay,
   tap,
 } from 'rxjs';
-import { closePopup, openModal, openPopup } from 'store/widgets';
+import {
+  closePopup,
+  openModal,
+  openPopup,
+} from 'store/widgets/widgets-reducers';
 import Button from '../../Button';
 import type {
   FileUploadError,

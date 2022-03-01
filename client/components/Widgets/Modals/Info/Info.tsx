@@ -2,28 +2,22 @@ import { useAppSelector } from 'hooks/redux-hooks';
 import ModalTemplate from '../Modals';
 import info__style from './info.module.css';
 import Dispatch from '../../Button/Dispatch/Dispatch';
-import { openModal, indexOf } from 'store/widgets';
-import { useEffect, useState } from 'react';
+import { openModal, indexOf } from 'store/widgets/widgets-reducers';
+import { useEffect } from 'react';
 import { useGetChurchInfoQuery } from 'lib/church-info-fetcher';
-import { church$ } from 'lib/modal';
-
+import type { ChurchInfoSuccessResponse } from 'pages/api/church-info/[church]';
 const Info = () => {
-  const { church, visible } = useAppSelector(({ infoModal }) => infoModal);
+  const { visible, church } = useAppSelector(({ infoModal }) => infoModal);
+  const zIndex = indexOf('info-modal');
   const openModifyModal = () => {
     openModal('modify-modal', church);
   };
-  const zIndex = indexOf('info-modal');
-  const [info, setInfo] = useState<string>();
+
+  const { currentData } = useGetChurchInfoQuery(church);
+
   useEffect(() => {
-    console.log(church);
-    fetch(`/api/church-info/${church}`).then(async (v) => {
-      console.log('IIIIIIIIIIIIii');
-      setInfo(
-        'fjakldjflkasjdfkljaskldjflasjdflkjasdlkfjslajdfljasdlfkjasdlkfj'
-      );
-      console.log(await v.json());
-    });
-  }, [visible]);
+    console.log(currentData);
+  }, [currentData]);
 
   return visible ? (
     <ModalTemplate
@@ -35,7 +29,7 @@ const Info = () => {
       }}
     >
       <div className={info__style.container}>
-        <p>{info}</p>
+        <p>{currentData?.churchInfo?.churchDescription}</p>
         <div className={info__style.button__wrapper}>
           <Dispatch action={openModifyModal} payload="Sugerati o schimbare" />
         </div>

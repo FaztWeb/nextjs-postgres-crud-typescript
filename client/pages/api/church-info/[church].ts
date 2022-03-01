@@ -2,31 +2,38 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import prisma from 'utils/prisma';
 
 export interface ChurchInfo {
-  name: string;
   editedBy: string;
-  info: string;
+  churchDescription: string;
+  churchName: string;
+}
+
+export interface ChurchInfoSuccessResponse {
+  error: false;
+  churchInfo: ChurchInfo | null;
 }
 
 const infoForChurch = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === 'POST') {
-    const church = req.body as ChurchInfo;
+    const church = JSON.parse(req.body) as ChurchInfo;
     console.log(church);
     try {
       await prisma.churchInfo.upsert({
         where: {
-          churchName: church.name,
+          churchName: church.churchName,
         },
         create: {
-          churchName: church.name,
-          churchDescription: church.info,
-          editedBy: church.editedBy,
+          churchName: church.churchName,
+          churchDescription: church.churchDescription,
+          editedBy: church.editedBy || 'ANONIM',
         },
         update: {
-          churchDescription: church.info,
-          editedBy: church.editedBy,
+          churchDescription: church.churchDescription,
+          editedBy: church.editedBy || 'ANONIM',
         },
       });
+      console.log('P');
     } catch (e) {
+      console.log(e);
       res.send({
         error: true,
         message: 'Ups! Ceva nu a mers, incercati din nou mai tarziu',
@@ -44,7 +51,7 @@ const infoForChurch = async (req: NextApiRequest, res: NextApiResponse) => {
       res.send({
         error: false,
         churchInfo,
-      });
+      } as ChurchInfoSuccessResponse);
     } catch (e) {
       res.send({
         error: true,

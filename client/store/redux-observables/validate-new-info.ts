@@ -35,7 +35,7 @@ const sendNewInfo = (
         from(
           fetch(`/api/church-info/${state.info.churchName}`, {
             body: JSON.stringify({
-              info: state.info.currentUserInfo,
+              churchDescription: state.info.currentUserInfo,
               churchName: state.info.churchName,
             }),
             method: 'POST',

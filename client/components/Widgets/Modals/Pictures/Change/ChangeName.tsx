@@ -1,7 +1,7 @@
 import { useAppSelector } from 'hooks/redux-hooks';
 import { church$ } from 'lib/modal';
 import { useEffect, useState } from 'react';
-import { indexOf } from 'store/widgets';
+import { indexOf } from 'store/widgets/widgets-reducers';
 import ModalTemplate from '../../Modals';
 
 export interface pathToFile {
