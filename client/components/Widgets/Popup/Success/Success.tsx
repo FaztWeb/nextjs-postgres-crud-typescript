@@ -1,6 +1,6 @@
 import Popup from '../Popup';
 import { useAppSelector } from 'hooks/redux-hooks';
-import { indexOf } from 'store/widgets/widgets-reducers';
+import { indexOf } from 'store/widgets/widgets-actions';
 import { FaExclamationTriangle } from 'react-icons/fa';
 import { AnimatePresence } from 'framer-motion';
 import success_styles from './success.module.css';

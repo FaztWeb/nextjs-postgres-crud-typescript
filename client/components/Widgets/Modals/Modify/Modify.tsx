@@ -8,11 +8,9 @@ import { write } from './typewriter';
 import Loading from 'components/Loading/Loading';
 import { useAppSelector } from 'hooks/redux-hooks';
 import ModalTemplate from '../Modals';
-import { indexOf } from 'store/widgets/widgets-reducers';
+import { indexOf } from 'store/widgets/widgets-actions';
 const Modal = () => {
-  const { churchName, visible } = useAppSelector(
-    ({ modifyModal }) => modifyModal
-  );
+  const { church, visible } = useAppSelector(({ modifyModal }) => modifyModal);
   const zIndex = indexOf('modify-modal');
 
   const [loading, setLoading] = useState(false);
@@ -45,7 +43,7 @@ const Modal = () => {
       }}
     >
       {loading ? <Loading></Loading> : null}
-      <Field name={churchName} id="description">
+      <Field name={church} id="description">
         <StatusIcon id="description"></StatusIcon>
       </Field>
       <div className={modal.button__container}>

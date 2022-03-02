@@ -2,7 +2,8 @@ import { useAppSelector } from 'hooks/redux-hooks';
 import ModalTemplate from '../Modals';
 import info__style from './info.module.css';
 import Dispatch from '../../Button/Dispatch/Dispatch';
-import { openModal, indexOf } from 'store/widgets/widgets-reducers';
+import { indexOf } from 'store/widgets/widgets-actions';
+import { openModal } from 'store/widgets/actions/modals-actions';
 import { useEffect } from 'react';
 import { useGetChurchInfoQuery } from 'lib/church-info-fetcher';
 import type { ChurchInfoSuccessResponse } from 'pages/api/church-info/[church]';
@@ -13,7 +14,7 @@ const Info = () => {
     openModal('modify-modal', church);
   };
 
-  const { currentData } = useGetChurchInfoQuery(church);
+  const { currentData } = useGetChurchInfoQuery(church.name);
 
   useEffect(() => {
     console.log(currentData);
@@ -24,7 +25,7 @@ const Info = () => {
       zIndex={zIndex}
       modalToClose="info-modal"
       header={{
-        title: 'Biserica Catolica din Elisabetin',
+        title: church.name as string,
         subtitle: 'Aflati mai multe informatii despre biserica Catolica',
       }}
     >

@@ -1,33 +1,14 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createModalSlice } from 'store/widgets/widgets-creators';
 
-const pictureChangeModalSlice = createSlice({
-  name: 'picture-change-name-modal',
-  initialState: {
-    visible: false,
-    pictureToChange: '',
-  },
-  reducers: {
-    open(
-      _,
-      action: PayloadAction<{
-        picture: string;
-      }>
-    ) {
-      return {
-        visible: true,
-        pictureToChange: action.payload.picture,
-      };
-    },
-    close() {
-      return {
-        visible: false,
-        pictureToChange: '',
-      };
-    },
-  },
+const pictureChangeModalSlice = createModalSlice<
+  'picture-change-name-modal',
+  {
+    oldFilename: string;
+  }
+>('picture-change-name-modal', {
+  oldFilename: '',
 });
 
 export const { open, close } = pictureChangeModalSlice.actions;
 export const name = pictureChangeModalSlice.name;
-
 export default pictureChangeModalSlice.reducer;

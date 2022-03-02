@@ -1,7 +1,8 @@
 import { FC, useState } from 'react';
 import modal__style from './modal.module.css';
 import { IoIosClose } from 'react-icons/io';
-import { supportedModals, closeModal } from 'store/widgets/widgets-reducers';
+import { closeModal } from 'store/widgets/actions/modals-actions';
+import type { supportedModals } from 'store/widgets/widgets-available';
 import Loading from 'components/Loading/Loading';
 interface ModalComponents {
   modalToClose: supportedModals;

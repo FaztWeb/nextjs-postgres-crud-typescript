@@ -48,7 +48,7 @@ const SubmitImages: FC<{
     const s = of(true)
       .pipe(
         tap(() => {
-          closePopup('success-popup');
+          // closePopup('success-popup');
         }),
         tap(() => {
           // if (!sessionData?.user) {
@@ -98,18 +98,18 @@ const SubmitImages: FC<{
             | FileUploadError
             | FileUploadSuccess;
 
-          openPopup(
-            'success-popup',
-            success.ok
-              ? {
-                  type: 'Success',
-                  payload: success.message,
-                }
-              : {
-                  type: 'Error',
-                  payload: success.error,
-                }
-          );
+          // openPopup(
+          //   'success-popup',
+          //   success.ok
+          //     ? {
+          //         type: 'Success',
+          //         payload: success.message,
+          //       }
+          //     : {
+          //         type: 'Error',
+          //         payload: success.error,
+          //       }
+          // );
 
           console.log(success.file);
           return success.file;

@@ -1,32 +1,12 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createModalSlice } from 'store/widgets/widgets-creators';
 
-const infoModal = createSlice({
-  name: 'info-modal',
-  initialState: {
-    church: '',
-    visible: false,
-  },
-  reducers: {
-    open(
-      _,
-      action: PayloadAction<{
-        church: string;
-      }>
-    ) {
-      return {
-        church: action.payload.church,
-        visible: true,
-      };
-    },
-    close() {
-      return {
-        church: '',
-        visible: false,
-      };
-    },
-  },
-});
+const infoModalSlice = createModalSlice<'info-modal', { name: string }>(
+  'info-modal',
+  {
+    name: '',
+  }
+);
 
-export const { close, open } = infoModal.actions;
-export const name = infoModal.name;
-export default infoModal.reducer;
+export const { close, open } = infoModalSlice.actions;
+export const name = infoModalSlice.name;
+export default infoModalSlice.reducer;

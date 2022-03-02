@@ -1,12 +1,14 @@
 import { useAppDispatch, useAppSelector } from 'hooks/redux-hooks';
-import { openModal, indexOf, closeModal } from 'store/widgets/widgets-reducers';
+import { indexOf } from 'store/widgets/widgets-actions';
 import ModalTemplate from '../Modals';
 import authenticate__style from './authenticate.module.css';
 import { signIn } from 'next-auth/react';
 import { useEffect } from 'react';
 const PROVIDERS = ['GOOGLE', 'FACEBOOK', 'APPLE', 'INSTAGRAM'] as const;
 const Authenticate = () => {
-  const visible = useAppSelector(({ authenticateModal }) => authenticateModal);
+  const { visible } = useAppSelector(
+    ({ authenticateModal }) => authenticateModal
+  );
   const zIndex = indexOf('authenticate-modal');
 
   const signInWithProvider = (provider: string) => {

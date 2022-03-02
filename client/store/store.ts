@@ -1,5 +1,5 @@
 import { AnyAction, combineReducers, configureStore } from '@reduxjs/toolkit';
-import { widgetsReducer } from './widgets/widgets-reducers';
+import { widgets } from './widgets/widgets-reducers';
 import { userInteractionReducers } from './user-interaction';
 import sendNewInfo from 'store/redux-observables/validate-new-info';
 import { createEpicMiddleware } from 'redux-observable';
@@ -7,23 +7,10 @@ import { createEpicMiddleware } from 'redux-observable';
 const reducer = combineReducers({
   button: userInteractionReducers.buttonReducer,
   showSearch: userInteractionReducers.showSearchReducer,
-
   // widget stack
-  stack: widgetsReducer.stackReducer,
-
+  stack: widgets.stackReducer,
   // popup reducers
-  successPopup: widgetsReducer.popupReducer,
-
-  // modal reducers
-  infoModal: widgetsReducer.infoModalReducer,
-  modifyModal: widgetsReducer.modifyModalReducer,
-  pictureModal: widgetsReducer.pictureModalReducer,
-  authenticateModal: widgetsReducer.authenticateReducer,
-  pictureChangeModal: widgetsReducer.pictureChangeModalReducer,
-
-  // loading reducer
   loading: userInteractionReducers.loadingReducers,
-
   // rtk-query reducers
   [userInteractionReducers.churchInfoApi.reducerPath]:
     userInteractionReducers.churchInfoApi.reducer,

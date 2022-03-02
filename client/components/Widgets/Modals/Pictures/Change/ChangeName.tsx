@@ -1,7 +1,7 @@
 import { useAppSelector } from 'hooks/redux-hooks';
 import { church$ } from 'lib/modal';
 import { useEffect, useState } from 'react';
-import { indexOf } from 'store/widgets/widgets-reducers';
+import { indexOf } from 'store/widgets/widgets-actions';
 import ModalTemplate from '../../Modals';
 
 export interface pathToFile {
@@ -14,7 +14,7 @@ const ChangeName = () => {
   const zIndex = indexOf('picture-change-name-modal');
   const [newFilename, setNewFilename] = useState('');
   const [church, setChurch] = useState('');
-  const { visible, pictureToChange: oldFilename } = useAppSelector(
+  const { visible, oldFilename } = useAppSelector(
     ({ pictureChangeModal }) => pictureChangeModal
   );
   useEffect(() => {

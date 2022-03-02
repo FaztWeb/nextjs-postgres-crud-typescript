@@ -1,17 +1,29 @@
-import modifyModalReducer from 'components/Widgets/Modals/Modify/modify-modal-slice';
-import infoModalReducer from 'components/Widgets/Modals/Info/info-modal-slice';
-import pictureModalReducer from 'components/Widgets/Modals/Pictures/picture-modal-slice';
-import authenticateReducer from 'components/Widgets/Modals/Authenticate/authenticate-slice';
+import modifyModalReducer, {
+  name as modifyModalReducerName,
+} from 'components/Widgets/Modals/Modify/modify-modal-slice';
+import infoModalReducer, {
+  name as infoModalReducerName,
+} from 'components/Widgets/Modals/Info/info-modal-slice';
+import pictureModalReducer, {
+  name as pictureModalReducerName,
+} from 'components/Widgets/Modals/Pictures/picture-modal-slice';
+import authenticateReducer, {
+  name as authenticateReducerName,
+} from 'components/Widgets/Modals/Authenticate/authenticate-slice';
 import stackReducer from 'components/Widgets/stack-slice';
-import pictureChangeModalReducer from 'components/Widgets/Modals/Pictures/Change/change-slice';
-import popupReducer from 'components/Widgets/Popup/Success/success-slice';
+import pictureChangeModalReducer, {
+  name as pictureChangeModalReducerName,
+} from 'components/Widgets/Modals/Pictures/Change/change-slice';
+import popupReducer, {
+  name as popupReducerName,
+} from 'components/Widgets/Popup/Success/success-slice';
 
-export const widgetsReducer = {
-  modifyModalReducer,
-  infoModalReducer,
-  pictureModalReducer,
-  authenticateReducer,
+export const widgets = {
+  [modifyModalReducerName]: modifyModalReducer,
+  [infoModalReducerName]: infoModalReducer,
+  [pictureModalReducerName]: pictureModalReducer,
+  [authenticateReducerName]: authenticateReducer,
   stackReducer,
-  pictureChangeModalReducer,
-  popupReducer,
+  [pictureChangeModalReducerName]: pictureChangeModalReducer,
+  [popupReducerName]: popupReducer,
 } as const;

@@ -1,18 +1,8 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createModalSlice } from 'store/widgets/widgets-creators';
 
-const authenticateModalSlice = createSlice({
-  initialState: false,
-  name: 'authenticate-modal',
-  reducers: {
-    open() {
-      return true;
-    },
-    close() {
-      return false;
-    },
-  },
-});
-
+const authenticateModalSlice = createModalSlice<'authenticate-modal', {}>(
+  'authenticate-modal'
+);
 export const { open, close } = authenticateModalSlice.actions;
 export const name = authenticateModalSlice.name;
 export default authenticateModalSlice.reducer;
