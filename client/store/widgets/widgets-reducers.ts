@@ -15,13 +15,16 @@ import pictureChangeModalReducer, {
   name as pictureChangeModalReducerName,
 } from 'components/Widgets/Modals/Pictures/Change/change-slice';
 import popupReducer from 'components/Widgets/Popup/Success/success-slice';
-
+import blogModalReducer, {
+  name as blogModalReducerName,
+} from 'components/Widgets/Modals/Blogs/blogs-slice';
 export const widgets = {
   [modifyModalReducerName]: modifyModalReducer,
   [infoModalReducerName]: infoModalReducer,
   [pictureModalReducerName]: pictureModalReducer,
   [authenticateReducerName]: authenticateReducer,
   [pictureChangeModalReducerName]: pictureChangeModalReducer,
+  [blogModalReducerName]: blogModalReducer,
   popupReducer: popupReducer,
   stackReducer,
 } as const;

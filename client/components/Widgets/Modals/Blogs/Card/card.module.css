@@ -1,6 +1,6 @@
 .golden_distinction {
   position: relative;
-  width: auto;
+  max-width: 100%;
   height: auto;
   display: flex;
   flex-direction: column;
@@ -32,7 +32,6 @@
 .container {
   display: flex;
   flex-direction: column;
-  width: 50em;
   height: auto;
   background-color: #515b63;
   padding: 2em;

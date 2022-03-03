@@ -14,24 +14,27 @@ export interface ChurchInfoSuccessResponse {
 
 const infoForChurch = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === 'POST') {
-    const church = JSON.parse(req.body) as ChurchInfo;
-    console.log(church);
+    const churchInfo = JSON.parse(req.body) as ChurchInfo;
     try {
       await prisma.churchInfo.upsert({
         where: {
-          churchName: church.churchName,
+          churchName: churchInfo.churchName,
         },
         create: {
-          churchName: church.churchName,
-          churchDescription: church.churchDescription,
-          editedBy: church.editedBy || 'ANONIM',
+          churchName: churchInfo.churchName,
+          churchDescription: churchInfo.churchDescription,
+          editedBy: churchInfo.editedBy || 'ANONIM',
         },
         update: {
-          churchDescription: church.churchDescription,
-          editedBy: church.editedBy || 'ANONIM',
+          churchDescription: churchInfo.churchDescription,
+          editedBy: churchInfo.editedBy || 'ANONIM',
         },
       });
-      console.log('P');
+
+      res.send({
+        error: false,
+        churchInfo: churchInfo,
+      } as ChurchInfoSuccessResponse);
     } catch (e) {
       console.log(e);
       res.send({

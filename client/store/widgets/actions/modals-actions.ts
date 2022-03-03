@@ -22,10 +22,17 @@ export const closeModal = (modal: supportedModals) => {
   });
 };
 
-export const selectFrom = <T extends supportedActions>(
+type Key<T> = T extends { [key: string]: unknown } ? keyof T : never;
+
+export const selectFrom = <
+  T extends { [key in Key<supportedActions>]?: unknown }
+>(
   modal: supportedModals
 ) => {
-  const payload = useAppSelector((appState) => appState[modal]);
+  type correctType = Extract<supportedActions, T>;
+  const payload = useAppSelector(
+    (appState) => appState[modal] as correctType & { visible: boolean }
+  );
 
   return payload;
 };

@@ -35,8 +35,8 @@ const Carousel = ({ church }: { church: string }) => {
       else return [];
     }
 
-    fetchImages().then(images => setPhotos(images));
-  });
+    fetchImages().then((images) => setPhotos(images));
+  }, []);
   const NextArrow = ({ onClick }: { onClick?: React.MouseEventHandler }) => {
     return (
       <div

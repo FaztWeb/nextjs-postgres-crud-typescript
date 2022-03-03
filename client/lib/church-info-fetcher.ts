@@ -1,5 +1,8 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { ChurchInfoSuccessResponse } from 'pages/api/church-info/[church]';
+import {
+  ChurchInfo,
+  ChurchInfoSuccessResponse,
+} from 'pages/api/church-info/[church]';
 
 export const churchInfoApi = createApi({
   reducerPath: 'churchInfo',
@@ -8,7 +11,15 @@ export const churchInfoApi = createApi({
     getChurchInfo: builder.query<ChurchInfoSuccessResponse, string>({
       query: (churchName) => `${churchName}`,
     }),
+    postChurchInfo: builder.mutation<void, ChurchInfo>({
+      query: (churchInfo) => ({
+        url: `${churchInfo.churchName}`,
+        body: churchInfo,
+        method: 'POST',
+      }),
+    }),
   }),
 });
 
-export const { useGetChurchInfoQuery } = churchInfoApi;
+export const { useGetChurchInfoQuery, usePostChurchInfoMutation } =
+  churchInfoApi;

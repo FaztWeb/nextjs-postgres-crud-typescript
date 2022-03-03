@@ -13,7 +13,7 @@ import {
 } from 'rxjs';
 import { update } from '../../components/Widgets/Modals/Modify/Field/info-slice';
 import { RootState } from 'store/store';
-
+import { churchInfoApi } from 'lib/church-info-fetcher';
 const sendNewInfo = (
   action$: Observable<Action<string>>,
   state$: StateObservable<RootState>
@@ -37,12 +37,27 @@ const sendNewInfo = (
             body: JSON.stringify({
               churchDescription: state.info.currentUserInfo,
               churchName: state.info.churchName,
+              editedBy: 'ANONIM',
             }),
             method: 'POST',
           })
         ).pipe(
           mergeMap(() =>
-            from([update(state.info.currentUserInfo), { type: 'icon/success' }])
+            from([
+              update(state.info.currentUserInfo),
+              { type: 'icon/success' },
+              churchInfoApi.util.updateQueryData(
+                'getChurchInfo',
+                `${state.info.churchName}`,
+                (draft) => {
+                  draft.churchInfo = {
+                    churchDescription: state.info.currentUserInfo,
+                    churchName: state.info.churchName,
+                    editedBy: 'ANONIM',
+                  };
+                }
+              ),
+            ])
           )
         )
       )

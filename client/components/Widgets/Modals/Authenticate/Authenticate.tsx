@@ -6,7 +6,6 @@ import { signIn } from 'next-auth/react';
 import { selectFrom } from 'store/widgets/actions/modals-actions';
 const PROVIDERS = ['GOOGLE', 'FACEBOOK', 'APPLE', 'INSTAGRAM'] as const;
 const Authenticate = () => {
-  const zIndex = indexOf('authenticate-modal');
   const { visible } = selectFrom('authenticate-modal');
   const signInWithProvider = (provider: string) => {
     signIn('github', {
@@ -21,7 +20,6 @@ const Authenticate = () => {
         title: 'Alege o metoda de autentificare',
         subtitle: '',
       }}
-      zIndex={zIndex}
     >
       {PROVIDERS.map((provider) => (
         <button

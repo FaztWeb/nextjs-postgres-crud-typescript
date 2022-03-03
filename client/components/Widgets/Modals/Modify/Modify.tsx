@@ -10,7 +10,7 @@ import ModalTemplate from '../Modals';
 import { indexOf } from 'store/widgets/widgets-actions';
 import { selectFrom } from 'store/widgets/actions/modals-actions';
 const Modal = () => {
-  const { name, visible } = selectFrom('modify-modal');
+  const { name, visible } = selectFrom<{ name: string }>('modify-modal');
   const zIndex = indexOf('modify-modal');
 
   const [loading, setLoading] = useState(false);
@@ -34,7 +34,6 @@ const Modal = () => {
 
   return visible ? (
     <ModalTemplate
-      zIndex={zIndex}
       modalToClose="modify-modal"
       header={{
         title: typewriter,

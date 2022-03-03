@@ -5,16 +5,14 @@ import image_slider_style from './imageslider.module.css';
 import { MdInsertPhoto } from 'react-icons/md';
 import Button from 'components/Searchbox/SearchResults/Card/Section/ImageSlider/Buttons/Button';
 import { BiImageAdd } from 'react-icons/bi';
-import { useAppDispatch } from 'hooks/redux-hooks';
 import { openModal } from 'store/widgets/actions/modals-actions';
 import { church$ } from 'lib/modal';
 
 const ImageSlider: FC<{ name: string }> = ({ name }) => {
-  const dispatch = useAppDispatch();
   function openPicturesModal() {
     church$.next(name);
     openModal('picture-modal', {
-      church: name,
+      name,
     });
   }
 

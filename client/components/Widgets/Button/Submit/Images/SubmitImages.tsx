@@ -16,11 +16,11 @@ import {
   shareReplay,
   tap,
 } from 'rxjs';
-import {
-  closePopup,
-  openModal,
-  openPopup,
-} from 'store/widgets/widgets-reducers';
+// import {
+//   closePopup,
+//   openModal,
+//   openPopup,
+// } from 'store/widgets/widgets-reducers';
 import Button from '../../Button';
 import type {
   FileUploadError,
@@ -43,9 +43,9 @@ const SubmitImages: FC<{
   data: Observable<unknown>;
   path: string;
 }> = ({ payload, data, path }) => {
-  const { data: sessionData } = useSession();
+  // const { data: sessionData } = useSession();
   const clickEvent = () => {
-    const s = of(true)
+    of(true)
       .pipe(
         tap(() => {
           // closePopup('success-popup');
@@ -116,39 +116,40 @@ const SubmitImages: FC<{
         }),
         delay(3000),
         tap(() => {
-          closePopup('success-popup');
+          // closePopup('success-popup');
         }),
-        delay(1000),
-        tap((file) => {
-          if (file)
-            openPopup('success-popup', {
-              type: 'Error',
-              payload: (
-                <div className={submit_images_styles.container}>
-                  Doriti sa schimbati numele fisierului
-                  <div className={submit_images_styles.button_container}>
-                    <button
-                      onClick={() => {
-                        openModal('picture-change-name-modal', {
-                          picture: file,
-                        });
-                        closePopup('success-popup');
-                      }}
-                    >
-                      DA
-                    </button>
-                    <button
-                      onClick={() => {
-                        closePopup('success-popup');
-                      }}
-                    >
-                      NU
-                    </button>
-                  </div>
-                </div>
-              ),
-            });
-        })
+        delay(1000)
+        // tap((file) => {
+        //   if (file)
+        //     openPopup('success-popup', {
+        //       type: 'Error',
+        //       payload: (
+        //         <div className={submit_images_styles.container}>
+        //           Doriti sa schimbati numele fisierului
+        //           <div className={submit_images_styles.button_container}>
+        //             <button
+        //               onClick={() => {
+        //                 openModal('picture-change-name-modal', {
+        //                   picture: file,
+        //                 });
+        //                 closePopup('success-popup');
+        //               }}
+        //             >
+        //               DA
+        //             </button>
+        //             <button
+        //               onClick={() => {
+        //                 closePopup('success-popup');
+        //               }}
+        //             >
+        //               NU
+        //             </button>
+        //           </div>
+        //         </div>
+        //       ),
+        //     });
+        // }
+        // )
       )
       .subscribe();
   };

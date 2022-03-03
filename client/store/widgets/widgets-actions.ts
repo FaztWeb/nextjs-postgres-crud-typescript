@@ -5,7 +5,7 @@ import { open as infoOpen } from 'components/Widgets/Modals/Info/info-modal-slic
 import { open as pictureChangeOpen } from 'components/Widgets/Modals/Pictures/Change/change-slice';
 import { open as pictureOpen } from 'components/Widgets/Modals/Pictures/picture-modal-slice';
 import { open as authenticateOpen } from 'components/Widgets/Modals/Authenticate/authenticate-slice';
-
+import { open as blogsOpen } from 'components/Widgets/Modals/Blogs/blogs-slice';
 import { supportedModals, supportedPopup } from './widgets-available';
 
 const openActions = [
@@ -14,6 +14,7 @@ const openActions = [
   pictureOpen,
   authenticateOpen,
   pictureChangeOpen,
+  blogsOpen,
 ] as const;
 
 export type supportedActions = Parameters<typeof openActions[number]>[0];

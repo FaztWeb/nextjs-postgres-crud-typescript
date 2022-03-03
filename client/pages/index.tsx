@@ -9,6 +9,7 @@ import Pictures from 'components/Widgets/Modals/Pictures/Pictures';
 import Authenticate from 'components/Widgets/Modals/Authenticate/Authenticate';
 import SuccessPopup from 'components/Widgets/Popup/Success/Success';
 import ChangeName from 'components/Widgets/Modals/Pictures/Change/ChangeName';
+import Blogs from 'components/Widgets/Modals/Blogs/Blogs';
 const DynamicMap = dynamic(() => import('../components/Map/Map'), {
   ssr: false,
 });
@@ -25,6 +26,7 @@ const Main = () => {
       <Authenticate />
       <SuccessPopup />
       <ChangeName />
+      <Blogs />
       {searchVisible ? (
         <div className={modalStyle.app}>
           <Searchbox />

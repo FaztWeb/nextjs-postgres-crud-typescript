@@ -2,10 +2,10 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 export const createModalSlice = <
   U extends string,
-  T extends Record<string, unknown> | Record<string, never>
+  T extends Record<string, unknown> | undefined = undefined
 >(
   name: U,
-  initialState: T
+  initialState?: T
 ) => {
   const slice = createSlice({
     initialState: { ...initialState, visible: false },

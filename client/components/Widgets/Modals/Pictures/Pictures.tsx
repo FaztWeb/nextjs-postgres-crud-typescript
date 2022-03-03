@@ -5,7 +5,6 @@ import useToggle from 'hooks/useToggle';
 import { CgCloseO } from 'react-icons/cg';
 import { MdOutlinePhotoCamera } from 'react-icons/md';
 import imageSupplierStyle from './pictures.module.css';
-import { indexOf } from 'store/widgets/widgets-actions';
 import Submit from '../../Button/Submit/Images/SubmitImages';
 import ModalTemplate from '../Modals';
 import { selectFrom } from 'store/widgets/actions/modals-actions';
@@ -43,8 +42,7 @@ export default function Pictures() {
   const buttonRef = useRef<HTMLButtonElement>(null);
   const [church, setChurch] = useState<string>('');
   const { state: show, toggle } = useToggle();
-  const { visible } = selectFrom('authenticate-modal');
-  const zIndex = indexOf('picture-modal');
+  const { name, visible } = selectFrom<{ name: string }>('picture-modal');
   /**
    *  adding and deleting images from the preview section
    */
@@ -86,7 +84,6 @@ export default function Pictures() {
         ),
         title: 'Adaugati o fotografie',
       }}
-      zIndex={zIndex}
     >
       <div className={imageSupplierStyle.container}>
         <input

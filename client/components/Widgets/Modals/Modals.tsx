@@ -1,25 +1,25 @@
-import { FC, useState } from 'react';
+import { FC } from 'react';
 import modal__style from './modal.module.css';
 import { IoIosClose } from 'react-icons/io';
 import { closeModal } from 'store/widgets/actions/modals-actions';
 import type { supportedModals } from 'store/widgets/widgets-available';
 import Loading from 'components/Loading/Loading';
+import { indexOf } from 'store/widgets/widgets-actions';
 interface ModalComponents {
   modalToClose: supportedModals;
   header: {
     title: JSX.Element | string;
     subtitle: JSX.Element | string;
   };
-  zIndex: number;
   loading: boolean;
 }
 const ModalTemplate: FC<ModalComponents> = ({
   children,
   modalToClose,
   header,
-  zIndex,
   loading,
 }) => {
+  const zIndex = indexOf(modalToClose);
   return loading ? (
     <Loading></Loading>
   ) : (

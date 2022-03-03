@@ -3,31 +3,28 @@ import info__style from './info.module.css';
 import Dispatch from '../../Button/Dispatch/Dispatch';
 import { indexOf } from 'store/widgets/widgets-actions';
 import { openModal, selectFrom } from 'store/widgets/actions/modals-actions';
-import { useEffect } from 'react';
+import { useGetChurchInfoQuery } from 'lib/church-info-fetcher';
 
-// import type { ChurchInfoSuccessResponse } from 'pages/api/church-info/[church]';
 const Info = () => {
-  const s = selectFrom<>('info-modal');
-  const zIndex = indexOf('info-modal');
+  const { name, visible } = selectFrom<{ name: string }>('info-modal');
   const openModifyModal = () => {
     openModal('modify-modal', {
-      name: x.name,
+      name: name,
     });
   };
 
-  // const { currentData } = useGetChurchInfoQuery(state.name);
+  const { currentData } = useGetChurchInfoQuery(name);
 
-  return x ? (
+  return visible ? (
     <ModalTemplate
-      zIndex={zIndex}
       modalToClose="info-modal"
       header={{
-        title: x.name,
+        title: name,
         subtitle: 'Aflati mai multe informatii despre biserica Catolica',
       }}
     >
       <div className={info__style.container}>
-        {/* <p>{currentData?.churchInfo?.churchDescription}</p> */}
+        <p>{currentData?.churchInfo?.churchDescription}</p>
         <div className={info__style.button__wrapper}>
           <Dispatch action={openModifyModal} payload="Sugerati o schimbare" />
         </div>
