@@ -5,11 +5,10 @@ import useToggle from 'hooks/useToggle';
 import { CgCloseO } from 'react-icons/cg';
 import { MdOutlinePhotoCamera } from 'react-icons/md';
 import imageSupplierStyle from './pictures.module.css';
-import Modals from '../Modals';
-import { useAppSelector } from 'hooks/redux-hooks';
 import { indexOf } from 'store/widgets/widgets-actions';
 import Submit from '../../Button/Submit/Images/SubmitImages';
 import ModalTemplate from '../Modals';
+import { selectFrom } from 'store/widgets/actions/modals-actions';
 
 interface Action {
   type: 'REMOVE' | 'ADD';
@@ -44,7 +43,7 @@ export default function Pictures() {
   const buttonRef = useRef<HTMLButtonElement>(null);
   const [church, setChurch] = useState<string>('');
   const { state: show, toggle } = useToggle();
-  const { visible } = useAppSelector(({ pictureModal }) => pictureModal);
+  const { visible } = selectFrom('authenticate-modal');
   const zIndex = indexOf('picture-modal');
   /**
    *  adding and deleting images from the preview section

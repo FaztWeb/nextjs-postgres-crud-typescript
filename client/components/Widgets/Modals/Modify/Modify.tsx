@@ -1,4 +1,4 @@
-import { showLoading$, ids } from 'lib/modal';
+import { showLoading$ } from 'lib/modal';
 import { useState, useEffect } from 'react';
 import modal from './modal.module.css';
 import TypewriterComponent from 'typewriter-effect';
@@ -6,11 +6,11 @@ import Field from './Field/Field';
 import StatusIcon from './StatusIcon/StatusIcon';
 import { write } from './typewriter';
 import Loading from 'components/Loading/Loading';
-import { useAppSelector } from 'hooks/redux-hooks';
 import ModalTemplate from '../Modals';
 import { indexOf } from 'store/widgets/widgets-actions';
+import { selectFrom } from 'store/widgets/actions/modals-actions';
 const Modal = () => {
-  const { church, visible } = useAppSelector(({ modifyModal }) => modifyModal);
+  const { name, visible } = selectFrom('modify-modal');
   const zIndex = indexOf('modify-modal');
 
   const [loading, setLoading] = useState(false);
@@ -43,7 +43,7 @@ const Modal = () => {
       }}
     >
       {loading ? <Loading></Loading> : null}
-      <Field name={church} id="description">
+      <Field name={name} id="description">
         <StatusIcon id="description"></StatusIcon>
       </Field>
       <div className={modal.button__container}>

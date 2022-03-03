@@ -3,14 +3,11 @@ import { indexOf } from 'store/widgets/widgets-actions';
 import ModalTemplate from '../Modals';
 import authenticate__style from './authenticate.module.css';
 import { signIn } from 'next-auth/react';
-import { useEffect } from 'react';
+import { selectFrom } from 'store/widgets/actions/modals-actions';
 const PROVIDERS = ['GOOGLE', 'FACEBOOK', 'APPLE', 'INSTAGRAM'] as const;
 const Authenticate = () => {
-  const { visible } = useAppSelector(
-    ({ authenticateModal }) => authenticateModal
-  );
   const zIndex = indexOf('authenticate-modal');
-
+  const { visible } = selectFrom('authenticate-modal');
   const signInWithProvider = (provider: string) => {
     signIn('github', {
       redirect: false,

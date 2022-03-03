@@ -14,16 +14,14 @@ import stackReducer from 'components/Widgets/stack-slice';
 import pictureChangeModalReducer, {
   name as pictureChangeModalReducerName,
 } from 'components/Widgets/Modals/Pictures/Change/change-slice';
-import popupReducer, {
-  name as popupReducerName,
-} from 'components/Widgets/Popup/Success/success-slice';
+import popupReducer from 'components/Widgets/Popup/Success/success-slice';
 
 export const widgets = {
   [modifyModalReducerName]: modifyModalReducer,
   [infoModalReducerName]: infoModalReducer,
   [pictureModalReducerName]: pictureModalReducer,
   [authenticateReducerName]: authenticateReducer,
-  stackReducer,
   [pictureChangeModalReducerName]: pictureChangeModalReducer,
-  [popupReducerName]: popupReducer,
+  popupReducer: popupReducer,
+  stackReducer,
 } as const;

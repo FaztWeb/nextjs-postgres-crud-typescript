@@ -6,7 +6,7 @@ import { useAppSelector } from 'hooks/redux-hooks';
 
 export const openModal = (
   modal: supportedModals,
-  payload: supportedActions = undefined
+  payload: supportedActions
 ) => {
   console.log(store.dispatch(addWidget(modal)));
   store.dispatch({
@@ -22,17 +22,12 @@ export const closeModal = (modal: supportedModals) => {
   });
 };
 
-export const selectFrom = (modal: 'pictureChangeModal') => {
-  const { state, visible } = useAppSelector((appState) => appState[modal]);
-  type stateType = Extract<
-    typeof state,
-    Extract<supportedActions, typeof state>
-  >;
+export const selectFrom = <T extends supportedActions>(
+  modal: supportedModals
+) => {
+  const payload = useAppSelector((appState) => appState[modal]);
 
-  return { state, visible } as {
-    state: stateType;
-    visible: boolean;
-  };
+  return payload;
 };
 
 // export const startLoadingModal = (modal: supportedModals) => {

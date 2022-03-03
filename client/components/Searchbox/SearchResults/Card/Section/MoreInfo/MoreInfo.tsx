@@ -26,7 +26,9 @@ const MoreInfo: FC<{ name: string }> = ({ name }) => {
         position: 'last',
         iconAlign: 'center',
         sideEffects: () => {
-          openModal('info-modal', { church: name });
+          openModal('info-modal', {
+            name,
+          });
         },
       }}
     />

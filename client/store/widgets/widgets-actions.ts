@@ -19,8 +19,8 @@ const openActions = [
 export type supportedActions = Parameters<typeof openActions[number]>[0];
 
 export const indexOf = (widget: supportedModals | supportedPopup) => {
-  const Index = useAppSelector(({ stack }) => {
-    let index = stack.indexOf(widget);
+  const Index = useAppSelector(({ stackReducer }) => {
+    let index = stackReducer.indexOf(widget);
     if (index >= 0) index += 100;
     return index;
   });

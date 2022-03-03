@@ -5,16 +5,18 @@ import { FaExclamationTriangle } from 'react-icons/fa';
 import { AnimatePresence } from 'framer-motion';
 import success_styles from './success.module.css';
 const Success = () => {
-  const popup = useAppSelector(({ successPopup }) => successPopup);
+  const { visible, popupMessage } = useAppSelector(
+    ({ popupReducer }) => popupReducer
+  );
   const zIndex = indexOf('success-popup');
 
   return (
     <AnimatePresence>
-      {popup.visible ? (
+      {visible ? (
         <Popup
           zIndex={zIndex}
           Icon={FaExclamationTriangle}
-          payload={popup.popupMessage}
+          payload={popupMessage}
         ></Popup>
       ) : null}
     </AnimatePresence>

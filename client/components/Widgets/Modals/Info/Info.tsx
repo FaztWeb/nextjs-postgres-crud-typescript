@@ -1,36 +1,33 @@
-import { useAppSelector } from 'hooks/redux-hooks';
 import ModalTemplate from '../Modals';
 import info__style from './info.module.css';
 import Dispatch from '../../Button/Dispatch/Dispatch';
 import { indexOf } from 'store/widgets/widgets-actions';
-import { openModal } from 'store/widgets/actions/modals-actions';
+import { openModal, selectFrom } from 'store/widgets/actions/modals-actions';
 import { useEffect } from 'react';
-import { useGetChurchInfoQuery } from 'lib/church-info-fetcher';
-import type { ChurchInfoSuccessResponse } from 'pages/api/church-info/[church]';
+
+// import type { ChurchInfoSuccessResponse } from 'pages/api/church-info/[church]';
 const Info = () => {
-  const { visible, church } = useAppSelector(({ infoModal }) => infoModal);
+  const s = selectFrom<>('info-modal');
   const zIndex = indexOf('info-modal');
   const openModifyModal = () => {
-    openModal('modify-modal', church);
+    openModal('modify-modal', {
+      name: x.name,
+    });
   };
 
-  const { currentData } = useGetChurchInfoQuery(church.name);
+  // const { currentData } = useGetChurchInfoQuery(state.name);
 
-  useEffect(() => {
-    console.log(currentData);
-  }, [currentData]);
-
-  return visible ? (
+  return x ? (
     <ModalTemplate
       zIndex={zIndex}
       modalToClose="info-modal"
       header={{
-        title: church.name as string,
+        title: x.name,
         subtitle: 'Aflati mai multe informatii despre biserica Catolica',
       }}
     >
       <div className={info__style.container}>
-        <p>{currentData?.churchInfo?.churchDescription}</p>
+        {/* <p>{currentData?.churchInfo?.churchDescription}</p> */}
         <div className={info__style.button__wrapper}>
           <Dispatch action={openModifyModal} payload="Sugerati o schimbare" />
         </div>

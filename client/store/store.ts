@@ -7,14 +7,11 @@ import { createEpicMiddleware } from 'redux-observable';
 const reducer = combineReducers({
   button: userInteractionReducers.buttonReducer,
   showSearch: userInteractionReducers.showSearchReducer,
-  // widget stack
-  stack: widgets.stackReducer,
-  // popup reducers
   loading: userInteractionReducers.loadingReducers,
-  // rtk-query reducers
   [userInteractionReducers.churchInfoApi.reducerPath]:
     userInteractionReducers.churchInfoApi.reducer,
   info: userInteractionReducers.changeInfoReducer,
+  ...widgets,
 });
 
 export type RootState = ReturnType<typeof reducer>;
