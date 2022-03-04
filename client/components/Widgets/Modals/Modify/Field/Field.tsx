@@ -1,3 +1,4 @@
+import { trigger$ } from 'lib/modal';
 import { FC, useRef, useEffect } from 'react';
 import fieldStyle from './field.module.css';
 import { useGetChurchInfoQuery } from 'lib/church-info-fetcher';

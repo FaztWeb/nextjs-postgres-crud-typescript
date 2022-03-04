@@ -1,0 +1,14 @@
+.container {
+  position: relative;
+  flex: 1;
+  width: 100%;
+}
+.container::after{
+  content: "";
+  position: absolute;
+  height: 100%;
+  width: 5px;
+  background-color: #60676D;
+  border-radius: 20px;
+}
+
