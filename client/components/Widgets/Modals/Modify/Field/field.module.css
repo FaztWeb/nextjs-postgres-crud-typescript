@@ -3,12 +3,10 @@
 .container {
   width: 100%;
   padding: 1em 2em;
-  height: auto;
 }
 
 .terminal {
   width: 100%;
-  height: auto;
   display: flex;
   flex-direction: column;
   font-family: Ubuntu;
@@ -26,14 +24,14 @@
   padding: 0.5em 1em;
 }
 
-.nameAndStatus {
+.name__status {
   width: 100%;
   display: flex;
   justify-content: space-between;
 }
 
 .input {
-  height: auto;
+  max-height: 100%;
   display: flex;
   flex-direction: column;
   background-color: #444c53;
@@ -62,8 +60,9 @@
   padding: 0.5em 1em;
   resize: none;
   border: none;
-  overflow-y: hidden;
+  overflow-y: auto;
   transition: height 0.5s ease-in-out;
+  max-height: 300px !important;
 }
 
 .textarea::placeholder {
@@ -71,5 +70,5 @@
 }
 .textarea:focus {
   outline: none;
-  border-left: 1px solid white;
+  border-left: 3px solid white;
 }

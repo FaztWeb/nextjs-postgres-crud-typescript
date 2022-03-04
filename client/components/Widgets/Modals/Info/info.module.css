@@ -1,8 +1,17 @@
 .container {
   padding: 0 3em;
   margin: 3em 0;
-  overflow-y: scroll;
+  overflow-x: hidden;
+  overflow-y: auto;
+  width: 100%;
+  height: auto;
   line-height: 1.4em;
+}
+
+.description{
+  inline-size: 100%;
+  overflow-wrap: break-word;
+  white-space: normal;
 }
 
 .button__wrapper {

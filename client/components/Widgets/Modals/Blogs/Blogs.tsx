@@ -5,19 +5,22 @@ import Card from './Card/Card';
 import { GiHamburgerMenu } from 'react-icons/gi';
 import { RefObject, useEffect, useRef, useState } from 'react';
 import Dispatch from 'components/Widgets/Button/Dispatch/Dispatch';
-import router from 'next/router';
+import { useRouter } from 'next/router';
 function useOnClickOutside(
-  ref: RefObject<HTMLElement>,
+  dropdown: RefObject<HTMLElement>,
+  menu: RefObject<HTMLElement>,
   handler: () => unknown
 ) {
   useEffect(
     () => {
       const listener = (event: MouseEvent | TouchEvent) => {
         // Do nothing if clicking ref's element or descendent elements
-        if (ref)
+        if (dropdown && menu)
           if (
-            !ref?.current ||
-            ref?.current.contains(event.target as HTMLElement)
+            !dropdown?.current ||
+            dropdown?.current.contains(event.target as HTMLElement) ||
+            !menu?.current ||
+            menu?.current.contains(event.target as HTMLElement)
           ) {
             return;
           }
@@ -36,19 +39,21 @@ function useOnClickOutside(
     // ... callback/cleanup to run every render. It's not a big deal ...
     // ... but to optimize you can wrap handler in useCallback before ...
     // ... passing it into this hook.
-    [ref, handler]
+    [dropdown, menu, handler]
   );
 }
 
 const Blogs = () => {
-  const ref = useRef<HTMLDivElement>(null);
+  const dropdown = useRef<HTMLDivElement>(null);
+  const menu = useRef<HTMLDivElement>(null);
   const [open, setIsOpen] = useState(false);
   const openMenu = () => {
     setIsOpen(true);
   };
-  useOnClickOutside(ref, () => {
+  useOnClickOutside(dropdown, menu, () => {
     setIsOpen(false);
   });
+  const router = useRouter();
 
   const { name, visible } = selectFrom<{ name: string }>('blogs-modal');
   return visible ? (
@@ -62,12 +67,12 @@ const Blogs = () => {
       <div className={blogs__styles.container}>
         <div className={blogs__styles.options__container}>
           <div className={blogs__styles.filter__container}>
-            <div className={blogs__styles.filter} onClick={openMenu}>
+            <div ref={menu} className={blogs__styles.filter} onClick={openMenu}>
               <GiHamburgerMenu className={blogs__styles.hamburger__icon} />
             </div>
             {open ? (
               <div
-                ref={ref}
+                ref={dropdown}
                 className={blogs__styles.filter_options__container}
               >
                 <div className={blogs__styles.filter_option}>
@@ -87,7 +92,8 @@ const Blogs = () => {
           </div>
           <Dispatch
             action={() => {
-              router;
+              console.log('ACTION');
+              router.push(`/create-blog/${name}`);
             }}
             payload="Scrie o postare"
           ></Dispatch>

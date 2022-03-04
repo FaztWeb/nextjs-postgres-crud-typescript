@@ -5,8 +5,8 @@
   max-height: 40rem;
   background-color: rgb(255, 255, 255);
   font-family: Ubuntu;
-  flex-direction: column;
   display: flex;
+  flex-direction: column;
   align-items: center;
 }
 

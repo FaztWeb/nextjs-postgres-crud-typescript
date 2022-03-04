@@ -1,4 +1,4 @@
-import { FC, useEffect, useRef } from 'react';
+import { FC } from 'react';
 import Button from '../Button';
 
 const Dispatch: FC<{ payload: string; action: () => unknown }> = ({

@@ -1,4 +1,3 @@
-import { trigger$ } from 'lib/modal';
 import { FC, useRef, useEffect } from 'react';
 import fieldStyle from './field.module.css';
 import { useGetChurchInfoQuery } from 'lib/church-info-fetcher';
@@ -11,15 +10,21 @@ const Field: FC<{
 }> = ({ children, id, name }) => {
   const { currentData } = useGetChurchInfoQuery(name);
   console.log(name);
-  useEffect(() => {
-    console.log(currentData);
-  }, [currentData]);
+
   const dispatch = useAppDispatch();
-  const placeholderRef = useRef<HTMLTextAreaElement>(null);
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
+  useEffect(() => {
+    textareaRef.current
+      ? (textareaRef.current.value =
+          currentData?.churchInfo?.churchDescription || '')
+      : null;
+    textareaRef.current?.click();
+  }, []);
+
   return (
     <div className={fieldStyle.container}>
       <div className={fieldStyle.terminal}>
-        <div className={fieldStyle.nameAndStatus}>
+        <div className={fieldStyle.name__status}>
           <div className={fieldStyle.name}>@user.anonim</div>
           <div className={fieldStyle.status}>{children}</div>
         </div>
@@ -28,12 +33,15 @@ const Field: FC<{
           <div className={fieldStyle.fieldInput}>
             <textarea
               aria-describedby={id}
-              ref={placeholderRef}
+              ref={textareaRef}
               className={fieldStyle.textarea}
-              placeholder="Sugerati o descriere aici"
+              onClick={(event) => {
+                textareaRef.current
+                  ? (textareaRef.current.style.height = `${event.currentTarget.scrollHeight}px`)
+                  : null;
+              }}
               onKeyUp={(event) => {
-                const placeholder =
-                  placeholderRef.current as HTMLTextAreaElement;
+                const placeholder = textareaRef.current as HTMLTextAreaElement;
                 event.code === 'Backspace'
                   ? ((placeholder.style.height = 'auto'),
                     (placeholder.style.height = `${event.currentTarget.scrollHeight}px`))
