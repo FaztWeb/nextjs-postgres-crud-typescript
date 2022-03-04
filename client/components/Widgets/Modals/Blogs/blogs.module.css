@@ -11,9 +11,59 @@
   padding: 0 2em;
 }
 
-.filter{
-  min-width: 50px;
-  min-height: 50px;
+.options__container {
+  width: 100%;
+  padding: 2em 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.hamburger__icon {
+  color: white;
+  font-size: 25px;
+}
+
+.filter {
+  width: 50px;
+  height: 50px;
   border-radius: 50%;
-  background-color: #444C53;
+  background-color: #444c53;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.filter__container {
+  width: auto;
+  height: auto;
+  display: flex;
+  flex-direction: row;
+}
+.filter_options__container {
+  position: absolute;
+  z-index: 9999;
+  left: 50px;
+  margin-left: 3em;
+  display: flex;
+  flex-direction: column;
+  background-color: rgb(249, 254, 255);
+  box-shadow: 0px 1px 22px -6px rgba(0, 0, 0, 0.47);
+  border-radius: 20px;
+  padding: 1em 0;
+}
+
+.filter_option {
+  padding: 0.5em 2em;
+  font-family: 'Roboto';
+  font-weight: 800;
+  font-size: 18px;
+}
+.filter_option:hover {
+  cursor: pointer;
+  font-size: 19px;
+}
+
+.filter:hover {
+  cursor: pointer;
 }

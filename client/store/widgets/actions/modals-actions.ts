@@ -21,7 +21,6 @@ export const closeModal = (modal: supportedModals) => {
     type: `${modal}/close` as const,
   });
 };
-
 type Key<T> = T extends { [key: string]: unknown } ? keyof T : never;
 
 export const selectFrom = <
