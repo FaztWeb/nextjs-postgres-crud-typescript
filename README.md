@@ -9,13 +9,32 @@ In order to execute this project you must have:
 * Nodejs installed
 * **Postgresql**, You need postgresql running, you can see the sql table, in `/database/db.sql`
 
-### Installation
+### Installation for local development
 
 ```
 git clone https://github.com/FaztWeb/nextjs-postgres-crud-typescript
 cd nextjs-postgres-crud-typescript
 npm install
 npm run dev
+```
+
+### Installation for production
+```
+git clone https://github.com/FaztWeb/nextjs-postgres-crud-typescript
+cd nextjs-postgres-crud-typescript
+npm install
+npm run build
+npm start
+```
+
+> you need to add the following environment variables to your `.env` file:
+
+```
+DB_USER=postgres
+DB_PASSWORD=postgres
+DB_HOST=localhost
+DB_PORT=5432
+DB_NAME=postgres
 ```
 
 ### PostgreSQL with Docker

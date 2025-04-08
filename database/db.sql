@@ -1,4 +1,4 @@
-CREATE DATABASE tasksdb;
+-- CREATE DATABASE tasksdb;
 
 -- \c tasksdb;
 

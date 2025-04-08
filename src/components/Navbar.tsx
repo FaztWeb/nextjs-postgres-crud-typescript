@@ -1,30 +1,24 @@
-import { Container, Menu, Button } from "semantic-ui-react";
 import Image from "next/image";
-import { useRouter } from "next/router";
+import Link from "next/link";
 
 export const Navbar = () => {
-  const router = useRouter();
-
   return (
-    <Menu inverted attached style={{ padding: "1.5rem" }}>
-      <Container>
-        <Menu.Item onClick={() => router.push("/")}>
-          <Image
-            width="30"
-            height="30"
-            src="https://react.semantic-ui.com/logo.png"
-            alt="nextjs logo"
-          />
-        </Menu.Item>
+    <nav className="bg-gray-800 text-white p-6">
+      <div className="container mx-auto flex items-center justify-between">
+        <Link 
+          href="/"
+          className="cursor-pointer flex items-center"
+        >
+          <span className="font-bold">Next.js App</span>
+        </Link>
 
-        <Menu.Menu position="right">
-          <Menu.Item>
-            <Button onClick={() => router.push("/tasks/new")} primary>
-              New Task
-            </Button>
-          </Menu.Item>
-        </Menu.Menu>
-      </Container>
-    </Menu>
+        <Link
+          href="/tasks/new"
+          className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded transition-colors duration-200"
+        >
+          New Task
+        </Link>
+      </div>
+    </nav>
   );
 };
