@@ -1,5 +1,7 @@
 ## Nextjs PostgreSQL CRUD
 
+![Banner](./banner.png)
+
 This is a web application CRUD using Nextjs, Typescript and Pg (npm module) driver for PostgreSQL, and for style the interface this project is using semantic-ui-react.
 
 ### Requeriments
