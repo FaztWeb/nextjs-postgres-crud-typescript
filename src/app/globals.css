@@ -6,6 +6,12 @@
   body {
     background-color: #faf6f0;
     color: #3c3632;
+    transition: background-color 0.2s, color 0.2s;
+  }
+
+  .dark body {
+    background-color: #1a1614;
+    color: #e8e0d8;
   }
 
   input,
@@ -13,8 +19,18 @@
     @apply border border-parchment-300 bg-parchment-50 text-ink rounded-xl px-4 py-2.5 w-full outline-none transition-all duration-200 placeholder:text-ink-faint;
   }
 
+  .dark input,
+  .dark textarea {
+    @apply border-night-border bg-night-surface text-night-text placeholder:text-night-muted;
+  }
+
   input:focus,
   textarea:focus {
     @apply border-amber-400 ring-2 ring-amber-100 bg-white;
+  }
+
+  .dark input:focus,
+  .dark textarea:focus {
+    @apply border-amber-500 ring-2 ring-amber-500/20 bg-night-card;
   }
 }

@@ -18,15 +18,20 @@ export default function RootLayout({
 }) {
   return (
     <html suppressHydrationWarning>
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var t=localStorage.getItem("theme");if(t==="dark"||(!t&&window.matchMedia("(prefers-color-scheme:dark)").matches)){document.documentElement.classList.add("dark")}}catch(e){}})()`,
+          }}
+        />
+      </head>
       <body className={nunito.className}>
         <Navbar />
         <main>{children}</main>
         <Toaster
           toastOptions={{
+            className: "!bg-parchment-50 !border-parchment-300 !text-ink dark:!bg-night-card dark:!border-night-border dark:!text-night-text",
             style: {
-              background: "#fff8f0",
-              border: "1px solid #ebe0cc",
-              color: "#3c3632",
               borderRadius: "14px",
             },
           }}
