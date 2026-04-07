@@ -17,16 +17,16 @@ export default async function Home() {
         {tasks.length === 0 ? (
           <div className="flex items-center justify-center h-[70vh]">
             <div className="text-center">
-              <BiTaskX className="mx-auto text-[10rem] text-parchment-400" />
-              <h1 className="text-2xl font-bold my-4 text-ink">
+              <BiTaskX className="mx-auto text-[10rem] text-parchment-400 dark:text-night-faint" />
+              <h1 className="text-2xl font-bold my-4 text-ink dark:text-night-text">
                 No tasks yet
               </h1>
-              <p className="text-ink-muted mb-6">
+              <p className="text-ink-muted dark:text-night-muted mb-6">
                 Start by creating your first task
               </p>
               <a
                 href="/tasks/new"
-                className="inline-block px-6 py-3 bg-amber-500 text-white font-semibold rounded-xl hover:bg-amber-600 shadow-card hover:shadow-card-hover transition-all duration-200"
+                className="inline-block px-6 py-3 bg-amber-500 text-white font-semibold rounded-xl hover:bg-amber-600 shadow-card dark:shadow-card-dark hover:shadow-card-hover dark:hover:shadow-card-dark-hover transition-all duration-200"
               >
                 Create one
               </a>
