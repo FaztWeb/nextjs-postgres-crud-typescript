@@ -11,7 +11,7 @@ services:
       - POSTGRES_PASSWORD=root
       - POSTGRES_DB=root
     ports:
-      - 5432:5432
+      - 5434:5432
 
   # pgadmin:
   #   image: dpage/pgadmin4

@@ -85,71 +85,67 @@ export const TaskForm = ({
   };
 
   return (
-    <div className="min-h-[70vh] flex items-center justify-center">
+    <div className="min-h-[80vh] flex items-center justify-center p-6">
       <div className="w-full max-w-md">
-        <div className="bg-white shadow-md rounded-lg p-6">
-          <form onSubmit={handleSubmit} className="space-y-4">
+        <h2 className="text-xl font-bold text-ink mb-5">
+          {taskId ? "Edit Task" : "New Task"}
+        </h2>
+        <div className="bg-white border border-parchment-200 shadow-form rounded-notebook p-6">
+          <form onSubmit={handleSubmit} className="space-y-5">
             <div>
               <label
                 htmlFor="title"
-                className="block text-sm font-medium text-gray-700"
+                className="block text-sm font-semibold text-ink-light mb-1.5"
               >
                 Title
               </label>
               <input
                 type="text"
-                placeholder="Write a title"
+                placeholder="What needs to be done?"
                 name="title"
                 onChange={handleChange}
                 value={task.title}
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
                 autoFocus
               />
             </div>
             <div>
               <label
                 htmlFor="description"
-                className="block text-sm font-medium text-gray-700"
+                className="block text-sm font-semibold text-ink-light mb-1.5"
               >
                 Description
               </label>
               <textarea
                 name="description"
                 id="description"
-                rows={2}
-                placeholder="Write a Description"
+                rows={3}
+                placeholder="Add some details..."
                 onChange={handleChange}
                 value={task.description}
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
-              ></textarea>
+              />
             </div>
-            <div className="flex space-x-4">
-              {taskId ? (
-                <button
-                  type="submit"
-                  disabled={loading}
-                  className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-teal-600 hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500"
-                >
-                  <FaSave className="mr-2" />
-                  {loading ? "Updating..." : "Update"}
-                </button>
-              ) : (
-                <button
-                  type="submit"
-                  disabled={loading}
-                  className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-                >
-                  <FaSave className="mr-2" />
-                  {loading ? "Saving..." : "Save"}
-                </button>
-              )}
+            <div className="flex gap-3 pt-1">
+              <button
+                type="submit"
+                disabled={loading}
+                className="inline-flex items-center px-5 py-2.5 text-sm font-semibold rounded-xl text-white bg-amber-500 hover:bg-amber-600 active:bg-amber-700 shadow-card hover:shadow-card-hover focus:outline-none focus:ring-2 focus:ring-amber-300 disabled:opacity-50 transition-all duration-200"
+              >
+                <FaSave className="mr-2" />
+                {taskId
+                  ? loading
+                    ? "Updating..."
+                    : "Update"
+                  : loading
+                    ? "Saving..."
+                    : "Save"}
+              </button>
               {taskId && (
                 <button
                   type="button"
                   onClick={() => setOpenConfirm(true)}
-                  className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+                  className="inline-flex items-center px-5 py-2.5 text-sm font-semibold rounded-xl text-red-600 bg-red-50 border border-red-200 hover:bg-red-100 focus:outline-none focus:ring-2 focus:ring-red-200 transition-all duration-200"
                 >
-                  <FaTrash className="mr-2" />
+                  <FaTrash className="mr-2 text-xs" />
                   Delete
                 </button>
               )}
@@ -159,26 +155,24 @@ export const TaskForm = ({
       </div>
 
       {openConfirm && taskId && (
-        <div className="fixed inset-0 bg-gray-500 bg-opacity-75 flex items-center justify-center">
-          <div className="bg-white rounded-lg p-6 max-w-sm w-full">
-            <h3 className="text-lg font-medium text-gray-900 mb-4">
-              Delete a Task
-            </h3>
-            <p className="text-sm text-gray-500 mb-6">
-              Are you sure you want to delete task {taskId}?
+        <div className="fixed inset-0 bg-ink/40 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+          <div className="bg-white border border-parchment-200 rounded-notebook p-6 max-w-sm w-full shadow-card-hover">
+            <h3 className="text-lg font-bold text-ink mb-2">Delete task?</h3>
+            <p className="text-sm text-ink-light mb-6">
+              This can&apos;t be undone. The task will be permanently removed.
             </p>
-            <div className="flex justify-end space-x-4">
+            <div className="flex justify-end gap-3">
               <button
                 type="button"
                 onClick={() => setOpenConfirm(false)}
-                className="px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                className="px-4 py-2 text-sm font-semibold rounded-xl text-ink-light bg-parchment-100 border border-parchment-300 hover:bg-parchment-200 transition-all duration-200"
               >
                 Cancel
               </button>
               <button
                 type="button"
                 onClick={() => handleDelete(taskId)}
-                className="px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+                className="px-4 py-2 text-sm font-semibold rounded-xl text-white bg-red-500 hover:bg-red-600 transition-all duration-200"
               >
                 Delete
               </button>

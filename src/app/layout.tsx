@@ -1,14 +1,14 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Nunito } from "next/font/google";
 import "./globals.css";
 import { Navbar } from "@/components/Navbar";
 import { Toaster } from "sonner";
 
-const inter = Inter({ subsets: ["latin"] });
+const nunito = Nunito({ subsets: ["latin"], weight: ["400", "600", "700", "800"] });
 
 export const metadata: Metadata = {
-  title: "Next.js 15 App",
-  description: "Aplicación creada con Next.js 15",
+  title: "Tasks Notebook",
+  description: "A warm little place for your tasks",
 };
 
 export default function RootLayout({
@@ -18,10 +18,19 @@ export default function RootLayout({
 }) {
   return (
     <html suppressHydrationWarning>
-      <body className={inter.className}>
+      <body className={nunito.className}>
         <Navbar />
         <main>{children}</main>
-        <Toaster />
+        <Toaster
+          toastOptions={{
+            style: {
+              background: "#fff8f0",
+              border: "1px solid #ebe0cc",
+              color: "#3c3632",
+              borderRadius: "14px",
+            },
+          }}
+        />
       </body>
     </html>
   );

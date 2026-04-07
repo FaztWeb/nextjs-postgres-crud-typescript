@@ -12,23 +12,30 @@ export default async function Home() {
   );
 
   return (
-    <div className="min-h-screen bg-gray-900 p-10">
-      {tasks.length === 0 ? (
-        <div className="flex items-center justify-center h-[70vh]">
-          <div className="text-center text-gray-200">
-            <BiTaskX className="mx-auto text-[15rem]" />
-            <h1 className="text-3xl font-bold my-4">No tasks yet</h1>
-            <a
-              href="/tasks/new"
-              className="inline-block px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
-            >
-              Create one
-            </a>
+    <div className="min-h-screen p-6 md:p-10">
+      <div className="container mx-auto">
+        {tasks.length === 0 ? (
+          <div className="flex items-center justify-center h-[70vh]">
+            <div className="text-center">
+              <BiTaskX className="mx-auto text-[10rem] text-parchment-400" />
+              <h1 className="text-2xl font-bold my-4 text-ink">
+                No tasks yet
+              </h1>
+              <p className="text-ink-muted mb-6">
+                Start by creating your first task
+              </p>
+              <a
+                href="/tasks/new"
+                className="inline-block px-6 py-3 bg-amber-500 text-white font-semibold rounded-xl hover:bg-amber-600 shadow-card hover:shadow-card-hover transition-all duration-200"
+              >
+                Create one
+              </a>
+            </div>
           </div>
-        </div>
-      ) : (
-        <TaskList tasks={tasks} />
-      )}
+        ) : (
+          <TaskList tasks={tasks} />
+        )}
+      </div>
     </div>
   );
 }

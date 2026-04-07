@@ -1,8 +1,20 @@
 @tailwind base;
 @tailwind components;
-@tailwind utilities; 
+@tailwind utilities;
 
-body {
-  background-color: #121212;
+@layer base {
+  body {
+    background-color: #faf6f0;
+    color: #3c3632;
+  }
+
+  input,
+  textarea {
+    @apply border border-parchment-300 bg-parchment-50 text-ink rounded-xl px-4 py-2.5 w-full outline-none transition-all duration-200 placeholder:text-ink-faint;
+  }
+
+  input:focus,
+  textarea:focus {
+    @apply border-amber-400 ring-2 ring-amber-100 bg-white;
+  }
 }
-
